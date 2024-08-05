@@ -14,7 +14,7 @@ class HomePageController extends Controller
      */
     public function index()
     {
-        $homes = Home::paginate(10);
+     $homes = Home::paginate(10);
 
         return view('dashboard.home.index',compact('homes'));
     }
@@ -71,13 +71,18 @@ class HomePageController extends Controller
     {
         $home = Home::find($id);
 
+        // Handle file updates
         if ($request->hasFile('file'))
         {
+            // Remove existing media from the 'home' collection
+            $home->clearMediaCollection('home_caver');
+
+            // Add new media from the request
             $home->addMultipleMediaFromRequest(['file'])->each(function ($fileAdder) {
-                $fileAdder->toMediaCollection('home');
+                $fileAdder->toMediaCollection('home_caver');
             });
         }
-
+        // Update the Home model with request data excluding 'file'
         $home->update($request->except('file'));
 
         return redirect()->route('dashboard.home.index');
@@ -89,6 +94,8 @@ class HomePageController extends Controller
     public function destroy(int $id)
     {
         $home  = Home::find($id);
+
+        $home->clearMediaCollection('home_caver');
 
         $home->delete();
 

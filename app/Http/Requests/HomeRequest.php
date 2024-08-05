@@ -21,50 +21,20 @@ class HomeRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'title' => 'required',
             'date'=> 'required',
             'description' =>'required',
+            'file_type' => 'required|string',
         ];
 
-        if ($this->isMethod('post')) {
-            $rules['file_type'] = 'required|string';
-            $rules['file'] = [
-                'required',
-                'file',
-                function ($attribute, $value, $fail) {
-                    $fileType = request()->input('file_type');
-
-                    if ($fileType === 'image' && !$value->isValid() && !in_array($value->getClientMimeType(), ['image/webp','image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg+xml'])) {
-                        $fail('The ' . $attribute . ' must be a valid image file (jpeg, png, jpg, gif, svg, webp).');
-                    }
-
-                    if ($fileType === 'video' && !$value->isValid() && $value->getClientMimeType() !== 'video/mp4') {
-                        $fail('The ' . $attribute . ' must be a valid video file (mp4).');
-                    }
-                },
-                'max:2048', // max size in KB
-            ];
-
-        } elseif ($this->isMethod('put') || $this->isMethod('patch')) {
-            $rules['file_type'] = 'required|string';
-            $rules['file'] = [
-                'nullable',
-                'file',
-                function ($attribute, $value, $fail) {
-                    $fileType = request()->input('file_type');
-
-                    if ($fileType === 'image' && !$value->isValid() && !in_array($value->getClientMimeType(), ['image/webp','image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg+xml'])) {
-                        $fail('The ' . $attribute . ' must be a valid image file (jpeg, png, jpg, gif, svg, webp).');
-                    }
-
-                    if ($fileType === 'video' && !$value->isValid() && $value->getClientMimeType() !== 'video/mp4') {
-                        $fail('The ' . $attribute . ' must be a valid video file (mp4).');
-                    }
-                },
-                'max:2048', // max size in KB
-            ];
+        if ($this->input('file_type') === 'image') {
+            $rules['file'] = 'nullable|image|mimes:jpg,jpeg,png|max:2048'; // max 1 MB
+        } elseif ($this->input('file_type') === 'video') {
+            $rules['file'] = 'nullable|mimes:mp4|max:52428800'; // max 50 MB
         }
+
+        return $rules;
 
     }
 }

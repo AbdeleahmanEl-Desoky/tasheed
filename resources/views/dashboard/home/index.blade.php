@@ -53,10 +53,10 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>@lang('site.name')</th>
-                                <th>@lang('site.phone')</th>
-                                <th>@lang('site.email')</th>
-                                <th>@lang('site.image')</th>
+                                <th>@lang('site.title')</th>
+                                <th>@lang('site.date')</th>
+                                <th>@lang('site.description')</th>
+                                <th>@lang('site.media')</th>
                                 <th>@lang('site.action')</th>
                             </tr>
                             </thead>
@@ -65,28 +65,40 @@
                             @foreach ($homes as $index=>$home)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->phone }}</td>
-                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $home->title }}</td>
+                                    <td>{{ $home->date }}</td>
+                                    <td>{!! \Illuminate\Support\Str::limit($home->description, 40, '...') !!}</td>
+
                                     <td>
-                                    <img src="{{!empty($user->media[0]) ? $user->media[0]->original_url :  asset('uploads/user_images/default.png')  }}" style="width: 75px;" class="img-thumbnail" alt="">
+                                        @if($home->file_type == 'video')
+                                        @if(!empty($home->media))
+                                            <video controls style="width: 100px;">
+                                                <source src="{{ $home->media[0]->original_url }}" type="{{ $home->media[0]->mime_type }}">
+                                            </video>
+                                        @else
+                                            <img src="{{ asset('uploads/user_images/default.png') }}" style="width: 100px;" class="img-thumbnail" alt="">
+                                        @endif
+                                        @else
+
+                                        <img src="{{ !empty($home->media) ? $home->media[0]->original_url : asset('uploads/user_images/default.png') }}" style="width: 75px;" class="img-thumbnail" alt="">
+                                        @endif
                                     </td>
-                                    {{-- <td><img src="{{ $user->media[0]->original_url }}" style="width: 100px;" class="img-thumbnail" alt=""></td> --}}
+
                                     <td>
-                                        @if (auth()->user()->hasPermission('users-update'))
-                                            <a href="{{ route('dashboard.users.edit', $user->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
-                                        @else
-                                            <a href="#" class="btn btn-info btn-sm disabled"><i class="fa fa-edit"></i> @lang('site.edit')</a>
-                                        @endif
-                                        @if (auth()->user()->hasPermission('users-delete'))
-                                            <form action="{{ route('dashboard.users.destroy', $user->id) }}" method="post" style="display: inline-block">
-                                                {{ csrf_field() }}
-                                                {{ method_field('delete') }}
-                                                <button type="submit" class="btn btn-danger delete btn-sm"><i class="fa fa-trash"></i> @lang('site.delete')</button>
-                                            </form><!-- end of form -->
-                                        @else
-                                            <button class="btn btn-danger btn-sm disabled"><i class="fa fa-trash"></i> @lang('site.delete')</button>
-                                        @endif
+                                    @if (auth()->user()->hasPermission('users-update'))
+                                        <a href="{{ route('dashboard.home.edit', $home->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
+                                    @else
+                                        <a href="#" class="btn btn-info btn-sm disabled"><i class="fa fa-edit"></i> @lang('site.edit')</a>
+                                    @endif
+                                    @if (auth()->user()->hasPermission('users-delete'))
+                                        <form action="{{ route('dashboard.home.destroy', $home->id) }}" method="post" style="display: inline-block">
+                                            {{ csrf_field() }}
+                                            {{ method_field('delete') }}
+                                            <button type="submit" class="btn btn-danger delete btn-sm"><i class="fa fa-trash"></i> @lang('site.delete')</button>
+                                        </form><!-- end of form -->
+                                    @else
+                                        <button class="btn btn-danger btn-sm disabled"><i class="fa fa-trash"></i> @lang('site.delete')</button>
+                                    @endif
                                     </td>
                                 </tr>
 
@@ -95,7 +107,7 @@
 
                         </table><!-- end of table -->
 
-                        {{ $users->appends(request()->query())->links() }}
+                        {{ $homes->appends(request()->query())->links() }}
 
                     @else
 

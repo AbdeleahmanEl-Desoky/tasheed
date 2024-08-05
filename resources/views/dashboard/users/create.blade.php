@@ -10,7 +10,8 @@
 
             <ol class="breadcrumb">
                 <li><a href="{{ route('dashboard.welcome') }}"><i class="fa fa-dashboard"></i> @lang('site.dashboard')</a></li>
-                <li class="active">@lang('site.users')</li>
+                <li><a href="{{ route('dashboard.users.index') }}"> @lang('site.users')</a></li>
+                <li class="active">@lang('site.add')</li>
             </ol>
         </section>
 
@@ -18,91 +19,93 @@
 
             <div class="box box-primary">
 
-                <div class="box-header with-border">
-
-                    <h3 class="box-title" style="margin-bottom: 15px">@lang('site.users') <small>{{ $users->total() }}</small></h3>
-
-                    <form action="{{ route('dashboard.users.index') }}" method="get">
-
-                        <div class="row">
-
-                            <div class="col-md-4">
-                                <input type="text" name="search" class="form-control" placeholder="@lang('site.search')" value="{{ request()->search }}">
-                            </div>
-
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> @lang('site.search')</button>
-                                @if (auth()->user()->hasPermission('users-create'))
-                                    <a href="{{ route('dashboard.users.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('site.add')</a>
-                                @else
-                                    <a href="#" class="btn btn-primary disabled"><i class="fa fa-plus"></i> @lang('site.add')</a>
-                                @endif
-                            </div>
-
-                        </div>
-                    </form><!-- end of form -->
-
+                <div class="box-header">
+                    <h3 class="box-title">@lang('site.add')</h3>
                 </div><!-- end of box header -->
 
                 <div class="box-body">
 
-                    @if ($users->count() > 0)
+                    @include('partials._errors')
 
-                        <table class="table table-hover">
+                    <form action="{{ route('dashboard.users.store') }}" method="post" enctype="multipart/form-data">
 
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>@lang('site.first_name')</th>
-                                <th>@lang('site.last_name')</th>
-                                <th>@lang('site.email')</th>
-                                <th>@lang('site.image')</th>
-                                <th>@lang('site.action')</th>
-                            </tr>
-                            </thead>
+                        {{ csrf_field() }}
+                        {{ method_field('post') }}
 
-                            <tbody>
-                            @foreach ($users as $index=>$user)
-                                <tr>
-                                    <td>{{ $index + 1 }}</td>
-                                    <td>{{ $user->first_name }}</td>
-                                    <td>{{ $user->last_name }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>
-                                        @foreach ($user->media as $item)
-                                            <img src="{{ $item->original_url }}" alt="">
-                                        @endforeach
-                                    </td>
-                                    <td>
-                                        @if (auth()->user()->hasPermission('users-update'))
-                                            <a href="{{ route('dashboard.users.edit', $user->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
-                                        @else
-                                            <a href="#" class="btn btn-info btn-sm disabled"><i class="fa fa-edit"></i> @lang('site.edit')</a>
-                                        @endif
-                                        @if (auth()->user()->hasPermission('users-delete'))
-                                            <form action="{{ route('dashboard.users.destroy', $user->id) }}" method="post" style="display: inline-block">
-                                                {{ csrf_field() }}
-                                                {{ method_field('delete') }}
-                                                <button type="submit" class="btn btn-danger delete btn-sm"><i class="fa fa-trash"></i> @lang('site.delete')</button>
-                                            </form><!-- end of form -->
-                                        @else
-                                            <button class="btn btn-danger btn-sm disabled"><i class="fa fa-trash"></i> @lang('site.delete')</button>
-                                        @endif
-                                    </td>
-                                </tr>
+                        <div class="form-group">
+                            <label>@lang('site.name')</label>
+                            <input type="text" name="name" class="form-control" value="{{ old('name') }}">
+                        </div>
 
-                            @endforeach
-                            </tbody>
+                        <div class="form-group">
+                            <label>@lang('site.phone')</label>
+                            <input type="text" name="phone" class="form-control" value="{{ old('hone') }}">
+                        </div>
 
-                        </table><!-- end of table -->
+                        <div class="form-group">
+                            <label>@lang('site.email')</label>
+                            <input type="email" name="email" class="form-control" value="{{ old('email') }}">
+                        </div>
 
-                        {{ $users->appends(request()->query())->links() }}
+                        <div class="form-group">
+                            <label>@lang('site.image')</label>
+                            <input type="file" name="image" class="form-control image">
+                        </div>
 
-                    @else
+                        <div class="form-group">
+                            <img src="{{ asset('uploads/user_images/default.png') }}"  style="width: 100px" class="img-thumbnail image-preview" alt="">
+                        </div>
 
-                        <h2>@lang('site.no_data_found')</h2>
+                        <div class="form-group">
+                            <label>@lang('site.password')</label>
+                            <input type="password" name="password" class="form-control">
+                        </div>
 
-                    @endif
+                        <div class="form-group">
+                            <label>@lang('site.password_confirmation')</label>
+                            <input type="password" name="password_confirmation" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label>@lang('site.permissions')</label>
+                            <div class="nav-tabs-custom">
+
+                                @php
+                                    $models = ['users', 'categories', 'products', 'clients', 'orders' , 'add_orders','kitchen'];
+                                    $maps = ['create', 'read', 'update', 'delete'];
+                                @endphp
+
+                                <ul class="nav nav-tabs">
+                                    @foreach ($models as $index=>$model)
+                                        <li class="{{ $index == 0 ? 'active' : '' }}"><a href="#{{ $model }}" data-toggle="tab">@lang('site.' . $model)</a></li>
+                                    @endforeach
+                                </ul>
+
+                                <div class="tab-content">
+
+                                    @foreach ($models as $index=>$model)
+
+                                        <div class="tab-pane {{ $index == 0 ? 'active' : '' }}" id="{{ $model }}">
+
+                                            @foreach ($maps as $map)
+                                                <label><input type="checkbox" name="permissions[]" value="{{ $model . '-' . $map }}"> @lang('site.' . $map)</label>
+                                            @endforeach
+
+                                        </div>
+
+                                    @endforeach
+
+                                </div><!-- end of tab content -->
+
+                            </div><!-- end of nav tabs -->
+
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('site.add')</button>
+                        </div>
+
+                    </form><!-- end of form -->
 
                 </div><!-- end of box body -->
 

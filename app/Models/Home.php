@@ -24,13 +24,6 @@ class Home extends Model implements HasMedia
 
     public function getPicturesAttribute()
     {
-        return $this->getMedia('images')->map(function (Media $media) {
-            return [
-                'id' => $media->id,
-                'file_name' => $media->file_name,
-                'original_url' => $media->getUrl(), // Get the original URL
-                'size' => $media->size,
-            ];
-        });
+        return $this->getMedia();
     }
 }
