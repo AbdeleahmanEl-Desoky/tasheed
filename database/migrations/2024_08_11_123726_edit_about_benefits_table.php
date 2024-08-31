@@ -11,20 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('homes', function (Blueprint $table) {
-            $table->id();
-            $table->string('title')->nullable();
-            $table->string('date')->nullable();
-            $table->mediumText('description')->nullable();
-            $table->timestamps();
+        Schema::table('benefits', function (Blueprint $table) {
+
+            $table->string('description')->nullable();
+
         });
     }
 
-    /**
+  /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('homes');
+        Schema::table('benefits', function (Blueprint $table) {
+            $table->dropColumn('description');
+        });
     }
 };

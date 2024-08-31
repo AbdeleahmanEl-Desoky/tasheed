@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('homes', function (Blueprint $table) {
+        Schema::create('single_project_units', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('single_project_id');
+            $table->json('data');
             $table->string('title')->nullable();
-            $table->string('date')->nullable();
             $table->mediumText('description')->nullable();
+            $table->foreign('single_project_id')->references('id')->on('single_projects')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('homes');
+        Schema::dropIfExists('single_project_units');
     }
 };
