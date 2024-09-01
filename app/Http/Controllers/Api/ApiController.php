@@ -87,7 +87,7 @@ class ApiController extends Controller
         $projectPage = SingleProject::with(['features','units'])->get();
 
         return response()->json([
-            'project_page'=>$projectPage,
+            'projects'=>$projectPage,
         ]);
     }
 
