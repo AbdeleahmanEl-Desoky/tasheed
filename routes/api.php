@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\BlogController;
-use App\Http\Controllers\Api\HomeController;
+use App\Http\Controllers\Api\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +19,21 @@ use Illuminate\Support\Facades\Route;
 Route::get('storage-link', function () {
     Artisan::call('storage:link');
 });
-Route::get('home', [HomeController::class,'index']);
-Route::get('blog', [BlogController::class,'index']);
+
+Route::get('home', [ApiController::class,'index']);
+
+Route::get('about', [ApiController::class,'about']);
+
+Route::get('blogs', [ApiController::class,'blogs']);
+Route::get('blog/{id}', [ApiController::class,'blog']);
+
+Route::get('project-page', [ApiController::class,'projectPage']);
+
+Route::get('projects', [ApiController::class,'projects']);
+
+Route::get('project/{id}', [ApiController::class,'project']);
+
+Route::get('project/unit/{id}', [ApiController::class,'projectUnit']);
+
+
 
