@@ -15,7 +15,9 @@ class SingleProjectUnit extends Model implements HasMedia
     protected $table = 'single_project_units';
     protected $guarded = [];
     protected $appends = ['pictures'];
-
+    protected $casts = [
+        'data' => 'array',  // Automatically decode JSON strings to array
+    ];
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('images')
