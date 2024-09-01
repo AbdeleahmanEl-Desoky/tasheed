@@ -96,7 +96,7 @@ class ApiController extends Controller
         $projectPage = SingleProject::with(['features','units'])->where('id',$id)->get();
 
         return response()->json([
-            'project_page'=>$projectPage,
+            'project'=>$projectPage,
         ]);
     }
 
@@ -105,7 +105,7 @@ class ApiController extends Controller
         $singleProjectUnit = SingleProjectUnit::with(['unitFeatures','project'])->where('id',$id)->get();
 
         return response()->json([
-            'project_page_unit'=>$singleProjectUnit,
+            'project_unit'=>$singleProjectUnit,
         ]);
     }
 
