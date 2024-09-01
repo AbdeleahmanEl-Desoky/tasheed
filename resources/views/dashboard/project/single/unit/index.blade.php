@@ -32,11 +32,8 @@
 
                             <div class="col-md-4">
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> @lang('site.search')</button>
-                                @if (auth()->user()->hasPermission('home-create'))
-                                    <a href="{{ route('dashboard.home.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('site.add')</a>
-                                @else
-                                    <a href="#" class="btn btn-primary disabled"><i class="fa fa-plus"></i> @lang('site.add')</a>
-                                @endif
+                                    <a href="{{ route('dashboard.project.single.unit.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('site.add')</a>
+
                             </div>
 
                         </div>
