@@ -10,6 +10,7 @@ use App\Models\Benefit;
 use App\Models\Blog;
 use App\Models\Contact;
 use App\Models\Home;
+use App\Models\Message;
 use App\Models\ProjectPage;
 use App\Models\SingleProject;
 use App\Models\SingleProjectUnit;
@@ -67,10 +68,10 @@ class ApiController extends Controller
 
     public function blog($id)
     {
-        $blogs = Blog::with('descriptions')->where('id',$id)->get();
+        $blog = Blog::with('descriptions')->where('id',$id)->first();
 
         return response()->json([
-            'blogs'=>$blogs,
+            'blog'=>$blog,
         ]);
     }
 
@@ -123,6 +124,17 @@ class ApiController extends Controller
             'contact'=>$contact,
         ]);
     }
+
+    public function message(Request $request)
+    {
+        $message = Message::create($request->all());
+
+
+        return response()->json([
+            'message'=>$message,
+        ]);
+    }
+
 
 
 }

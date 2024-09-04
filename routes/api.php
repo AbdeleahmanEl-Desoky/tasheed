@@ -37,3 +37,4 @@ Route::get('project/unit/{id}', [ApiController::class,'projectUnit']);
 
 Route::get('contact', [ApiController::class,'contact']);
 
+Route::post('message', [ApiController::class,'message']);
