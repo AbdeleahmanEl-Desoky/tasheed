@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\BlogController;
+
 use App\Http\Controllers\Api\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
@@ -35,5 +35,5 @@ Route::get('project/{id}', [ApiController::class,'project']);
 
 Route::get('project/unit/{id}', [ApiController::class,'projectUnit']);
 
-
+Route::get('contact', [ApiController::class,'contact']);
 

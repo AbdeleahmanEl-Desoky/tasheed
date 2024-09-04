@@ -110,7 +110,7 @@ class ApiController extends Controller
         ]);
     }
 
-    public function contact($id)
+    public function contact()
     {
         $contact = Contact::first();
 
@@ -124,18 +124,5 @@ class ApiController extends Controller
         ]);
     }
 
-    public function contact($id)
-    {
-        $contact = Contact::first();
-
-        // Decode the JSON field 'call_us' to a PHP array
-        if ($contact && $contact->call_us) {
-            $contact->call_us = json_decode($contact->call_us, true);  // Decode JSON to array
-        }
-
-        return response()->json([
-            'contact'=>$contact,
-        ]);
-    }
 
 }
