@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AboutBenefitController;
 use App\Http\Controllers\Admin\AboutGalleryController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\FeatureUnitController;
 use App\Http\Controllers\Admin\HomeController;
@@ -37,6 +38,13 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'dashbo
     Route::resource('home', HomePageController::class);
     Route::resource('users', UserController::class);
     Route::resource('blog', BlogController::class);
+
+
+    Route::group(['prefix' => 'contact', 'as' => 'contact.'], function () {
+        Route::get('/', [ContactController::class,'index'])->name('index');
+        Route::post('/', [ContactController::class,'store'])->name('store');
+    });
+
 
     Route::group(['prefix' => 'about', 'as' => 'about.'], function () {
         Route::get('/', [AboutController::class,'index'])->name('index');

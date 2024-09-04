@@ -8,6 +8,7 @@ use App\Models\AboutGallery;
 use App\Models\AboutVision;
 use App\Models\Benefit;
 use App\Models\Blog;
+use App\Models\Contact;
 use App\Models\Home;
 use App\Models\ProjectPage;
 use App\Models\SingleProject;
@@ -109,5 +110,32 @@ class ApiController extends Controller
         ]);
     }
 
+    public function contact($id)
+    {
+        $contact = Contact::first();
+
+        // Decode the JSON field 'call_us' to a PHP array
+        if ($contact && $contact->call_us) {
+            $contact->call_us = json_decode($contact->call_us, true);  // Decode JSON to array
+        }
+
+        return response()->json([
+            'contact'=>$contact,
+        ]);
+    }
+
+    public function contact($id)
+    {
+        $contact = Contact::first();
+
+        // Decode the JSON field 'call_us' to a PHP array
+        if ($contact && $contact->call_us) {
+            $contact->call_us = json_decode($contact->call_us, true);  // Decode JSON to array
+        }
+
+        return response()->json([
+            'contact'=>$contact,
+        ]);
+    }
 
 }
