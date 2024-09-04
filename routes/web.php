@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AboutBenefitController;
 use App\Http\Controllers\Admin\AboutGalleryController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\CareerController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\FeatureUnitController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\SingleProjectController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\HomePageController;
+use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\Admin\ProjectPageController;
 use App\Http\Controllers\Admin\SingleProjectUnitController;
 use Illuminate\Support\Facades\Route;
@@ -70,6 +72,10 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'dashbo
             Route::post('unit', [SingleProjectUnitController::class,'store'])->name('unit.store');
         });
     });
+
+    Route::resource('career', CareerController::class);
+
+    Route::resource('job', JobController::class);
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 

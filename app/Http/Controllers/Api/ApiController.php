@@ -8,8 +8,10 @@ use App\Models\AboutGallery;
 use App\Models\AboutVision;
 use App\Models\Benefit;
 use App\Models\Blog;
+use App\Models\Career;
 use App\Models\Contact;
 use App\Models\Home;
+use App\Models\Job;
 use App\Models\Message;
 use App\Models\ProjectPage;
 use App\Models\SingleProject;
@@ -135,6 +137,22 @@ class ApiController extends Controller
         ]);
     }
 
+    public function careers()
+    {
+        $careers = Career::with('jobs')->get();
 
 
+        return response()->json([
+            'careers'=>$careers,
+        ]);
+    }
+
+    public function job($id)
+    {
+        $job = Job::whereId($id)->first();
+
+        return response()->json([
+            'job'=>$job,
+        ]);
+    }
 }

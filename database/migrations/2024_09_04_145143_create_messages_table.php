@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->string('email');
-            $table->string('phone');
-            $table->string('country');
-            $table->string('company_name');
-            $table->string('interested_in');
-            $table->mediumText('message');
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('country')->nullable();
+            $table->string('company_name')->nullable();
+            $table->string('interested_in')->nullable();
+            $table->mediumText('message')->nullable();
             $table->timestamps();
         });
     }
