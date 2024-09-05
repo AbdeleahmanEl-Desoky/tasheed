@@ -45,3 +45,5 @@ Route::get('job/{id}', [ApiController::class,'job']);
 
 Route::post('apply-job', [ApiController::class,'applyJob']);
 
+Route::get('team', [ApiController::class,'team']);
+

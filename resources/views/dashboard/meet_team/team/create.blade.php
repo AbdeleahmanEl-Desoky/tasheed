@@ -10,7 +10,7 @@
 
             <ol class="breadcrumb">
                 <li><a href="{{ route('dashboard.welcome') }}"><i class="fa fa-dashboard"></i> @lang('site.dashboard')</a></li>
-                <li><a href="{{ route('dashboard.team.index') }}"> @lang('site.features')</a></li>
+                <li><a href="{{ route('dashboard.meet_team.team.index') }}"> @lang('site.features')</a></li>
                 <li class="active">@lang('site.add')</li>
             </ol>
         </section>
@@ -27,26 +27,34 @@
 
                     @include('partials._errors')
 
-                    <form action="{{ route('dashboard.team.store') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('dashboard.meet_team.team.store') }}" method="post" enctype="multipart/form-data">
 
                         {{ csrf_field() }}
                         {{ method_field('post') }}
 
                         <div class="form-group col-md-6">
-                            <label>@lang('site.title')</label>
-                            <input type="text" name="title" class="form-control" value="{{ old('title') }}">
+                            <label>@lang('site.name')</label>
+                            <input type="text" name="name" class="form-control" value="{{ old('name') }}">
                         </div>
 
                         <div class="form-group col-md-6">
-                            <label>@lang('site.description')</label>
-                            <input type="text" name="description" class="form-control" value="{{ old('description') }}">
+                            <label>@lang('site.job_name')</label>
+                            <input type="text" name="job_name" class="form-control" value="{{ old('job_name') }}">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>@lang('site.job_rank')</label>
+                            <input type="text" name="job_rank" class="form-control" value="{{ old('job_rank') }}">
                         </div>
 
                         <div class="form-group col-md-6">
                             <label>@lang('site.image')</label>
                             <input type="file" name="file" class="form-control image">
                         </div>
-
+                        <div class="form-group col-md-3">
+                            <label>in Page </label>
+                            <input type="checkbox" name="in_page"  value="1">
+                        </div>
 
                         <div class="form-group col-md-6">
                             <img src="{{ asset('uploads/user_images/default.png') }}"  style="width: 100px" class="img-thumbnail image-preview" alt="">

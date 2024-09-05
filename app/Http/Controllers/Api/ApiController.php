@@ -13,10 +13,12 @@ use App\Models\Career;
 use App\Models\Contact;
 use App\Models\Home;
 use App\Models\Job;
+use App\Models\MeetTeamPage;
 use App\Models\Message;
 use App\Models\ProjectPage;
 use App\Models\SingleProject;
 use App\Models\SingleProjectUnit;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -170,6 +172,21 @@ class ApiController extends Controller
 
         return response()->json([
             'applyJob'=> $applyJob,
+        ]);
+    }
+
+    public function team()
+    {
+        $meetTeamPage = MeetTeamPage::first();
+
+        $ourTeam = Team::where('page',1)->get();
+
+        $teams = Team::where('page',0)->get();
+
+        return response()->json([
+            'meet_team_page'=>$meetTeamPage,
+            'our_team' => $ourTeam,
+            'teams' => $teams,
         ]);
     }
 }
