@@ -20,7 +20,7 @@
 
                 <div class="box-header with-border">
 
-                    <h3 class="box-title" style="margin-bottom: 15px">@lang('site.home') <small>{{ $singleProjecttUnits->total() }}</small></h3>
+                    <h3 class="box-title" style="margin-bottom: 15px">@lang('site.home') <small>{{ $blogs->total() }}</small></h3>
 
                     <form action="{{ route('dashboard.project.single.index') }}" method="get">
 
@@ -44,7 +44,7 @@
 
                 <div class="box-body">
 
-                    @if ($singleProjecttUnits->count() > 0)
+                    @if ($blogs->count() > 0)
 
                         <table class="table table-hover">
 
@@ -58,30 +58,22 @@
                             </thead>
 
                             <tbody>
-                            @foreach ($singleProjecttUnits as $index=>$project)
+                            @foreach ($blogs as $index=>$project)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $project->title }}</td>
-                                    <td>{{ $project->data }}</td>
                                     <td>
                                         <img src="{{ !empty($project->media) ? $project->media[0]->original_url : asset('uploads/user_images/default.png') }}" style="width: 75px;" class="img-thumbnail" alt="">
                                     </td>
 
                                     <td>
-                                        @if (auth()->user()->hasPermission('users-update'))
-                                            <a href="{{ route('dashboard.project.single.unit.index', $project->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.units')</a>
-                                        @else
-                                            <a href="#" class="btn btn-info btn-sm disabled"></i> @lang('site.units')</a>
-                                        @endif
-                                    </td>
-                                    <td>
                                     @if (auth()->user()->hasPermission('users-update'))
-                                        <a href="{{ route('dashboard.project.single.edit', $project->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
+                                        <a href="{{ route('dashboard.blog.edit', $project->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
                                     @else
                                         <a href="#" class="btn btn-info btn-sm disabled"><i class="fa fa-edit"></i> @lang('site.edit')</a>
                                     @endif
                                     @if (auth()->user()->hasPermission('users-delete'))
-                                        <form action="{{ route('dashboard.project.single.destroy', $project->id) }}" method="post" style="display: inline-block">
+                                        <form action="{{ route('dashboard.blog.destroy', $project->id) }}" method="post" style="display: inline-block">
                                             {{ csrf_field() }}
                                             {{ method_field('delete') }}
                                             <button type="submit" class="btn btn-danger delete btn-sm"><i class="fa fa-trash"></i> @lang('site.delete')</button>
@@ -97,7 +89,7 @@
 
                         </table><!-- end of table -->
 
-                        {{ $singleProjecttUnits->appends(request()->query())->links() }}
+                        {{ $blogs->appends(request()->query())->links() }}
 
                     @else
 
