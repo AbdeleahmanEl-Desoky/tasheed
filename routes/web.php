@@ -30,6 +30,13 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+use Illuminate\Support\Facades\Artisan;
+
+Route::get('/clear-route-cache', function () {
+    Artisan::call('route:clear');
+    Artisan::call('optimize:clear');
+    return 'Route cache cleared!';
+});
 
 Route::group(['middleware' => ['guest']], function () {
     Route::get('login', [AuthController::class,'login'])->name('login');
