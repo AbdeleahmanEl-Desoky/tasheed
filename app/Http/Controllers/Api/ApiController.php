@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\About;
 use App\Models\AboutGallery;
 use App\Models\AboutVision;
+use App\Models\ApplyJob;
 use App\Models\Benefit;
 use App\Models\Blog;
 use App\Models\Career;
@@ -153,6 +154,22 @@ class ApiController extends Controller
 
         return response()->json([
             'job'=>$job,
+        ]);
+    }
+
+    public function applyJob(Request $request)
+    {
+        $applyJob = ApplyJob::create($request->except('file'));
+
+        if ($request->hasFile('file'))
+        {
+            $applyJob->addMultipleMediaFromRequest(['file'])->each(function ($fileAdder) {
+                $fileAdder->toMediaCollection('applyJob');
+            });
+        }
+
+        return response()->json([
+            'applyJob'=> $applyJob,
         ]);
     }
 }

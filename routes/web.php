@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\SingleProjectController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\HomePageController;
 use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\Admin\MeetTeamPageController;
 use App\Http\Controllers\Admin\ProjectPageController;
 use App\Http\Controllers\Admin\SingleProjectUnitController;
 use Illuminate\Support\Facades\Route;
@@ -72,6 +73,12 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'dashbo
             Route::post('unit', [SingleProjectUnitController::class,'store'])->name('unit.store');
         });
     });
+
+    Route::group(['prefix' => 'meet_team', 'as' => 'meet_team.'], function () {
+        Route::get('/', [MeetTeamPageController::class,'index'])->name('index');
+        Route::post('/', [MeetTeamPageController::class,'store'])->name('store');
+    });
+
 
     Route::resource('career', CareerController::class);
 
