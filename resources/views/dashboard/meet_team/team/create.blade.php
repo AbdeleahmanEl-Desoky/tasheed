@@ -10,7 +10,7 @@
 
             <ol class="breadcrumb">
                 <li><a href="{{ route('dashboard.welcome') }}"><i class="fa fa-dashboard"></i> @lang('site.dashboard')</a></li>
-                <li><a href="{{ route('dashboard.project.features.index') }}"> @lang('site.features')</a></li>
+                <li><a href="{{ route('dashboard.team.index') }}"> @lang('site.features')</a></li>
                 <li class="active">@lang('site.add')</li>
             </ol>
         </section>
@@ -27,7 +27,7 @@
 
                     @include('partials._errors')
 
-                    <form action="{{ route('dashboard.project.features.store') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('dashboard.team.store') }}" method="post" enctype="multipart/form-data">
 
                         {{ csrf_field() }}
                         {{ method_field('post') }}
