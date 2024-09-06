@@ -114,16 +114,25 @@ class ApiController extends Controller
 
     public function projectUnit($id)
     {
-        $singleProjectUnit = SingleProjectUnit::with(['unitFeatures','project'])->where('id',$id)->first();
+        $singleProjectUnit = SingleProjectUnit::with(['unitFeatures', 'project'])
+            ->where('id', $id)
+            ->first();
 
+        if ($singleProjectUnit) {
+            // Decode JSON data
+            $singleProjectUnit->data = json_decode($singleProjectUnit->data, true);
 
-            $singleProjectUnit->data = json_decode($singleProjectUnit->data, true);  // Decode JSON to array
-
-        return response()->json([
-            'project_unit'=>$singleProjectUnit,
-        ]);
+            // Return the response with the decoded data
+            return response()->json([
+                'project_unit' => $singleProjectUnit,
+            ]);
+        } else {
+            // Handle the case where the project unit is not found
+            return response()->json([
+                'error' => 'Project unit not found',
+            ], 404);
+        }
     }
-
     public function contact()
     {
         $contact = Contact::first();
