@@ -61,7 +61,7 @@
 
                         <hr>
                         <div class="form-group col-md-12">
-                            @foreach ($vision?->media as $media)
+                            @foreach ($vision->media as $media)
                             <img src="{{  $media->original_url  }}" style="width: 100px" class="img-thumbnail image-preview" alt="">
                             @endforeach
                         </div>
