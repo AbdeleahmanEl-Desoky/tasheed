@@ -116,10 +116,8 @@ class ApiController extends Controller
     {
         $singleProjectUnit = SingleProjectUnit::with(['unitFeatures','project'])->where('id',$id)->first();
 
-        // Decode the JSON field 'call_us' to a PHP array
-        if ($singleProjectUnit && $singleProjectUnit->data) {
+
             $singleProjectUnit->data = json_decode($singleProjectUnit->data, true);  // Decode JSON to array
-        }
 
         return response()->json([
             'project_unit'=>$singleProjectUnit,
