@@ -89,12 +89,19 @@
 
 @push('scripts')
 <script>
-    // Attach event listener to the button instead of the form
     document.getElementById('upload-button').addEventListener('click', function (e) {
         e.preventDefault(); // Prevent the default button click behavior
 
         var form = document.getElementById('upload-form');
         var formData = new FormData(form);
+        var fileInput = document.querySelector('input[name="file"]');
+        var maxFileSize = 20 * 1024 * 1024; // 10 MB in bytes
+
+        // Check if a file is selected and if its size exceeds the maximum limit
+        if (fileInput.files[0] && fileInput.files[0].size > maxFileSize) {
+            alert('The file size exceeds the maximum limit of 10 MB.');
+            return; // Stop the function if the file size is too large
+        }
 
         var xhr = new XMLHttpRequest();
         xhr.open('POST', form.action, true);
@@ -121,7 +128,6 @@
             }
         };
 
-
         xhr.onerror = function () {
             alert('An error occurred while uploading the file.');
         };
@@ -129,4 +135,5 @@
         xhr.send(formData);
     });
 </script>
+
 @endpush
