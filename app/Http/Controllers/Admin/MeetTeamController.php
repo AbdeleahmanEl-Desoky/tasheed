@@ -33,7 +33,7 @@ class MeetTeamController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(TeamRequest $request)
+    public function store(Request $request)
     {
         $team = Team::create($request->except('file'));
 
