@@ -196,9 +196,14 @@ class ApiController extends Controller
 
     public function email(Request $request)
     {
-        SendEmail::create([
+        $sendEmail = SendEmail::create([
             'email' => $request->email
         ]);
+
+        return response()->json([
+            'meet_team_page'=>$sendEmail,
+        ]);
+
     }
 
 }
