@@ -9,6 +9,7 @@ use App\Models\AboutVision;
 use App\Models\ApplyJob;
 use App\Models\Benefit;
 use App\Models\Blog;
+use App\Models\BlogPage;
 use App\Models\Career;
 use App\Models\Contact;
 use App\Models\Home;
@@ -50,9 +51,11 @@ class ApiController extends Controller
     }
     public function blogs()
     {
+        $caver = BlogPage::first();
         $blogs = Blog::with('descriptions')->get();
 
         return response()->json([
+            'caver' => $caver,
             'blogs'=>$blogs,
         ]);
     }
