@@ -61,9 +61,11 @@
 
                         <hr>
                         <div class="form-group col-md-12">
+                            @if($vision?->media != null)
                             @foreach ($vision->media as $media)
                             <img src="{{  $media->original_url  }}" style="width: 100px" class="img-thumbnail image-preview" alt="">
                             @endforeach
+                            @endif
                         </div>
 
                         <div class="form-group">
