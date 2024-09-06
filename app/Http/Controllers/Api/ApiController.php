@@ -179,9 +179,9 @@ class ApiController extends Controller
     {
         $meetTeamPage = MeetTeamPage::first();
 
-        $ourTeam = Team::where('page',1)->get();
+        $ourTeam = Team::where('in_page',1)->get();
 
-        $teams = Team::where('page',0)->get();
+        $teams = Team::where('in_page',0)->get();
 
         return response()->json([
             'meet_team_page'=>$meetTeamPage,
