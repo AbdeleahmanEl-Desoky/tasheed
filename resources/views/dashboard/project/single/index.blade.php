@@ -75,7 +75,7 @@
 
                                     <td>
                                         @if (auth()->user()->hasPermission('users-update'))
-                                            <a href="{{ route('dashboard.project.single.unit.index', $project->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.units')</a>
+                                            <a href="{{ route('dashboard.project.single.unit.index', ['project_id' => $project->id]) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.units')</a>
                                         @else
                                             <a href="#" class="btn btn-info btn-sm disabled"></i> @lang('site.units')</a>
                                         @endif
