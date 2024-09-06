@@ -126,6 +126,14 @@
                             </div>
                             <button type="button" class="btn btn-success mt-2" id="add-gallery-button"><i class="fa fa-plus"></i> @lang('site.add')</button>
                         </div>
+                                                <!-- Map Selection -->
+                                                <div class="form-group col-md-12">
+                                                    <label for="map">Select Location on Map</label>
+                                                    <div id="map" style="height: 400px;"></div>
+                                                    <input type="hidden" id="latitude" name="latitude" value="{{ $contact->latitude ?? '' }}">
+                                                    <input type="hidden" id="longitude" name="longitude" value="{{ $contact->longitude ?? '' }}">
+                                                </div>
+
                     </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('site.add')</button>
@@ -161,6 +169,55 @@
             const galleryInputsContainer = document.getElementById('gallery-inputs');
             galleryInputsContainer.appendChild(newInput);
         });
+    });
+</script>
+
+@endpush
+@push('scripts')
+<!-- Include Leaflet.js library -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+
+<script>
+    // Get latitude and longitude from input fields
+    var initialLat = {{ $contact->latitude ?? '30.0444' }}; // Default latitude
+    var initialLng = {{ $contact->longitude ?? '31.2357' }}; // Default longitude
+
+    // Initialize the map
+    var map = L.map('map').setView([initialLat, initialLng], 6); // Use initial coordinates
+
+    // Add OpenStreetMap tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    // Add a marker with the initial coordinates
+    var marker = L.marker([initialLat, initialLng], {
+        draggable: true
+    }).addTo(map);
+
+    // Update input values when the marker is dragged
+    marker.on('dragend', function(e) {
+        var latLng = e.target.getLatLng();
+        document.getElementById('latitude').value = latLng.lat;
+        document.getElementById('longitude').value = latLng.lng;
+    });
+
+    // Add and remove Call Us inputs dynamically
+    $('#add-call-us').click(function() {
+        $('#call-us-container').append(`
+            <div class="input-group mb-3">
+                <input type="text" name="call_us[]" class="form-control">
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-danger remove-call-us">@lang('site.remove')</button>
+                </div>
+            </div>
+        `);
+    });
+
+    $(document).on('click', '.remove-call-us', function() {
+        $(this).closest('.input-group').remove();
     });
 </script>
 
