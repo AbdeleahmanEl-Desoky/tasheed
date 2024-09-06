@@ -30,7 +30,7 @@ class HomePageController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(HomeRequest $request)
+    public function store(Request $request)
     {
         $home = Home::create($request->except('file'));
 
@@ -39,6 +39,10 @@ class HomePageController extends Controller
             $home->addMultipleMediaFromRequest(['file'])->each(function ($fileAdder) {
                 $fileAdder->toMediaCollection('home_caver');
             });
+        }
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 'File uploaded successfully.']);
         }
 
         return redirect()->route('dashboard.home.index');
