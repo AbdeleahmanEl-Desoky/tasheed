@@ -98,7 +98,7 @@ class SingleProjectUnitController extends Controller
             $singleProjectUnit->unitFeatures()->sync($request->input('feature_unit_id'));
         }
 
-        return redirect()->route('dashboard.project.single.unit.index')->with('success', __('Project unit added successfully.'));
+        return redirect()->route('dashboard.project.single.unit.index',$request->single_project_id)->with('success', __('Project unit added successfully.'));
     }
 
     /**
