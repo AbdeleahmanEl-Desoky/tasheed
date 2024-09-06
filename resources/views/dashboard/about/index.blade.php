@@ -62,7 +62,7 @@
                         </div>
                         <hr>
                         <div class="form-group col-md-12">
-                            @if($about->file_type == 'video')
+                            @if($about?->file_type == 'video')
                                 <video class="form-group col-md-6" controls style="width: 100px;">
                                     <source src="{{ $about?->media[0]->original_url }}" type="" class="img-thumbnail image-preview">
                                 </video>
