@@ -28,18 +28,18 @@
                         {{ csrf_field() }}
                         {{ method_field('post') }}
 
-                            <input type="hidden" name="id" class="form-control" value="{{ $about->id }}">
+                            <input type="hidden" name="id" class="form-control" value="{{ $about?->id }}">
 
                         <div class="form-group col-md-12">
                             <label>@lang('site.title')</label>
-                            <input type="text" name="title" class="form-control" value="{{ $about->title }}">
+                            <input type="text" name="title" class="form-control" value="{{ $about?->title }}">
                         </div>
 
 
                         <div class="form-group col-md-12">
                             <label for="ex1"> Description</label>
                             <textarea class="form-control ckeditor" id="ex1"
-                                      name="description" rows="3">{{$about->description}}</textarea>
+                                      name="description" rows="3">{{$about?->description}}</textarea>
 
                         </div>
 
@@ -52,8 +52,8 @@
                         <div class="form-group form-group col-md-4">
                             <label>@lang('site.file_type')</label>
                             <select name="file_type" class="form-control" id="file_type">
-                                <option value="image" {{ $about->file_type == 'image' ? 'selected' : '' }}>Image</option>
-                                <option value="video" {{ $about->file_type == 'video' ? 'selected' : '' }}>Video</option>
+                                <option value="image" {{ $about?->file_type == 'image' ? 'selected' : '' }}>Image</option>
+                                <option value="video" {{ $about?->file_type == 'video' ? 'selected' : '' }}>Video</option>
                             </select>
                         </div>
 
@@ -64,10 +64,10 @@
                         <div class="form-group col-md-12">
                             @if($about->file_type == 'video')
                                 <video class="form-group col-md-6" controls style="width: 100px;">
-                                    <source src="{{ $about->media[0]->original_url }}" type="" class="img-thumbnail image-preview">
+                                    <source src="{{ $about?->media[0]->original_url }}" type="" class="img-thumbnail image-preview">
                                 </video>
                             @else
-                                <img src="{{  $about->media[0]->original_url  }}" style="width: 100px" class="img-thumbnail image-preview" alt="">
+                                <img src="{{  $about?->media[0]->original_url  }}" style="width: 100px" class="img-thumbnail image-preview" alt="">
                             @endif
                         </div>
 
