@@ -16,6 +16,7 @@ use App\Models\Job;
 use App\Models\MeetTeamPage;
 use App\Models\Message;
 use App\Models\ProjectPage;
+use App\Models\SendEmail;
 use App\Models\SingleProject;
 use App\Models\SingleProjectUnit;
 use App\Models\Team;
@@ -189,4 +190,12 @@ class ApiController extends Controller
             'teams' => $teams,
         ]);
     }
+
+    public function email(Request $request)
+    {
+        SendEmail::create([
+            'email' => $request->email
+        ]);
+    }
+
 }

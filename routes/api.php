@@ -55,3 +55,5 @@ Route::post('apply-job', [ApiController::class,'applyJob']);
 
 Route::get('team', [ApiController::class,'team']);
 
+Route::post('send-email', [ApiController::class,'email']);
+

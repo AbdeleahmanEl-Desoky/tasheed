@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AboutBenefitController;
 use App\Http\Controllers\Admin\AboutGalleryController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\BlogPageController;
 use App\Http\Controllers\Admin\CareerController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\FeatureController;
@@ -41,7 +42,12 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'dashbo
 
     Route::resource('home', HomePageController::class);
     Route::resource('users', UserController::class);
-    Route::resource('blog', BlogController::class);
+
+    Route::group(['prefix' => 'blog', 'as' => 'blog.'], function () {
+        Route::get('caver', [BlogPageController::class,'index'])->name('caver');
+        Route::post('caver/store', [BlogPageController::class,'store'])->name('store_caver');
+        Route::resource('/', BlogController::class);
+    });
 
 
     Route::group(['prefix' => 'contact', 'as' => 'contact.'], function () {
