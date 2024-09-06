@@ -43,6 +43,15 @@
                             <input type="text" name="description" class="form-control" value="{{ old('description') }}">
                         </div>
 
+                        <div class="form-group col-md-6">
+                            <label>@lang('site.type')</label>
+                            <select  name="type" class="form-control" value="{{ old('type') }}">
+                                <option value="normal">Normal</option>
+                                <option value="ongoing">Ongoing</option>
+                                <option value="featured">Featured</option>
+                            </select>
+                        </div>
+
 
                         <div class="form-group col-md-6">
                             <label>@lang('site.location')</label>
@@ -102,7 +111,7 @@
 
                     <div class="row">
                             <h2>Key Feature</h2>
-                        @foreach ($features as $feature)
+                            @foreach ($features as $feature)
                             <div class="form-group col-md-3">
                                 <label>{{ $feature->title }}</label>
                                 <input type="checkbox" name="feature_id[]" value="{{ $feature->id }}" {{ in_array($feature->id, old('feature_id', [])) ? 'checked' : '' }}>

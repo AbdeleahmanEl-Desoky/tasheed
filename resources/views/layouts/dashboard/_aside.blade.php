@@ -49,7 +49,7 @@
                             <li><a href="{{ route('dashboard.project.index') }}"><i class="fa fa-circle-o"></i>Project Caver</a></li>
                             <li><a href="{{ route('dashboard.project.features.index') }}"><i class="fa fa-circle-o"></i>Project Features</a></li>
                             <li><a href="{{ route('dashboard.project.feature_unit.index') }}"><i class="fa fa-circle-o"></i>Project Features Unit</a></li>
-                            <li><a href="{{ route('dashboard.project.single.index') }}"><i class="fa fa-circle-o"></i>Project Single</a></li>
+                            <li><a href="{{ route('dashboard.project.single.index') }}"><i class="fa fa-circle-o"></i>Project</a></li>
                         </li>
                     </ul>
                 </li>

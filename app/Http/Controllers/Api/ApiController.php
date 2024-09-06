@@ -37,7 +37,8 @@ class ApiController extends Controller
         });
 
         $singleProject = SingleProject::where('type','ongoing')->get();
-        $featureProject = SingleProject::where('type','feature')->get();
+        $featureProject = SingleProject::where('type','featured')->get();
+        
         $blogs = Blog::get();
 
 
