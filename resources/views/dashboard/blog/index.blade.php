@@ -62,6 +62,7 @@
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $project->title }}</td>
+
                                     <td>
                                         <img src="{{ !empty($project->media) ? $project->media[0]->original_url : asset('uploads/user_images/default.png') }}" style="width: 75px;" class="img-thumbnail" alt="">
                                     </td>

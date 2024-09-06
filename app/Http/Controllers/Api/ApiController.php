@@ -96,7 +96,7 @@ class ApiController extends Controller
 
     public function projects()
     {
-        $projectPage = SingleProject::with(['features','units'])->where('type','normal')->get();
+        $projectPage = SingleProject::with(['features','units'])->get();
 
         return response()->json([
             'projects'=>$projectPage,

@@ -52,7 +52,7 @@
                             <input type="file" name="file" class="form-control image">
                         </div>
                         <div class="form-group col-md-3">
-                            <label>in Page </label>
+                            <label>head team </label>
                             <input type="checkbox" name="in_page"  value="1">
                         </div>
 

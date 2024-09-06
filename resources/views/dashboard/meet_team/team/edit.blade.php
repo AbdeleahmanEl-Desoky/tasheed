@@ -55,7 +55,7 @@
                         <div class="form-group col-md-3">
                             <!-- Hidden input to ensure value 0 is sent if unchecked -->
                             <input type="hidden" name="in_page" value="0">
-                            <label>in Page </label>
+                            <label>head team </label>
                             <input type="checkbox" name="in_page" value="1" {{ old('in_page', $team->in_page) ? 'checked' : '' }}>
                         </div>
 
