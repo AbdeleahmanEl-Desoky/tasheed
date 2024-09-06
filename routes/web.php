@@ -41,20 +41,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'dashbo
     Route::get('/', [HomeController::class, 'index'])->name('welcome');
 
     Route::resource('home', HomePageController::class);
-    Route::resource('users', UserController::class);
-
-    Route::group(['prefix' => 'blog', 'as' => 'blog.'], function () {
-        Route::get('caver', [BlogPageController::class,'index'])->name('caver');
-        Route::post('caver/store', [BlogPageController::class,'store'])->name('store_caver');
-        Route::resource('/', BlogController::class);
-    });
-
-
-    Route::group(['prefix' => 'contact', 'as' => 'contact.'], function () {
-        Route::get('/', [ContactController::class,'index'])->name('index');
-        Route::post('/', [ContactController::class,'store'])->name('store');
-    });
-
 
     Route::group(['prefix' => 'about', 'as' => 'about.'], function () {
         Route::get('/', [AboutController::class,'index'])->name('index');
@@ -65,6 +51,20 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'dashbo
         Route::resource('galleries', AboutGalleryController::class);
     });
 
+    Route::group(['prefix' => 'blog', 'as' => 'blog.'], function () {
+        Route::resource('/', BlogController::class);
+        Route::get('edit/{id}', [BlogController::class,'edit'])->name('edit');
+        Route::put('update/{id}', [BlogController::class,'update'])->name('update');
+        Route::get('caver', [BlogPageController::class,'index'])->name('caver');
+        Route::post('caver/store', [BlogPageController::class,'store'])->name('store_caver');
+    });
+
+    Route::group(['prefix' => 'contact', 'as' => 'contact.'], function () {
+        Route::get('/', [ContactController::class,'index'])->name('index');
+        Route::post('/', [ContactController::class,'store'])->name('store');
+    });
+
+
     Route::group(['prefix' => 'project', 'as' => 'project.'], function () {
         Route::get('/', [ProjectPageController::class,'index'])->name('index');
         Route::post('/', [ProjectPageController::class,'store'])->name('store');
@@ -73,13 +73,20 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'dashbo
 
         Route::group(['prefix' => 'single', 'as' => 'single.'], function () {
             Route::resource('/', SingleProjectController::class);
+            Route::get('edit/{id}', [SingleProjectController::class,'edit'])->name('edit');
+            Route::put('update/{id}', [SingleProjectController::class,'update'])->name('update');
 
             Route::get('unit/{project_id}', [SingleProjectUnitController::class,'index'])->name('unit.index');
             Route::get('unit/create/{project_id}', [SingleProjectUnitController::class,'create'])->name('unit.create');
+            Route::get('unit/edit/{id}', [SingleProjectUnitController::class,'edit'])->name('unit.edit');
+
+            Route::put('unit/update/{id}', [SingleProjectUnitController::class,'update'])->name('unit.update');
 
             Route::post('unit', [SingleProjectUnitController::class,'store'])->name('unit.store');
         });
     });
+
+
 
     Route::group(['prefix' => 'meet_team', 'as' => 'meet_team.'], function () {
         Route::get('/', [MeetTeamPageController::class,'index'])->name('index');
@@ -92,6 +99,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'dashbo
     Route::resource('career', CareerController::class);
 
     Route::resource('job', JobController::class);
+
+    Route::resource('users', UserController::class);
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 

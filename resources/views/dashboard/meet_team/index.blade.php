@@ -6,11 +6,11 @@
 
         <section class="content-header">
 
-            <h1>@lang('site.project')</h1>
+            <h1>@lang('site.caver_team')</h1>
 
             <ol class="breadcrumb">
                 <li><a href="{{ route('dashboard.welcome') }}"><i class="fa fa-dashboard"></i> @lang('site.dashboard')</a></li>
-                <li class="active">@lang('site.project')</li>
+                <li class="active">@lang('site.caver_team')</li>
             </ol>
         </section>
 

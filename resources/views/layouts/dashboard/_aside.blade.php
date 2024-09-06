@@ -16,6 +16,9 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li><a href="{{ route('dashboard.welcome') }}"><i class="fa fa-th"></i><span>@lang('site.dashboard')</span></a></li>
 
+            <!-- Home Caver -->
+            <li><a href="{{ route('dashboard.home.index') }}"><i class="fa fa-th"></i><span>Home Caver</span></a></li>
+
             <!-- About Dropdown -->
             <li class="treeview">
                 <a href="#">
@@ -27,37 +30,62 @@
                     <li class="treeview">
                         <li><a href="{{ route('dashboard.about.index') }}"><i class="fa fa-circle-o"></i> About</a></li>
                         <li><a href="{{ route('dashboard.about.benefits.index') }}"><i class="fa fa-circle-o"></i> Benefits</a></li>
+                        <li><a href="{{ route('dashboard.about.vision.index') }}"><i class="fa fa-circle-o"></i> Vision</a></li>
                         <li><a href="{{ route('dashboard.about.galleries.index') }}"><i class="fa fa-circle-o"></i> Galleries</a></li>
                     </li>
                 </ul>
             </li>
 
             <!-- Blogs Menu Item -->
-            <li><a href="{{ route('dashboard.blog.index') }}"><i class="fa fa-th"></i><span>Blogs</span></a></li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-th"></i><span>Blog</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{ route('dashboard.blog.caver') }}"><i class="fa fa-th"></i><span>Blog Caver</span></a></li>
+                    <li><a href="{{ route('dashboard.blog.index') }}"><i class="fa fa-th"></i><span>Blogs</span></a></li>
+                </ul>
+            </li>
 
-            <li><a href="{{ route('dashboard.home.index') }}"><i class="fa fa-th"></i><span>Home Caver</span></a></li>
+            <li><a href="{{ route('dashboard.contact.index') }}"><i class="fa fa-th"></i><span>Contact Us</span></a></li>
 
-                  <!-- Project Dropdown -->
-                  <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-th"></i><span>Project</span>
-                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <!-- Nested Benefits and Galleries -->
-                        <li class="treeview">
-                            <li><a href="{{ route('dashboard.project.index') }}"><i class="fa fa-circle-o"></i>Project Caver</a></li>
-                            <li><a href="{{ route('dashboard.project.features.index') }}"><i class="fa fa-circle-o"></i>Project Features</a></li>
-                            <li><a href="{{ route('dashboard.project.feature_unit.index') }}"><i class="fa fa-circle-o"></i>Project Features Unit</a></li>
-                            <li><a href="{{ route('dashboard.project.single.index') }}"><i class="fa fa-circle-o"></i>Project</a></li>
-                        </li>
-                    </ul>
-                </li>
-            <!-- Users Menu Item -->
-            @if (auth()->user()->hasPermission('users-read'))
-                <li><a href="{{ route('dashboard.users.index') }}"><i class="fa fa-th"></i><span>@lang('site.users')</span></a></li>
-            @endif
-        </ul>
+            <!-- Project Dropdown -->
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-th"></i><span>Project</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="treeview">
+                        <li><a href="{{ route('dashboard.project.index') }}"><i class="fa fa-circle-o"></i>Project Caver</a></li>
+                        <li><a href="{{ route('dashboard.project.features.index') }}"><i class="fa fa-circle-o"></i>Project Features</a></li>
+                        <li><a href="{{ route('dashboard.project.feature_unit.index') }}"><i class="fa fa-circle-o"></i>Project Features Unit</a></li>
+                        <li><a href="{{ route('dashboard.project.single.index') }}"><i class="fa fa-circle-o"></i>Project</a></li>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Team Dropdown -->
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-th"></i><span>Team</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="treeview">
+                        <li><a href="{{ route('dashboard.meet_team.index') }}"><i class="fa fa-circle-o"></i>Team Caver</a></li>
+                        <li><a href="{{ route('dashboard.meet_team.team.index') }}"><i class="fa fa-circle-o"></i>Team</a></li>
+                    </li>
+                </ul>
+            </li>
+
+
+        <!-- Users Menu Item -->
+        @if (auth()->user()->hasPermission('users-read'))
+            <li><a href="{{ route('dashboard.users.index') }}"><i class="fa fa-th"></i><span>@lang('site.users')</span></a></li>
+        @endif
+    </ul>
 
     </section>
 </aside>

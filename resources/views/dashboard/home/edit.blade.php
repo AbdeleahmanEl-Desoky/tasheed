@@ -6,11 +6,11 @@
 
         <section class="content-header">
 
-            <h1>@lang('site.users')</h1>
+            <h1>@lang('site.home')</h1>
 
             <ol class="breadcrumb">
                 <li><a href="{{ route('dashboard.welcome') }}"><i class="fa fa-dashboard"></i> @lang('site.dashboard')</a></li>
-                <li><a href="{{ route('dashboard.users.index') }}"> @lang('site.users')</a></li>
+                <li><a href="{{ route('dashboard.users.index') }}"> @lang('site.home')</a></li>
                 <li class="active">@lang('site.edit')</li>
             </ol>
         </section>

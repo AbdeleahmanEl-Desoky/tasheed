@@ -6,11 +6,11 @@
 
         <section class="content-header">
 
-            <h1>@lang('site.features')</h1>
+            <h1>@lang('site.blogs')</h1>
 
             <ol class="breadcrumb">
                 <li><a href="{{ route('dashboard.welcome') }}"><i class="fa fa-dashboard"></i> @lang('site.dashboard')</a></li>
-                <li class="active">@lang('site.features')</li>
+                <li class="active">@lang('site.blogs')</li>
             </ol>
         </section>
 
@@ -20,7 +20,7 @@
 
                 <div class="box-header with-border">
 
-                    <h3 class="box-title" style="margin-bottom: 15px">@lang('site.home') <small>{{ $blogs->total() }}</small></h3>
+                    <h3 class="box-title" style="margin-bottom: 15px">@lang('site.blogs') <small>{{ $blogs->total() }}</small></h3>
 
                     <form action="{{ route('dashboard.project.single.index') }}" method="get">
 
@@ -52,7 +52,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>@lang('site.title')</th>
-                                <th>@lang('site.data')</th>
+                                <th>@lang('site.media')</th>
                                 <th>@lang('site.action')</th>
                             </tr>
                             </thead>

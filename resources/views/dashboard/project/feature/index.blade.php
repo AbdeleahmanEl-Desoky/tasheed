@@ -17,10 +17,10 @@
         <section class="content">
 
             <div class="box box-primary">
-
+-
                 <div class="box-header with-border">
 
-                    <h3 class="box-title" style="margin-bottom: 15px">@lang('site.home') <small>{{ $features->total() }}</small></h3>
+                    <h3 class="box-title" style="margin-bottom: 15px">@lang('site.features') <small>{{ $features->total() }}</small></h3>
 
                     <form action="{{ route('dashboard.project.features.index') }}" method="get">
 
@@ -32,7 +32,7 @@
 
                             <div class="col-md-4">
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> @lang('site.search')</button>
-                                    <a href="{{ route('dashboard.project.features.index') }}" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('site.add')</a>
+                                    <a href="{{ route('dashboard.project.features.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('site.add')</a>
 
                             </div>
 

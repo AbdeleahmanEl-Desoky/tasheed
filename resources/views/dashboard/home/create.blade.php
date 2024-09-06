@@ -6,7 +6,7 @@
 
         <section class="content-header">
 
-            <h1>@lang('site.home')</h1>
+            <h1>@lang('home')</h1>
 
             <ol class="breadcrumb">
                 <li><a href="{{ route('dashboard.welcome') }}"><i class="fa fa-dashboard"></i> @lang('site.dashboard')</a></li>
@@ -62,7 +62,7 @@
                                 <option value="video"> @lang('site.video')</option>
                             </select>
                         </div>
-                        
+
                         <div class="form-group col-md-4">
                             <img src="{{ asset('uploads/user_images/default.png') }}"  style="width: 100px" class="img-thumbnail image-preview" alt="">
                         </div>

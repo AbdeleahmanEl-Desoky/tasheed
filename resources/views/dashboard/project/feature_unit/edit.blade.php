@@ -6,11 +6,11 @@
 
         <section class="content-header">
 
-            <h1>@lang('site.features')</h1>
+            <h1>@lang('site.feature_unit')</h1>
 
             <ol class="breadcrumb">
                 <li><a href="{{ route('dashboard.welcome') }}"><i class="fa fa-dashboard"></i> @lang('site.dashboard')</a></li>
-                <li><a href="{{ route('dashboard.project.features.index') }}"> @lang('site.features')</a></li>
+                <li><a href="{{ route('dashboard.project.features.index') }}"> @lang('site.feature_unit')</a></li>
                 <li class="active">@lang('site.edit')</li>
             </ol>
         </section>
@@ -27,7 +27,7 @@
 
                     @include('partials._errors')
 
-                    <form action="{{ route('dashboard.project.features.update', $feature->id) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('dashboard.project.feature_unit.update', $feature->id) }}" method="post" enctype="multipart/form-data">
 
                         {{ csrf_field() }}
                         {{ method_field('put') }}
@@ -36,14 +36,6 @@
                             <label>@lang('site.title')</label>
                             <input type="text" name="title" class="form-control" value="{{ $feature->title }}">
                         </div>
-
-                        <div class="form-group col-md-6">
-                            <label>@lang('site.description')</label>
-                            <input type="text" name="description" class="form-control" value="{{ $feature->description }}">
-                        </div>
-
-
-
 
                         <div class="form-group col-md-6">
                             <label>@lang('site.image')</label>

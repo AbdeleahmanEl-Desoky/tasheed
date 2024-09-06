@@ -6,11 +6,11 @@
 
         <section class="content-header">
 
-            <h1>@lang('site.features')</h1>
+            <h1>@lang('site.features_unit')</h1>
 
             <ol class="breadcrumb">
                 <li><a href="{{ route('dashboard.welcome') }}"><i class="fa fa-dashboard"></i> @lang('site.dashboard')</a></li>
-                <li class="active">@lang('site.features')</li>
+                <li class="active">@lang('site.features_unit')</li>
             </ol>
         </section>
 
@@ -20,7 +20,7 @@
 
                 <div class="box-header with-border">
 
-                    <h3 class="box-title" style="margin-bottom: 15px">@lang('site.home') <small>{{ $features->total() }}</small></h3>
+                    <h3 class="box-title" style="margin-bottom: 15px">@lang('site.features_unit') <small>{{ $features->total() }}</small></h3>
 
                     <form action="{{ route('dashboard.project.features.index') }}" method="get">
 
@@ -51,7 +51,6 @@
                             <tr>
                                 <th>#</th>
                                 <th>@lang('site.title')</th>
-                                <th>@lang('site.description')</th>
                                 <th>@lang('site.media')</th>
                                 <th>@lang('site.action')</th>
                             </tr>
@@ -62,20 +61,18 @@
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $feature->title }}</td>
-                                    <td>{{ $feature->description }}</td>
-
                                     <td>
                                         <img src="{{ !empty($feature->media) ? $feature->media[0]->original_url : asset('uploads/user_images/default.png') }}" style="width: 75px;" class="img-thumbnail" alt="">
                                     </td>
 
                                     <td>
                                     @if (auth()->user()->hasPermission('users-update'))
-                                        <a href="{{ route('dashboard.project.features.edit', $feature->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
+                                        <a href="{{ route('dashboard.project.feature_unit.edit', $feature->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
                                     @else
                                         <a href="#" class="btn btn-info btn-sm disabled"><i class="fa fa-edit"></i> @lang('site.edit')</a>
                                     @endif
                                     @if (auth()->user()->hasPermission('users-delete'))
-                                        <form action="{{ route('dashboard.project.features.destroy', $feature->id) }}" method="post" style="display: inline-block">
+                                        <form action="{{ route('dashboard.project.feature_unit.destroy', $feature->id) }}" method="post" style="display: inline-block">
                                             {{ csrf_field() }}
                                             {{ method_field('delete') }}
                                             <button type="submit" class="btn btn-danger delete btn-sm"><i class="fa fa-trash"></i> @lang('site.delete')</button>

@@ -20,7 +20,7 @@
 
                 <div class="box-header with-border">
 
-                    <h3 class="box-title" style="margin-bottom: 15px">@lang('site.home') <small>{{ $teams->total() }}</small></h3>
+                    <h3 class="box-title" style="margin-bottom: 15px">@lang('site.teams') <small>{{ $teams->total() }}</small></h3>
 
                     <form action="{{ route('dashboard.meet_team.team.index') }}" method="get">
 

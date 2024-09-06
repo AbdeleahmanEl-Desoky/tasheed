@@ -39,7 +39,7 @@ class ProjectPageController extends Controller
             });
         }
 
-        return redirect()->route('dashboard.about.index');
+        return redirect()->route('dashboard.project.index');
     }
 
 

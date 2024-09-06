@@ -72,6 +72,7 @@ class MeetTeamController extends Controller
      */
     public function update(TeamRequest $request, int $id)
     {
+      
         $team = Team::find($id);
 
         if ($request->hasFile('file'))

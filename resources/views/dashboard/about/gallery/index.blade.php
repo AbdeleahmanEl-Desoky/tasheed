@@ -20,7 +20,7 @@
 
                 <div class="box-header with-border">
 
-                    <h3 class="box-title" style="margin-bottom: 15px">@lang('site.home') <small>{{ $galleries->total() }}</small></h3>
+                    <h3 class="box-title" style="margin-bottom: 15px">@lang('site.galleries') <small>{{ $galleries->total() }}</small></h3>
 
                     <form action="{{ route('dashboard.about.galleries.index') }}" method="get">
 
@@ -50,7 +50,6 @@
                             <tr>
                                 <th>#</th>
                                 <th>@lang('site.title')</th>
-                                <th>@lang('site.description')</th>
                                 <th>@lang('site.media')</th>
                                 <th>@lang('site.action')</th>
                             </tr>
@@ -61,8 +60,6 @@
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $galley->title }}</td>
-                                    <td>{{ $galley->description }}</td>
-
                                     <td>
                                         <img src="{{ !empty($galley->media) ? $galley->media[0]->original_url : asset('uploads/user_images/default.png') }}" style="width: 75px;" class="img-thumbnail" alt="">
                                     </td>

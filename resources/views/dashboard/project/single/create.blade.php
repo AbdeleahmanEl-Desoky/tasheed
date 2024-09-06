@@ -69,10 +69,10 @@
                             <label>@lang('site.adderss')</label>
                             <input type="text" name="adderss" class="form-control" value="{{ old('adderss') }}">
                         </div>
-                        <div class="form-group col-md-6">
+                        {{-- <div class="form-group col-md-6">
                             <label>@lang('site.map')</label>
                             <input type="text" name="map" class="form-control" value="{{ old('map') }}">
-                        </div>
+                        </div> --}}
                         <div class="form-group col-md-6">
                             <label>@lang('site.map_description')</label>
                             <input type="text" name="map_description" class="form-control" value="{{ old('map_description') }}">

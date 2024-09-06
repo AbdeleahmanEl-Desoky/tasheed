@@ -27,38 +27,44 @@
 
                     @include('partials._errors')
 
-                    <form action="{{ route('dashboard.meet_team.team.update', $feature->id) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('dashboard.meet_team.team.update', $team->id) }}" method="post" enctype="multipart/form-data">
 
                         {{ csrf_field() }}
                         {{ method_field('put') }}
 
                         <div class="form-group col-md-6">
-                            <label>@lang('site.title')</label>
-                            <input type="text" name="title" class="form-control" value="{{ $feature->title }}">
+                            <label>@lang('site.name')</label>
+                            <input type="text" name="name" class="form-control" value="{{ old('name', $team->name) }}">
                         </div>
 
                         <div class="form-group col-md-6">
-                            <label>@lang('site.description')</label>
-                            <input type="text" name="description" class="form-control" value="{{ $feature->description }}">
+                            <label>@lang('site.job_name')</label>
+                            <input type="text" name="job_name" class="form-control" value="{{ old('job_name', $team->job_name) }}">
                         </div>
 
-
-
+                        <div class="form-group col-md-6">
+                            <label>@lang('site.job_rank')</label>
+                            <input type="text" name="job_rank" class="form-control" value="{{ old('job_rank', $team->job_rank) }}">
+                        </div>
 
                         <div class="form-group col-md-6">
                             <label>@lang('site.image')</label>
-                            <input type="file" name="file" class="form-control image" id="file_input">
+                            <input type="file" name="file" class="form-control image">
                         </div>
 
-
+                        <div class="form-group col-md-3">
+                            <!-- Hidden input to ensure value 0 is sent if unchecked -->
+                            <input type="hidden" name="in_page" value="0">
+                            <label>in Page </label>
+                            <input type="checkbox" name="in_page" value="1" {{ old('in_page', $team->in_page) ? 'checked' : '' }}>
+                        </div>
 
                         <div class="form-group col-md-6">
-                            <img src="{{  $feature->media[0]->original_url  }}" style="width: 100px" class="img-thumbnail image-preview" alt="">
+                            <img src="{{ $team->getFirstMediaUrl('team', 'thumb') ?? asset('uploads/user_images/default.png') }}" style="width: 100px" class="img-thumbnail image-preview" alt="">
                         </div>
 
-
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary"><i class="fa fa-edit"></i> @lang('site.edit')</button>
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> @lang('site.save')</button>
                         </div>
 
                     </form><!-- end of form -->
@@ -70,8 +76,5 @@
         </section><!-- end of content -->
 
     </div><!-- end of content wrapper -->
-
-
-
 
 @endsection

@@ -76,34 +76,41 @@ class SingleProjectController extends Controller
      */
     public function edit(int $id)
     {
-        $singleProject = SingleProject::find($id);
-        $features = Feature::all();
+        $project = SingleProject::findOrFail($id);
+        $features = Feature::all(); // Retrieve all features for the checkboxes
 
-        return view('dashboard.project.single.edit', compact('singleProject', 'features'));
+        return view('dashboard.project.single.edit', compact('project', 'features'));
     }
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(SingleProjectRequest $request, int $id)
     {
-        $singleProject = SingleProject::find($id);
+        $singleProject = SingleProject::findOrFail($id);
 
-        // Handle file upload
-        if ($request->hasFile('file')) {
+        // Update project details
+        $singleProject->update($request->except('caver', 'feature_id', 'gallery'));
+
+        // Handle cover image upload
+        if ($request->hasFile('caver')) {
             $singleProject->clearMediaCollection('singleProjectCaver');
-
             $singleProject->addMultipleMediaFromRequest(['caver'])->each(function ($fileAdder) {
                 $fileAdder->toMediaCollection('singleProjectCaver');
             });
         }
 
-        // Update the project
-        $singleProject->update($request->except('caver', 'features'));
+        // Handle gallery images upload
+        if ($request->hasFile('gallery')) {
+            $singleProject->addMultipleMediaFromRequest(['gallery'])->each(function ($fileAdder) {
+                $fileAdder->toMediaCollection('singleProjectGallery');
+            });
+        }
 
         // Sync selected features to the project
-        if ($request->has('features')) {
-            $singleProject->features()->sync($request->input('features'));
+        if ($request->has('feature_id')) {
+            $singleProject->features()->sync($request->input('feature_id'));
         } else {
             $singleProject->features()->detach(); // Detach all features if none are selected
         }

@@ -82,7 +82,7 @@ class FeatureController extends Controller
 
         $feature->update($request->except('file'));
 
-        return redirect()->route('dashboard.project.feature.index');
+        return redirect()->route('dashboard.project.features.index');
     }
 
     /**

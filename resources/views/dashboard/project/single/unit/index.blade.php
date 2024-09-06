@@ -6,11 +6,11 @@
 
         <section class="content-header">
 
-            <h1>@lang('site.features')</h1>
+            <h1>@lang('site.unit')</h1>
 
             <ol class="breadcrumb">
                 <li><a href="{{ route('dashboard.welcome') }}"><i class="fa fa-dashboard"></i> @lang('site.dashboard')</a></li>
-                <li class="active">@lang('site.features')</li>
+                <li class="active">@lang('site.units')</li>
             </ol>
         </section>
 
@@ -20,7 +20,7 @@
 
                 <div class="box-header with-border">
 
-                    <h3 class="box-title" style="margin-bottom: 15px">@lang('site.home') <small>{{ $singleProjecttUnits->total() }}</small></h3>
+                    <h3 class="box-title" style="margin-bottom: 15px">@lang('site.unit') <small>{{ $singleProjecttUnits->total() }}</small></h3>
 
                     <form action="{{ route('dashboard.project.single.index') }}" method="get">
 
@@ -52,6 +52,7 @@
                                 <th>#</th>
                                 <th>@lang('site.title')</th>
                                 <th>@lang('site.data')</th>
+                                <th>@lang('site.media')</th>
                                 <th>@lang('site.action')</th>
                             </tr>
                             </thead>
@@ -67,15 +68,8 @@
                                     </td>
 
                                     <td>
-                                        @if (auth()->user()->hasPermission('users-update'))
-                                            <a href="{{ route('dashboard.project.single.unit.index', $project->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.units')</a>
-                                        @else
-                                            <a href="#" class="btn btn-info btn-sm disabled"></i> @lang('site.units')</a>
-                                        @endif
-                                    </td>
-                                    <td>
                                     @if (auth()->user()->hasPermission('users-update'))
-                                        <a href="{{ route('dashboard.project.single.edit', $project->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
+                                        <a href="{{ route('dashboard.project.single.unit.edit', $project->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
                                     @else
                                         <a href="#" class="btn btn-info btn-sm disabled"><i class="fa fa-edit"></i> @lang('site.edit')</a>
                                     @endif
