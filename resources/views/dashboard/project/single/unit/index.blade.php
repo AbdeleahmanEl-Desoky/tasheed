@@ -32,7 +32,7 @@
 
                             <div class="col-md-4">
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> @lang('site.search')</button>
-                                    <a href="{{ route('dashboard.project.single.unit.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('site.add')</a>
+                                    <a href="{{ route('dashboard.project.single.unit.create', ['project_id' => $project_id]) }}" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('site.add')</a>
 
                             </div>
 
