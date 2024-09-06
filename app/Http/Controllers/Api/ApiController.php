@@ -201,7 +201,7 @@ class ApiController extends Controller
         ]);
 
         return response()->json([
-            'meet_team_page'=>$sendEmail,
+            'sendEmail'=>$sendEmail,
         ]);
 
     }
