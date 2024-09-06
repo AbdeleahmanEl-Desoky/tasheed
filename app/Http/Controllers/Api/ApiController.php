@@ -38,7 +38,7 @@ class ApiController extends Controller
 
         $singleProject = SingleProject::where('type','ongoing')->get();
         $featureProject = SingleProject::where('type','featured')->get();
-        
+
         $blogs = Blog::get();
 
 
@@ -96,7 +96,7 @@ class ApiController extends Controller
 
     public function projects()
     {
-        $projectPage = SingleProject::with(['features','units'])->get();
+        $projectPage = SingleProject::with(['features','units'])->where('normal')->get();
 
         return response()->json([
             'projects'=>$projectPage,
