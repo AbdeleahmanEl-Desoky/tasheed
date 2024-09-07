@@ -88,9 +88,9 @@ class AboutController extends Controller
 
     public function missionIndex()
     {
-        $mission = AboutMission::first();
+        $about = AboutMission::first();
 
-        return view('dashboard.about.mission',compact('mission'));
+        return view('dashboard.about.mission',compact('about'));
     }
 
     /**
