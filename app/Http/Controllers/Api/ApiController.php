@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\About;
 use App\Models\AboutGallery;
+use App\Models\AboutMission;
 use App\Models\AboutVision;
 use App\Models\ApplyJob;
 use App\Models\Benefit;
@@ -63,12 +64,13 @@ class ApiController extends Controller
 
     public function about()
     {
-        $about = About::get()->map(function ($home) {
-            $home->Benefit = Benefit::get();
-            $home->aboutVision = AboutVision::first();
-            $home->aboutGallery = AboutGallery::get();
+        $about = About::get()->map(function ($about) {
+            $about->Benefit = Benefit::get();
+            $about->aboutVision = AboutVision::first();
+            $about->aboutGallery = AboutGallery::get();
+            $about->mission = AboutMission::first();
 
-            return $home;
+            return $about;
         });
 
         return response()->json([

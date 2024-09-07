@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AboutRequest;
 use App\Http\Requests\AboutVisionRequest;
 use App\Models\About;
+use App\Models\AboutMission;
 use App\Models\AboutVision;
 use Illuminate\Http\Request;
 
@@ -84,6 +85,47 @@ class AboutController extends Controller
 
         return redirect()->route('dashboard.about.vision.index');
     }
+
+    public function missionIndex()
+    {
+        $mission = AboutMission::first();
+
+        return view('dashboard.about.mission',compact('mission'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function missionStore(AboutRequest $request)
+    {
+        $mission = AboutMission::updateOrCreate(
+            ['id' => $request->id],
+            $request->except('image','file')
+        );
+
+        if ($request->hasFile('image')) {
+            // First, clear any existing media if you're updating
+            $mission->clearMediaCollection('about_mission');
+
+            // Then, add the new files
+            $mission->addMultipleMediaFromRequest(['image'])->each(function ($fileAdder) {
+                $fileAdder->toMediaCollection('about_mission');
+            });
+        }
+
+        if ($request->hasFile('file')) {
+            // First, clear any existing media if you're updating
+            $mission->clearMediaCollection('about_mission_file');
+
+            // Then, add the new files
+            $mission->addMultipleMediaFromRequest(['file'])->each(function ($fileAdder) {
+                $fileAdder->toMediaCollection('about_mission_file');
+            });
+        }
+
+        return redirect()->route('dashboard.about.mission.index');
+    }
+
 
 
 }

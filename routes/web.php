@@ -45,8 +45,13 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'dashbo
     Route::group(['prefix' => 'about', 'as' => 'about.'], function () {
         Route::get('/', [AboutController::class,'index'])->name('index');
         Route::post('/', [AboutController::class,'store'])->name('store');
+
         Route::get('/vision', [AboutController::class,'visionIndex'])->name('vision.index');
         Route::post('/vision', [AboutController::class,'visionStore'])->name('vision.store');
+
+        Route::get('/mission', [AboutController::class,'missionIndex'])->name('mission.index');
+        Route::post('/mission', [AboutController::class,'missionStore'])->name('mission.store');
+
         Route::resource('benefits', AboutBenefitController::class);
         Route::resource('galleries', AboutGalleryController::class);
     });

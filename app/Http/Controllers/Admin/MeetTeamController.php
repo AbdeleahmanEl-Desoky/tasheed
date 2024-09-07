@@ -43,6 +43,10 @@ class MeetTeamController extends Controller
                 $fileAdder->toMediaCollection('team');
             });
         }
+        
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 'File uploaded successfully.']);
+        }
 
         return redirect()->route('dashboard.meet_team.team.index');
     }
@@ -72,7 +76,7 @@ class MeetTeamController extends Controller
      */
     public function update(TeamRequest $request, int $id)
     {
-      
+
         $team = Team::find($id);
 
         if ($request->hasFile('file'))

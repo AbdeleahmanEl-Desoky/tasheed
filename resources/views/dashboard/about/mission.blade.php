@@ -7,12 +7,11 @@
 
         <section class="content-header">
 
-            <h1>@lang('site.features')</h1>
+            <h1>@lang('site.About')</h1>
 
             <ol class="breadcrumb">
                 <li><a href="{{ route('dashboard.welcome') }}"><i class="fa fa-dashboard"></i> @lang('site.dashboard')</a></li>
-                <li><a href="{{ route('dashboard.meet_team.team.index') }}"> @lang('site.features')</a></li>
-                <li class="active">@lang('site.edit')</li>
+                <li class="active">@lang('site.about')</li>
             </ol>
         </section>
 
@@ -20,56 +19,57 @@
 
             <div class="box box-primary">
 
-                <div class="box-header">
-                    <h3 class="box-title">@lang('site.edit')</h3>
-                </div><!-- end of box header -->
 
                 <div class="box-body">
 
                     @include('partials._errors')
 
-                    <form id="upload-form"  action="{{ route('dashboard.meet_team.team.update', $team->id) }}" method="post" enctype="multipart/form-data">
+                    <form id="upload-form" action="{{ route('dashboard.about.mission.store') }}" method="post" enctype="multipart/form-data">
 
                         {{ csrf_field() }}
-                        {{ method_field('put') }}
+                        {{ method_field('post') }}
 
-                        <div class="form-group col-md-6">
-                            <label>@lang('site.name')</label>
-                            <input type="text" name="name" class="form-control" value="{{ old('name', $team->name) }}">
+                            <input type="hidden" name="id" class="form-control" value="{{ $about?->id }}">
+
+                        <div class="form-group col-md-12">
+                            <label>@lang('site.title')</label>
+                            <input type="text" name="title" class="form-control" value="{{ $about?->title }}">
                         </div>
 
-                        <div class="form-group col-md-6">
-                            <label>@lang('site.job_name')</label>
-                            <input type="text" name="job_name" class="form-control" value="{{ old('job_name', $team->job_name) }}">
+
+                        <div class="form-group col-md-12">
+                            <label for="ex1"> Description</label>
+                            <textarea class="form-control ckeditor" id="ex1"
+                                      name="description" rows="3">{{$about?->description}}</textarea>
+
                         </div>
 
-                        <div class="form-group col-md-6">
-                            <label>@lang('site.job_rank')</label>
-                            <input type="text" name="job_rank" class="form-control" value="{{ old('job_rank', $team->job_rank) }}">
-                        </div>
 
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label>@lang('site.image')</label>
                             <input type="file" name="file" class="form-control image">
                         </div>
 
-                        <div class="form-group col-md-3">
-                            <!-- Hidden input to ensure value 0 is sent if unchecked -->
-                            <input type="hidden" name="in_page" value="0">
-                            <label>head team </label>
-                            <input type="checkbox" name="in_page" value="1" {{ old('in_page', $team->in_page) ? 'checked' : '' }}>
-                        </div>
 
-                        <div class="form-group col-md-6">
-                            <img src="{{ $team->getFirstMediaUrl('team', 'thumb') ?? asset('uploads/user_images/default.png') }}" style="width: 100px" class="img-thumbnail image-preview" alt="">
+                        <div class="form-group col-md-4">
+                            <img src="{{ asset('uploads/user_images/default.png') }}"  style="width: 100px" class="img-thumbnail image-preview" alt="">
+                        </div>
+                        <hr>
+                        <div class="form-group col-md-12">
+                            @if($about?->file_type == 'video')
+                                <video class="form-group col-md-6" controls style="width: 100px;">
+                                    <source src="{{ $about?->media[0]->original_url }}" type="" class="img-thumbnail image-preview">
+                                </video>
+                            @else
+                                <img src="{{  $about?->media[0]->original_url  }}" style="width: 100px" class="img-thumbnail image-preview" alt="">
+                            @endif
                         </div>
                         <div class="form-group col-md-12">
                             <progress id="progress-bar" value="0" max="100" style="width: 100%;"></progress>
                         </div>
 
-
                         <div class="form-group">
-                            <button type="submit" id="upload-button" class="btn btn-primary"><i class="fa fa-save"></i> @lang('site.save')</button>
+                            <button type="submit" id="upload-button" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('site.add')</button>
                         </div>
 
                     </form><!-- end of form -->
@@ -118,7 +118,7 @@
         xhr.onload = function () {
             if (xhr.status === 200) {
                 alert('File uploaded successfully');
-                window.location.href = "{{ route('dashboard.meet_team.team.index') }}"; // Redirect on success
+                window.location.href = "{{ route('dashboard.about.index') }}"; // Redirect on success
             } else {
                 console.log(xhr.responseText); // Display server error message
                 alert('An error occurred: ' + xhr.responseText); // Show the error message

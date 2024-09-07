@@ -66,7 +66,7 @@
                                     <td>{{ $benefit->description }}</td>
 
                                     <td>
-                                        <img src="{{ !empty($benefit->media) ? $benefit->media[0]->original_url : asset('uploads/user_images/default.png') }}" style="width: 75px;" class="img-thumbnail" alt="">
+                                        <img src="{{ !empty($benefit->media) && isset($benefit->media[0]) ? $benefit->media[0]->original_url : asset('uploads/user_images/default.png') }}" style="width: 75px;" class="img-thumbnail" alt="">
                                     </td>
 
                                     <td>

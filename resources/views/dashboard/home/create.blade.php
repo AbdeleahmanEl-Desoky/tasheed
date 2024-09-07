@@ -135,5 +135,4 @@
         xhr.send(formData);
     });
 </script>
-
 @endpush

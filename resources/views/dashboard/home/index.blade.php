@@ -68,7 +68,7 @@
 
                                     <td>
                                         @if($home->file_type == 'video')
-                                        @if(!empty($home->media))
+                                        @if(!empty($home->media && isset($home->media[0])))
                                             <video controls style="width: 100px;">
                                                 <source src="{{ $home->media[0]->original_url }}" type="{{ $home->media[0]->mime_type }}">
                                             </video>
@@ -77,7 +77,7 @@
                                         @endif
                                         @else
 
-                                        <img src="{{ !empty($home->media) ? $home->media[0]->original_url : asset('uploads/user_images/default.png') }}" style="width: 75px;" class="img-thumbnail" alt="">
+                                        <img src="{{ !empty($home->media) && isset($home->media[0]) ? $home->media[0]->original_url : asset('uploads/user_images/default.png') }}" style="width: 75px;" class="img-thumbnail" alt="">
                                         @endif
                                     </td>
 

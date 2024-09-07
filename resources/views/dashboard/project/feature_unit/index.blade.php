@@ -62,7 +62,7 @@
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $feature->title }}</td>
                                     <td>
-                                        <img src="{{ !empty($feature->media) ? $feature->media[0]->original_url : asset('uploads/user_images/default.png') }}" style="width: 75px;" class="img-thumbnail" alt="">
+                                        <img src="{{ !empty($feature->media) && isset($feature->media[0]) ? $feature->media[0]->original_url : asset('uploads/user_images/default.png') }}" style="width: 75px;" class="img-thumbnail" alt="">
                                     </td>
 
                                     <td>

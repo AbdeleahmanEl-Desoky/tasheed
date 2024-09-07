@@ -64,7 +64,7 @@
                                     <td>{{ $project->title }}</td>
                                     <td>{{ $project->data }}</td>
                                     <td>
-                                        <img src="{{ !empty($project->media) ? $project->media[0]->original_url : asset('uploads/user_images/default.png') }}" style="width: 75px;" class="img-thumbnail" alt="">
+                                        <img src="{{ !empty($project->media) && isset($project->media[0]) ? $project->media[0]->original_url : asset('uploads/user_images/default.png') }}" style="width: 75px;" class="img-thumbnail" alt="">
                                     </td>
 
                                     <td>

@@ -31,7 +31,7 @@
                         <li><a href="{{ route('dashboard.about.index') }}"><i class="fa fa-circle-o"></i> About</a></li>
                         <li><a href="{{ route('dashboard.about.benefits.index') }}"><i class="fa fa-circle-o"></i> Benefits</a></li>
                         <li><a href="{{ route('dashboard.about.vision.index') }}"><i class="fa fa-circle-o"></i> Vision</a></li>
-                        <li><a href="{{ route('dashboard.about.galleries.index') }}"><i class="fa fa-circle-o"></i> Galleries</a></li>
+                        <li><a href="{{ route('dashboard.about.mission.index') }}"><i class="fa fa-circle-o"></i> Mission</a></li>
                     </li>
                 </ul>
             </li>

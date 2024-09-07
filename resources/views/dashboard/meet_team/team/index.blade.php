@@ -68,7 +68,7 @@
                                     <td>{{ $team->job_rank }}</td>
                                     <td>@if($team->in_page == 1 ) In Page @else Not @endif</td>
                                     <td>
-                                        <img src="{{ !empty($team->media) ? $team->media[0]->original_url : asset('uploads/user_images/default.png') }}" style="width: 75px;" class="img-thumbnail" alt="">
+                                        <img src="{{ !empty($team->media) && isset($team->media[0]) ? $team->media[0]->original_url : asset('uploads/user_images/default.png') }}" style="width: 75px;" class="img-thumbnail" alt="">
                                     </td>
 
                                     <td>
