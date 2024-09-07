@@ -97,7 +97,7 @@ class AboutController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function missionStore(MissionRequest $request)
+    public function missionStore(Request $request)
     {
         $mission = AboutMission::updateOrCreate(
             ['id' => $request->id],
