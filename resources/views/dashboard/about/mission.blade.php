@@ -118,7 +118,7 @@ document.getElementById('upload-button').addEventListener('click', function (e) 
     xhr.onload = function () {
         if (xhr.status === 200) {
             alert('File uploaded successfully');
-            window.location.href = "{{ route('dashboard.about.index') }}"; // Redirect on success
+            window.location.href = "{{ route('dashboard.about.mission.index') }}"; // Redirect on success
         } else {
             console.log(xhr.responseText); // Display server error message
             alert('An error occurred: ' + xhr.responseText); // Show the error message
