@@ -124,7 +124,7 @@ class AboutController extends Controller
             });
         }
 
-        return redirect()->route('dashboard.about.mission.index');
+        return redirect()->route('dashboard.about.mission');
     }
 
 
