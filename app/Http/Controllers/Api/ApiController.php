@@ -69,7 +69,7 @@ class ApiController extends Controller
             $about->aboutVision = AboutVision::first();
             $about->aboutGallery = AboutGallery::get();
             $about->mission = AboutMission::first();
-
+            $about->ongoing = SingleProject::where('type','ongoing')->get();
             return $about;
         });
 
