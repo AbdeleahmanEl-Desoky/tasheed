@@ -202,7 +202,7 @@
         xhr.onload = function () {
             if (xhr.status === 200) {
                 alert('File uploaded successfully');
-                window.location.href = "{{ route('dashboard.project.single.unit.index') }}"; // Redirect on success
+                window.location.href = "{{ route('dashboard.project.single.index') }}"; // Redirect on success
             } else {
                 console.log(xhr.responseText); // Display server error message
                 alert('An error occurred: ' + xhr.responseText); // Show the error message

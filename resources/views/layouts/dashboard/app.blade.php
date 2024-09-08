@@ -928,10 +928,9 @@
 
     <footer class="main-footer">
         <div class="pull-right hidden-xs">
-            <b>Version</b> 3.0.0
+            <b>Version</b> 1.0.1
         </div>
-        <strong>
-            System Cacher</strong>
+        <strong></strong>
     </footer>
 
 </div><!-- end of wrapper -->
