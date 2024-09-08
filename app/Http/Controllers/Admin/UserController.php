@@ -73,9 +73,10 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        $request->password = bcrypt($request->password);
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->password);
+        }
 
-        return $request->password;
         if ($request->hasFile('image'))
         {
             $user->addMultipleMediaFromRequest(['image'])->each(function ($fileAdder) {

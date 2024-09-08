@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Scarface </title>
+    <title> Tasheed </title>
 
     {{--<!-- Bootstrap 3.3.7 -->--}}
     <link rel="stylesheet" href="{{ asset('dashboard_files/css/bootstrap.min.css') }}">
@@ -34,7 +34,7 @@
 <div class="login-box">
 
     <div class="login-logo">
-        <a href="{{route('dashboard.welcome')}}"><b>Scarface</b></a>
+        <a href="{{route('dashboard.welcome')}}"><b> Tasheed</b></a>
         <h1></h1>
     </div><!-- end of login lgo -->
 

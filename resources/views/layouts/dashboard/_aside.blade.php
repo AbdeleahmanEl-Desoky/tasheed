@@ -17,7 +17,7 @@
             <li><a href="{{ route('dashboard.welcome') }}"><i class="fa fa-th"></i><span>@lang('site.dashboard')</span></a></li>
 
             <!-- Home Caver -->
-            <li><a href="{{ route('dashboard.home.index') }}"><i class="fa fa-th"></i><span>Home Caver</span></a></li>
+            <li><a href="{{ route('dashboard.home.index') }}"><i class="fa fa-th"></i><span>Home Cover</span></a></li>
 
             <!-- About Dropdown -->
             <li class="treeview">
@@ -43,7 +43,7 @@
                     <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ route('dashboard.blog.caver') }}"><i class="fa fa-th"></i><span>Blog Caver</span></a></li>
+                    <li><a href="{{ route('dashboard.blog.caver') }}"><i class="fa fa-th"></i><span>Blog Cover</span></a></li>
                     <li><a href="{{ route('dashboard.blog.index') }}"><i class="fa fa-th"></i><span>Blogs</span></a></li>
                 </ul>
             </li>
@@ -58,7 +58,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li class="treeview">
-                        <li><a href="{{ route('dashboard.project.index') }}"><i class="fa fa-circle-o"></i>Project Caver</a></li>
+                        <li><a href="{{ route('dashboard.project.index') }}"><i class="fa fa-circle-o"></i>Project Cover</a></li>
                         <li><a href="{{ route('dashboard.project.features.index') }}"><i class="fa fa-circle-o"></i>Project Features</a></li>
                         <li><a href="{{ route('dashboard.project.feature_unit.index') }}"><i class="fa fa-circle-o"></i>Project Features Unit</a></li>
                         <li><a href="{{ route('dashboard.project.single.index') }}"><i class="fa fa-circle-o"></i>Project</a></li>
@@ -74,7 +74,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li class="treeview">
-                        <li><a href="{{ route('dashboard.meet_team.index') }}"><i class="fa fa-circle-o"></i>Team Caver</a></li>
+                        <li><a href="{{ route('dashboard.meet_team.index') }}"><i class="fa fa-circle-o"></i>Team Cover</a></li>
                         <li><a href="{{ route('dashboard.meet_team.team.index') }}"><i class="fa fa-circle-o"></i>Team</a></li>
                     </li>
                 </ul>

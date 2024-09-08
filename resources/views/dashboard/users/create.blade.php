@@ -71,7 +71,7 @@
                             <div class="nav-tabs-custom">
 
                                 @php
-                                    $models = ['users', 'categories', 'products', 'clients', 'orders' , 'add_orders','kitchen'];
+                                    $models = ['users'];
                                     $maps = ['create', 'read', 'update', 'delete'];
                                 @endphp
 

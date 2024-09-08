@@ -71,7 +71,7 @@
                             <div class="nav-tabs-custom">
 
                                 @php
-                                    $models = ['users', 'categories', 'products', 'clients', 'orders' , 'add_orders','kitchen'];
+                                    $models = ['users'];
                                     $maps = ['create', 'read', 'update', 'delete'];
                                 @endphp
 
@@ -101,10 +101,6 @@
                             </div><!-- end of nav tabs -->
 
                         </div>
-                        <div class="form-group col-md-12">
-                            <progress id="progress-bar" value="0" max="100" style="width: 100%;"></progress>
-                        </div>
-
 
                         <div class="form-group">
                             <button type="submit" id="upload-button" class="btn btn-primary"><i class="fa fa-edit"></i> @lang('site.edit')</button>

@@ -44,8 +44,8 @@
                             <textarea class="form-control" id="visit_us" name="visit_us" rows="3">{{ $contact->visit_us ?? '' }}</textarea>
                         </div>
                         <div class="form-group col-md-12">
-                            <label for="visit_us">Visit Us</label>
-                            <textarea class="form-control" id="visit_us" name="visit_us" rows="3">{{ $contact->visit_us ?? '' }}</textarea>
+                            <labegl for="visit_us">visit link</labegl>
+                            <input class="form-control" id="visit_link" name="visit_link" {{ $contact->visit_link ?? '' }}>
                         </div>
 
 
