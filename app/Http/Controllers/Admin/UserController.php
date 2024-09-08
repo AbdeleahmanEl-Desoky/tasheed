@@ -73,7 +73,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        if ($request->filled('password')) {
+        if ($request->input('password')) {
             $user->password = bcrypt($request->password);
         }
 
@@ -84,7 +84,7 @@ class UserController extends Controller
             });
         }
 
-        $user->update($request->except('image'));
+        $user->update($request->except('image','password'));
 
         return redirect()->route('dashboard.users.index');
     }
