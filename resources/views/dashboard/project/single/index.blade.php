@@ -65,6 +65,7 @@
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $project->title }}</td>
+                                    <td>{{ $project->type }}</td>
                                     <td>{{ $project->year }}</td>
                                     <td>{{ $project->data }}</td>
                                     <td>{{ $project->location }}</td>
