@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\HomePageController;
 use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\Admin\MeetTeamController;
 use App\Http\Controllers\Admin\MeetTeamPageController;
+use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\ProjectPageController;
 use App\Http\Controllers\Admin\SingleProjectUnitController;
 use Illuminate\Support\Facades\Route;
@@ -99,6 +100,12 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'dashbo
         Route::resource('team', MeetTeamController::class);
 
     });
+
+    Route::get('message', [MessageController::class,'message'])->name('message');
+
+    Route::get('apply_job', [MessageController::class,'applyJob'])->name('apply_job');
+
+    Route::get('emils', [MessageController::class,'emils'])->name('emils');
 
 
     Route::resource('career', CareerController::class);

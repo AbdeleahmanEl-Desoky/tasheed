@@ -48,6 +48,9 @@
                             <input type="file" name="file" class="form-control image">
                         </div>
 
+                        <div class="form-group col-md-12">
+                            <progress id="progress-bar" value="0" max="100" style="width: 100%;"></progress>
+                        </div>
 
                         <div class="form-group col-md-6">
                             <img src="{{ asset('uploads/user_images/default.png') }}"  style="width: 100px" class="img-thumbnail image-preview" alt="">

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('blog_descriptions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('blog_id');
-            $table->mediumText('description');
+            $table->mediumText('description')->nullable();
             $table->foreign('blog_id')->references('id')->on('blogs')->onDelete('cascade');
             $table->timestamps();
         });

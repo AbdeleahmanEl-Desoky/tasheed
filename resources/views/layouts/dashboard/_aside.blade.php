@@ -80,7 +80,34 @@
                 </ul>
             </li>
 
+            <!-- career Dropdown -->
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-th"></i><span>Career</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="treeview">
+                        <li><a href="{{ route('dashboard.career.index') }}"><i class="fa fa-circle-o"></i>career</a></li>
+                        <li><a href="{{ route('dashboard.job.index') }}"><i class="fa fa-circle-o"></i>job</a></li>
+                    </li>
+                </ul>
+            </li>
 
+            <!-- Message Dropdown -->
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-th"></i><span>Message</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="treeview">
+                        <li><a href="{{ route('dashboard.message') }}"><i class="fa fa-circle-o"></i>Message</a></li>
+                        <li><a href="{{ route('dashboard.apply_job') }}"><i class="fa fa-circle-o"></i>Apply Job</a></li>
+                        <li><a href="{{ route('dashboard.emils') }}"><i class="fa fa-circle-o"></i>Emils</a></li>
+                    </li>
+                </ul>
+            </li>
         <!-- Users Menu Item -->
         @if (auth()->user()->hasPermission('users-read'))
             <li><a href="{{ route('dashboard.users.index') }}"><i class="fa fa-th"></i><span>@lang('site.users')</span></a></li>

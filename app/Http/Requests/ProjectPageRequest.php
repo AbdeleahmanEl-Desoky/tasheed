@@ -28,7 +28,7 @@ class ProjectPageRequest extends FormRequest
         ];
 
         if ($this->input('file_type') === 'image') {
-            $rules['file'] = 'nullable|image|mimes:jpg,jpeg,png|max:2048'; // max 1 MB
+            $rules['file'] = 'nullable|image|mimes:jpg,jpeg,png '; // max 1 MB
         } elseif ($this->input('file_type') === 'video') {
             $rules['file'] = 'nullable|mimes:mp4|max:52428800'; // max 50 MB
         }

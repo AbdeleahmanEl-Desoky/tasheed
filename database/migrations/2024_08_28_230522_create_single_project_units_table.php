@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('single_project_units', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('single_project_id');
-            $table->json('data');
+            $table->json('data')->nullable();
             $table->string('title')->nullable();
             $table->mediumText('description')->nullable();
             $table->foreign('single_project_id')->references('id')->on('single_projects')->onDelete('cascade');

@@ -71,9 +71,6 @@
                         <div class="form-group col-md-12">
                             <progress id="progress-bar" value="0" max="100" style="width: 100%;"></progress>
                         </div>
-                        <div class="form-group col-md-12">
-                            <progress id="progress-bar" value="0" max="100" style="width: 100%;"></progress>
-                        </div>
 
                         <div class="form-group">
                             <button type="submit" id="upload-button" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('site.add')</button>
@@ -92,6 +89,7 @@
 @endsection
 
 @push('scripts')
+
 <script>
     document.getElementById('upload-button').addEventListener('click', function (e) {
         e.preventDefault(); // Prevent the default button click behavior
@@ -99,12 +97,25 @@
         var form = document.getElementById('upload-form');
         var formData = new FormData(form);
         var fileInput = document.querySelector('input[name="file"]');
-        var maxFileSize = 20 * 1024 * 1024; // 10 MB in bytes
+        var maxFileSize = 10 * 1024 * 1024; // 10 MB in bytes
+        var allowedFileTypes = ['image/jpeg', 'image/png', 'application/pdf']; // Define allowed file types
 
-        // Check if a file is selected and if its size exceeds the maximum limit
-        if (fileInput.files[0] && fileInput.files[0].size > maxFileSize) {
-            alert('The file size exceeds the maximum limit of 10 MB.');
-            return; // Stop the function if the file size is too large
+        // Check if a file is selected
+        if (fileInput.files[0]) {
+            var fileType = fileInput.files[0].type;
+            var fileSize = fileInput.files[0].size;
+
+            // Check if the file type is allowed
+            if (!allowedFileTypes.includes(fileType)) {
+                alert('Invalid file type. Only JPG, PNG, and PDF files are allowed.');
+                return; // Stop the function if the file type is not allowed
+            }
+
+            // Check if the file size exceeds the maximum limit
+            if (fileSize > maxFileSize) {
+                alert('The file size exceeds the maximum limit of 10 MB.');
+                return; // Stop the function if the file size is too large
+            }
         }
 
         var xhr = new XMLHttpRequest();

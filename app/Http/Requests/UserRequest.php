@@ -25,7 +25,7 @@ class UserRequest extends FormRequest
             'name' => 'required',
             'email'=> 'required',
             'phone' =>'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp',
         ];
 
         if ($this->isMethod('post')) {

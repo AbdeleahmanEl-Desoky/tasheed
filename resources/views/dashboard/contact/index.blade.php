@@ -43,6 +43,11 @@
                             <label for="visit_us">Visit Us</label>
                             <textarea class="form-control" id="visit_us" name="visit_us" rows="3">{{ $contact->visit_us ?? '' }}</textarea>
                         </div>
+                        <div class="form-group col-md-12">
+                            <label for="visit_us">Visit Us</label>
+                            <textarea class="form-control" id="visit_us" name="visit_us" rows="3">{{ $contact->visit_us ?? '' }}</textarea>
+                        </div>
+
 
                         <div class="form-group col-md-12">
                             <label for="email_us">Email Us</label>
@@ -82,13 +87,7 @@
                             </div>
                         @endfor
 
-                        <!-- Map Selection -->
-                        <div class="form-group col-md-12">
-                            <label for="map">Select Location on Map</label>
-                            <div id="map" style="height: 400px;"></div>
-                            <input type="hidden" id="latitude" name="latitude" value="{{ $contact->latitude ?? '' }}">
-                            <input type="hidden" id="longitude" name="longitude" value="{{ $contact->longitude ?? '' }}">
-                        </div>
+
                         <div class="form-group col-md-12">
                             <progress id="progress-bar" value="0" max="100" style="width: 100%;"></progress>
                         </div>
@@ -111,36 +110,7 @@
 @endsection
 
 @push('scripts')
-<!-- Include Leaflet.js library -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
-
 <script>
-    // Get latitude and longitude from input fields
-    var initialLat = {{ $contact->latitude ?? '30.0444' }}; // Default latitude
-    var initialLng = {{ $contact->longitude ?? '31.2357' }}; // Default longitude
-
-    // Initialize the map
-    var map = L.map('map').setView([initialLat, initialLng], 6); // Use initial coordinates
-
-    // Add OpenStreetMap tile layer
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 18,
-        attribution: '© OpenStreetMap'
-    }).addTo(map);
-
-    // Add a marker with the initial coordinates
-    var marker = L.marker([initialLat, initialLng], {
-        draggable: true
-    }).addTo(map);
-
-    // Update input values when the marker is dragged
-    marker.on('dragend', function(e) {
-        var latLng = e.target.getLatLng();
-        document.getElementById('latitude').value = latLng.lat;
-        document.getElementById('longitude').value = latLng.lng;
-    });
-
     // Add and remove Call Us inputs dynamically
     $('#add-call-us').click(function() {
         $('#call-us-container').append(`
@@ -156,24 +126,42 @@
     $(document).on('click', '.remove-call-us', function() {
         $(this).closest('.input-group').remove();
     });
-</script>
 
-@endpush
-
-@push('scripts')
-<script>
+    // Handle file uploads and form submission
     document.getElementById('upload-button').addEventListener('click', function (e) {
-        e.preventDefault(); // Prevent the default button click behavior
+        e.preventDefault(); // Prevent the default form submission
 
         var form = document.getElementById('upload-form');
         var formData = new FormData(form);
-        var fileInput = document.querySelector('input[name="file"]');
-        var maxFileSize = 20 * 1024 * 1024; // 10 MB in bytes
+        var maxFileSize = 10 * 1024 * 1024; // 10 MB in bytes
+        var allowedFileTypes = ['image/jpeg', 'image/png', 'application/pdf']; // Define allowed file types
 
-        // Check if a file is selected and if its size exceeds the maximum limit
-        if (fileInput.files[0] && fileInput.files[0].size > maxFileSize) {
-            alert('The file size exceeds the maximum limit of 10 MB.');
-            return; // Stop the function if the file size is too large
+        // Validate each file input
+        var isValid = true;
+        document.querySelectorAll('input[type="file"]').forEach(function(fileInput) {
+            var file = fileInput.files[0];
+            if (file) {
+                var fileType = file.type;
+                var fileSize = file.size;
+
+                // Check if the file type is allowed
+                if (!allowedFileTypes.includes(fileType)) {
+                    alert('Invalid file type. Only JPG, PNG, and PDF files are allowed.');
+                    isValid = false;
+                    return;
+                }
+
+                // Check if the file size exceeds the maximum limit
+                if (fileSize > maxFileSize) {
+                    alert('The file size exceeds the maximum limit of 10 MB.');
+                    isValid = false;
+                    return;
+                }
+            }
+        });
+
+        if (!isValid) {
+            return; // Stop the function if any file input is invalid
         }
 
         var xhr = new XMLHttpRequest();

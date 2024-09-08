@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->mediumText('location');
-            $table->string('job_type');
-            $table->string('salary');
-            $table->mediumText('description');
-            $table->mediumText('responsibilities');
+            $table->string('title')->nullable();
+            $table->mediumText('location')->nullable();
+            $table->string('job_type')->nullable();
+            $table->string('salary')->nullable();
+            $table->mediumText('description')->nullable();
+            $table->mediumText('responsibilities')->nullable();
             $table->unsignedBigInteger('career_id');
 
             $table->foreign('career_id')->references('id')->on('careers')->onDelete('cascade');

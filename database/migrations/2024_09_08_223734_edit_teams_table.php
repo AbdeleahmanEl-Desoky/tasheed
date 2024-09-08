@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('contacts', function (Blueprint $table) {
+        Schema::table('teams', function (Blueprint $table) {
 
-            $table->decimal('longitude')->nullable();
-            $table->decimal('latitude')->nullable();
-
+            $table->mediumText('description')->nullable();
         });
     }
 
@@ -24,9 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('contacts', function (Blueprint $table) {
-            $table->dropColumn('longitude');
-            $table->dropColumn('latitude');
+        Schema::table('teams', function (Blueprint $table) {
+            $table->dropColumn('description');
         });
     }
 };

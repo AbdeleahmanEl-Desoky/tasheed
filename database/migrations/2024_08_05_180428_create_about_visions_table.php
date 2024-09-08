@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('about_visions', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title')->nullable();
             $table->mediumText('description')->nullable();
             $table->timestamps();
         });

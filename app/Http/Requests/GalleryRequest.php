@@ -27,12 +27,12 @@ class GalleryRequest extends FormRequest
 
         // Check if the request is a POST request (for storing a new gallery item)
         if ($this->isMethod('post')) {
-            $rules['file'] = 'required|image|mimes:jpg,jpeg,png|max:2048';
+            $rules['file'] = 'required|image|mimes:jpg,jpeg,png ';
         }
 
         // Check if the request is PUT or PATCH (for updating an existing gallery item)
         if ($this->isMethod('put') || $this->isMethod('patch')) {
-            $rules['file'] = 'nullable|image|mimes:jpg,jpeg,png|max:2048';
+            $rules['file'] = 'nullable|image|mimes:jpg,jpeg,png ';
         }
 
         return $rules;
