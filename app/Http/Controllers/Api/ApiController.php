@@ -182,12 +182,12 @@ class ApiController extends Controller
     {
         $applyJob = ApplyJob::create($request->except('file'));
 
-        if ($request->hasFile('file'))
-        {
+        if ($request->hasFile('caver')) {
             $applyJob->addMultipleMediaFromRequest(['file'])->each(function ($fileAdder) {
                 $fileAdder->toMediaCollection('applyJob');
             });
         }
+
 
         return response()->json([
             'applyJob'=> $applyJob,
