@@ -16,8 +16,19 @@ class ApplyJob extends Model implements HasMedia
     /**
      * Get the career that owns the job.
      */
-    public function career()
+    public function job()
     {
         return $this->belongsTo(Job::class);
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('images')
+            ->useDisk('public');
+    }
+
+    public function getPicturesAttribute()
+    {
+        return $this->getMedia();
     }
 }

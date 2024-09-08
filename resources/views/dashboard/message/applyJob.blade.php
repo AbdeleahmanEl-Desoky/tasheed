@@ -60,21 +60,19 @@
                             <td>{{ $message->email }}</td>
                             <td>{{ $message->{'birth-date'} }}</td>
                             <td>{{ $message->phone }}</td>
-                            <td>{{ $message->linked_in }}</td>
-                            <td>{{ $message->job->name }}</td>
+                            <td> <a href="{{ $message->linked_in }}" class="btn btn-success btn-sm" download>
+                                @lang('linked_in')
+                            </a> </td>
+                            <td>{{ $message->job->title }}</td>
                             <td>
-                                <button class="btn btn-info btn-sm show-message"
-                                        data-toggle="modal"
-                                        data-target="#messageModal"
-                                        data-name="{{ $message->full_name }}"
-                                        data-email="{{ $message->email }}"
-                                        data-phone="{{ $message->phone }}"
-                                        data-country="{{ $message->country }}"
-                                        data-company="{{ $message->company_name }}"
-                                        data-interested="{{ $message->interested_in }}"
-                                        data-message="{{ $message->message }}">
-                                    @lang('site.view')
-                                </button>
+
+
+                                <!-- New download button -->
+                                @if ($message->media->count() > 0)
+                                <a href="{{ $message->media->first()->original_url }}" class="btn btn-success btn-sm" download>
+                                    @lang('site.download')
+                                </a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

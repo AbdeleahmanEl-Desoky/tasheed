@@ -25,7 +25,7 @@ class MessageController extends Controller
 
     public function applyJob()
     {
-        $messages = ApplyJob::paginate(10);
+        $messages = ApplyJob::with(['job','media'])->paginate(10);
 
         return view('dashboard.message.applyJob', compact('messages'));
     }
