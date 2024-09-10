@@ -78,9 +78,12 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'dashbo
         Route::resource('feature_unit', FeatureUnitController::class);
 
         Route::group(['prefix' => 'single', 'as' => 'single.'], function () {
-            Route::resource('/', SingleProjectController::class);
+            Route::get('/', [SingleProjectController::class,'index'])->name('index');
+            Route::get('/create', [SingleProjectController::class,'create'])->name('create');
+            Route::post('/', [SingleProjectController::class,'store'])->name('store');
             Route::get('edit/{id}', [SingleProjectController::class,'edit'])->name('edit');
             Route::put('update/{id}', [SingleProjectController::class,'update'])->name('update');
+            Route::delete('{id}', [SingleProjectController::class,'destroy'])->name('destroy');
 
             Route::get('unit/{project_id}', [SingleProjectUnitController::class,'index'])->name('unit.index');
             Route::get('unit/create/{project_id}', [SingleProjectUnitController::class,'create'])->name('unit.create');
