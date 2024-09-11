@@ -96,6 +96,6 @@ class FeatureController extends Controller
 
         $feature->delete();
 
-        return redirect()->route('dashboard.project.feature.index');
+        return redirect()->route('dashboard.project.features.index');
     }
 }
