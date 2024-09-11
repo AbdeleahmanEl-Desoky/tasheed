@@ -62,6 +62,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'dashbo
         Route::resource('/', BlogController::class);
         Route::get('edit/{id}', [BlogController::class,'edit'])->name('edit');
         Route::put('update/{id}', [BlogController::class,'update'])->name('update');
+        Route::delete('{id}', [BlogController::class,'destroy'])->name('destroy');
         Route::get('caver', [BlogPageController::class,'index'])->name('caver');
         Route::post('caver/store', [BlogPageController::class,'store'])->name('store_caver');
     });
