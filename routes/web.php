@@ -42,7 +42,7 @@ Route::group(['middleware' => ['guest']], function () {
 Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
     Route::get('/', [HomeController::class, 'index'])->name('welcome');
 
-    Route::resource('home', HomePageController::class);
+    Route::resource('home', HomePageController::class)->except('show');
 
     Route::group(['prefix' => 'about', 'as' => 'about.'], function () {
         Route::get('/', [AboutController::class,'index'])->name('index');
@@ -54,8 +54,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'dashbo
         Route::get('/mission', [AboutController::class,'missionIndex'])->name('mission.index');
         Route::post('/mission', [AboutController::class,'missionStore'])->name('mission.store');
 
-        Route::resource('benefits', AboutBenefitController::class);
-        Route::resource('galleries', AboutGalleryController::class);
+        Route::resource('benefits', AboutBenefitController::class)->except('show');
+        Route::resource('galleries', AboutGalleryController::class)->except('show');
     });
 
     Route::group(['prefix' => 'blog', 'as' => 'blog.'], function () {
@@ -75,8 +75,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'dashbo
     Route::group(['prefix' => 'project', 'as' => 'project.'], function () {
         Route::get('/', [ProjectPageController::class,'index'])->name('index');
         Route::post('/', [ProjectPageController::class,'store'])->name('store');
-        Route::resource('features', FeatureController::class);
-        Route::resource('feature_unit', FeatureUnitController::class);
+        Route::resource('features', FeatureController::class)->except('show');
+        Route::resource('feature_unit', FeatureUnitController::class)->except('show');
 
         Route::group(['prefix' => 'single', 'as' => 'single.'], function () {
             Route::get('/', [SingleProjectController::class,'index'])->name('index');
@@ -101,7 +101,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'dashbo
     Route::group(['prefix' => 'meet_team', 'as' => 'meet_team.'], function () {
         Route::get('/', [MeetTeamPageController::class,'index'])->name('index');
         Route::post('/', [MeetTeamPageController::class,'store'])->name('store');
-        Route::resource('team', MeetTeamController::class);
+        Route::resource('team', MeetTeamController::class)->except('show');
 
     });
 
@@ -115,14 +115,14 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'dashbo
     Route::get('career/cover', [CareerPageController::class,'index'])->name('career.cover');
     Route::post('career/cover/store', [CareerPageController::class,'store'])->name('career.cover.store');
 
-    Route::resource('career', CareerController::class);
+    Route::resource('career', CareerController::class)->except('show');
 
 
 
 
-    Route::resource('job', JobController::class);
+    Route::resource('job', JobController::class)->except('show');
 
-    Route::resource('users', UserController::class);
+    Route::resource('users', UserController::class)->except('show');
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
