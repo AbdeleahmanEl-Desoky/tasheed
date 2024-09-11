@@ -33,12 +33,6 @@
                             <label>@lang('site.title')</label>
                             <input type="text" name="title" class="form-control" value="{{ old('title', $project->title) }}">
                         </div>
-
-                        <div class="form-group col-md-6">
-                            <label>@lang('site.description')</label>
-                            <input type="text" name="description" class="form-control" value="{{ old('description', $project->description) }}">
-                        </div>
-
                         <div class="form-group col-md-6">
                             <label>@lang('site.type')</label>
                             <select name="type" class="form-control">
@@ -48,21 +42,33 @@
                             </select>
                         </div>
 
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-12">
+                            <label>@lang('site.description')</label>
+                            <textarea type="text" name="description" class="form-control ckeditor">{{ $project->description }}</textarea>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <hr style="border: 1px solid #ccc;">
+                        </div>
+
+                        <div class="form-group col-md-4">
                             <label>@lang('site.location')</label>
                             <input type="text" name="location" class="form-control" value="{{ old('location', $project->location) }}">
                         </div>
 
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label>@lang('site.year')</label>
                             <input type="number" name="year" class="form-control" value="{{ old('year', $project->year) }}">
                         </div>
 
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label>@lang('site.data')</label>
                             <input type="text" name="data" class="form-control" value="{{ old('data', $project->data) }}">
                         </div>
 
+                        <div class="form-group col-md-12">
+                            <hr style="border: 1px solid #ccc;">
+                        </div>
                         <div class="form-group col-md-6">
                             <label>@lang('site.adderss')</label>
                             <input type="text" name="adderss" class="form-control" value="{{ old('adderss', $project->adderss) }}">
@@ -70,35 +76,39 @@
 
                         <div class="form-group col-md-6">
                             <label>@lang('site.map_description')</label>
-                            <input type="text" name="map_description" class="form-control" value="{{ old('map_description', $project->map_description) }}">
+                            <textarea type="text" name="map_description" class="form-control ckeditor">{{$project->map_description }}</textarea>
                         </div>
-
+                        <div class="form-group col-md-12">
+                            <hr style="border: 1px solid #ccc;">
+                        </div>
                         <!-- Social Media Fields -->
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label>@lang('site.facebook')</label>
                             <input type="text" name="facebook" class="form-control" value="{{ old('facebook', $project->facebook) }}">
                         </div>
 
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label>@lang('site.instagram')</label>
                             <input type="text" name="instagram" class="form-control" value="{{ old('instagram', $project->instagram) }}">
                         </div>
 
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label>@lang('site.twitter')</label>
                             <input type="text" name="twitter" class="form-control" value="{{ old('twitter', $project->twitter) }}">
                         </div>
 
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label>@lang('site.youtube')</label>
                             <input type="text" name="youtube" class="form-control" value="{{ old('youtube', $project->youtube) }}">
                         </div>
 
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label>@lang('site.telegram')</label>
                             <input type="text" name="telegram" class="form-control" value="{{ old('telegram', $project->telegram) }}">
                         </div>
-
+                        <div class="form-group col-md-12">
+                            <hr style="border: 1px solid #ccc;">
+                        </div>
                         <!-- Cover Image -->
                         <div class="form-group col-md-6">
                             <label>@lang('site.caver')</label>
