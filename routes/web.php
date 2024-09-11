@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\BlogPageController;
 use App\Http\Controllers\Admin\CareerController;
+use App\Http\Controllers\Admin\CareerPageController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\FeatureUnitController;
@@ -111,7 +112,13 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'dashbo
     Route::get('emils', [MessageController::class,'emils'])->name('emils');
 
 
+    Route::get('career/cover', [CareerPageController::class,'index'])->name('career.cover');
+    Route::post('career/cover/store', [CareerPageController::class,'store'])->name('career.cover.store');
+
     Route::resource('career', CareerController::class);
+
+
+
 
     Route::resource('job', JobController::class);
 

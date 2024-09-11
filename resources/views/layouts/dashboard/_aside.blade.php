@@ -88,6 +88,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li class="treeview">
+                        <li><a href="{{ route('dashboard.career.cover') }}"><i class="fa fa-circle-o"></i>Career Cover</a></li>
                         <li><a href="{{ route('dashboard.career.index') }}"><i class="fa fa-circle-o"></i>career</a></li>
                         <li><a href="{{ route('dashboard.job.index') }}"><i class="fa fa-circle-o"></i>job</a></li>
                     </li>

@@ -12,6 +12,7 @@ use App\Models\Benefit;
 use App\Models\Blog;
 use App\Models\BlogPage;
 use App\Models\Career;
+use App\Models\CareerPage;
 use App\Models\Contact;
 use App\Models\Home;
 use App\Models\Job;
@@ -161,11 +162,12 @@ class ApiController extends Controller
 
     public function careers()
     {
+        $careerPage = CareerPage::first();
         $careers = Career::with('jobs')->get();
 
-
         return response()->json([
-            'careers'=>$careers,
+            'career_cover' => $careerPage,
+            'careers' => $careers,
         ]);
     }
 
