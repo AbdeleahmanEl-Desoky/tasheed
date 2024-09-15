@@ -65,7 +65,7 @@
                             <input type="number" name="year" class="form-control" value="{{ old('year') }}">
                         </div>
                         <div class="form-group col-md-4">
-                            <label>@lang('building area')</label>
+                            <label>@lang('site.data')</label>
                             <input type="text" name="data" class="form-control" value="{{ old('data') }}">
                         </div>
 
@@ -138,8 +138,7 @@
                         </div>
                         <button type="button" class="btn btn-success mt-2" id="add-gallery-button"><i class="fa fa-plus"></i> @lang('site.add')</button>
                     </div>
-
-                    {{-- <div class="form-group col-md-12">
+                    <div class="form-group col-md-12">
                         <progress id="progress-bar" value="0" max="100" style="width: 100%;"></progress>
                     </div>
 
@@ -149,13 +148,17 @@
                         <div id="map" style="height: 400px;"></div>
                         <input type="hidden" id="latitude" name="latitude" value="{{ $contact->latitude ?? '' }}">
                         <input type="hidden" id="longitude" name="longitude" value="{{ $contact->longitude ?? '' }}">
-                    </div> --}}
+                    </div>
 
                     <div class="form-group">
                         <button type="submit" id="upload-button" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('site.add')</button>
                     </div>
                 </form><!-- end of form -->
 
+                <!-- Progress Bar -->
+                <div class="form-group col-md-12">
+                    <progress id="progress-bar" value="0" max="100" style="width: 100%;"></progress>
+                </div>
             </div><!-- end of box body -->
         </div><!-- end of box -->
     </section><!-- end of content -->
@@ -163,53 +166,71 @@
 
 @endsection
 
-
 @push('scripts')
+<!-- Consolidated Scripts -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+
 <script>
-    document.getElementById('upload-button').addEventListener('click', function (e) {
-        e.preventDefault(); // Prevent the default button click behavior
-
-        var form = document.getElementById('upload-form');
-        var formData = new FormData(form);
-        var fileInput = document.querySelector('input[name="file"]');
-        var maxFileSize = 20 * 1024 * 1024; // 10 MB in bytes
-
-        // Check if a file is selected and if its size exceeds the maximum limit
-        if (fileInput.files[0] && fileInput.files[0].size > maxFileSize) {
-            alert('The file size exceeds the maximum limit of 10 MB.');
-            return; // Stop the function if the file size is too large
-        }
-
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', form.action, true);
-        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-
-        // Add CSRF token to the AJAX request
-        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
-
-        xhr.upload.addEventListener('progress', function (e) {
-            if (e.lengthComputable) {
-                var percentComplete = (e.loaded / e.total) * 100;
-                document.getElementById('progress-bar').value = percentComplete;
-            }
+    document.addEventListener('DOMContentLoaded', function () {
+        // Add gallery input fields dynamically
+        document.getElementById('add-gallery-button').addEventListener('click', function () {
+            const newInput = document.createElement('input');
+            newInput.type = 'file';
+            newInput.name = 'gallery[]';
+            newInput.className = 'form-control gallery-input mt-2';
+            document.getElementById('gallery-inputs').appendChild(newInput);
         });
 
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                alert('File uploaded successfully');
-                window.location.href = "{{ route('dashboard.project.feature_unit.index') }}"; // Redirect on success
-            } else {
-                console.log(xhr.responseText); // Display server error message
-                alert('An error occurred: ' + xhr.responseText); // Show the error message
-            }
-        };
+        // Initialize Leaflet map
+        var initialLat = {{ $contact->latitude ?? '30.0444' }};
+        var initialLng = {{ $contact->longitude ?? '31.2357' }};
+        var map = L.map('map').setView([initialLat, initialLng], 6);
 
-        xhr.onerror = function () {
-            alert('An error occurred while uploading the file.');
-        };
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
 
-        xhr.send(formData);
+        var marker = L.marker([initialLat, initialLng], { draggable: true }).addTo(map);
+
+        marker.on('dragend', function(e) {
+            var latLng = e.target.getLatLng();
+            document.getElementById('latitude').value = latLng.lat.toFixed(8);
+            document.getElementById('longitude').value = latLng.lng.toFixed(8);
+        });
+
+        // Handle form submission with AJAX to update progress bar
+        const form = document.getElementById('upload-form');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+            const formData = new FormData(form);
+            const xhr = new XMLHttpRequest();
+
+            xhr.open('POST', form.action, true);
+            xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
+
+            xhr.upload.addEventListener('progress', function(e) {
+                if (e.lengthComputable) {
+                    const percentComplete = (e.loaded / e.total) * 100;
+                    document.getElementById('progress-bar').value = percentComplete;
+                }
+            });
+
+            xhr.addEventListener('load', function() {
+                if (xhr.status === 200) {
+                    alert('Upload successful!');
+                    window.location.href = "{{ route('dashboard.project.single.index') }}"; // Redirect on success
+
+                    // document.getElementById('progress-bar').value = 0; // Reset progress bar
+                    form.reset(); // Reset form
+                } else {
+                    alert('Upload failed. Please try again.');
+                }
+            });
+
+            xhr.send(formData);
+        });
     });
 </script>
 @endpush

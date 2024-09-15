@@ -94,6 +94,10 @@
     document.getElementById('upload-button').addEventListener('click', function (e) {
         e.preventDefault(); // Prevent the default button click behavior
 
+        for (instance in CKEDITOR.instances) {
+            CKEDITOR.instances[instance].updateElement();
+        }
+        
         var form = document.getElementById('upload-form');
         var formData = new FormData(form);
         var fileInput = document.querySelector('input[name="file"]');

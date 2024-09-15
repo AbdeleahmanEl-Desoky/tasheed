@@ -43,11 +43,11 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label>@lang('text review')</label>
-                            <input type="text" name="sub_title" class="form-control" value="{{ old('sub_title') }}">
+                            <input type="text" name="sub_title" class="form-control" value="{{ $project?->sub_title }}">
                         </div>
                         <div class="form-group col-md-6">
                             <label>@lang('CRM Integration')</label>
-                            <input type="text" name="crm_api" class="form-control" value="{{ $project->description }}">
+                            <input type="text" name="crm_api" class="form-control" value="{{ $project?->crm_api }}">
                         </div>
                         <div class="form-group col-md-12">
                             <label>@lang('site.description')</label>

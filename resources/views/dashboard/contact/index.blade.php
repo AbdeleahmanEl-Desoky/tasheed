@@ -130,7 +130,9 @@
     // Handle file uploads and form submission
     document.getElementById('upload-button').addEventListener('click', function (e) {
         e.preventDefault(); // Prevent the default form submission
-
+        for (instance in CKEDITOR.instances) {
+            CKEDITOR.instances[instance].updateElement();
+        }
         var form = document.getElementById('upload-form');
         var formData = new FormData(form);
         var maxFileSize = 10 * 1024 * 1024; // 10 MB in bytes
