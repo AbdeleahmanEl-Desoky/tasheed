@@ -96,7 +96,7 @@ class SingleProjectController extends Controller
 
         // Handle cover image upload
         if ($request->hasFile('caver')) {
-            $singleProject->clearMediaCollection('singleProjectCaver');
+            $singleProject->clearMediaCollection(collectionName: 'singleProjectCaver');
             $singleProject->addMultipleMediaFromRequest(['caver'])->each(function ($fileAdder) {
                 $fileAdder->toMediaCollection('singleProjectCaver');
             });

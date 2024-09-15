@@ -51,6 +51,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>@lang('site.title')</th>
+                                <th>@lang('type')</th>
                                 <th>@lang('site.year')</th>
                                 <th>@lang('site.data')</th>
                                 <th>@lang('site.location')</th>
