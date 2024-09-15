@@ -57,7 +57,6 @@
                             <input type="number" name="projects" class="form-control" value="{{ $about?->sold_unit }}">
                         </div>
 
-
                         <div class="form-group col-md-4">
                             <label>@lang('site.image')</label>
                             <input type="file" name="file" class="form-control image">

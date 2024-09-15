@@ -27,6 +27,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class ApiController extends Controller
 {
@@ -153,6 +154,33 @@ class ApiController extends Controller
     public function message(Request $request)
     {
         $message = Message::create($request->all());
+
+        $contact = Contact::whereNot('crm_general',null)->first();
+
+        $data = [
+            'name'          => $message->full_name,
+            'email'         => $message->email,
+            'mobile'         => $message->phone,
+        ];
+
+        if($request->has('from_project') ){
+            $singleProject = SingleProject::where('id', $request->from_project)->whereNot('crm_api', null)->first();
+            if($singleProject){
+                $response = Http::post($singleProject->crm_api, $data);
+            }elseif($contact){
+                $response = Http::post($contact->crm_general, $data);
+            }
+        }elseif($contact){
+            $response = Http::post($contact->crm_general, $data);
+        }
+
+        // Optionally, check if the request was successful
+        if ($response->successful()) {
+            return response()->json([
+                'message' => $message,
+                'api_response' => $response->json(),
+            ]);
+        }
 
 
         return response()->json([

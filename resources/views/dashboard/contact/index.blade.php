@@ -40,6 +40,11 @@
                         </div>
 
                         <div class="form-group col-md-12">
+                            <label>@lang('CRM General')</label>
+                            <input type="number" name="crm_general" class="form-control" value="{{ $contact?->crm_general }}">
+                        </div>
+
+                        <div class="form-group col-md-12">
                             <label for="visit_us">Visit Us</label>
                             <textarea class="form-control" id="visit_us" name="visit_us" rows="3">{{ $contact->visit_us ?? '' }}</textarea>
                         </div>
