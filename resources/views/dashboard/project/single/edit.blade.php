@@ -34,7 +34,7 @@
                             <input type="text" name="title" class="form-control" value="{{ old('title', $project->title) }}">
                         </div>
                         <div class="form-group col-md-6">
-                            <label>@lang('sub title')</label>
+                            <label>@lang('text review')</label>
                             <input type="text" name="sub_title" class="form-control" value="{{ old('sub_title') }}">
                         </div>
                         <div class="form-group col-md-6">
@@ -66,7 +66,7 @@
                         </div>
 
                         <div class="form-group col-md-4">
-                            <label>@lang('site.data')</label>
+                            <label>@lang('building area')</label>
                             <input type="text" name="data" class="form-control" value="{{ old('data', $project->data) }}">
                         </div>
 
