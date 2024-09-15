@@ -34,10 +34,6 @@
                             <input type="text" name="title" class="form-control" value="{{ old('title', $project->title) }}">
                         </div>
                         <div class="form-group col-md-6">
-                            <label>@lang('text review')</label>
-                            <input type="text" name="sub_title" class="form-control" value="{{ old('sub_title') }}">
-                        </div>
-                        <div class="form-group col-md-6">
                             <label>@lang('site.type')</label>
                             <select name="type" class="form-control">
                                 <option value="normal" {{ old('type', $project->type) == 'normal' ? 'selected' : '' }}>Normal</option>
@@ -45,7 +41,10 @@
                                 <option value="featured" {{ old('type', $project->type) == 'featured' ? 'selected' : '' }}>Featured</option>
                             </select>
                         </div>
-
+                        <div class="form-group col-md-6">
+                            <label>@lang('text review')</label>
+                            <input type="text" name="sub_title" class="form-control" value="{{ old('sub_title') }}">
+                        </div>
                         <div class="form-group col-md-12">
                             <label>@lang('site.description')</label>
                             <textarea type="text" name="description" class="form-control ckeditor">{{ $project->description }}</textarea>

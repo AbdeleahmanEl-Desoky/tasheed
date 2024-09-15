@@ -33,16 +33,16 @@
                             <input type="text" name="title" class="form-control" value="{{ old('title') }}">
                         </div>
                         <div class="form-group col-md-6">
-                            <label>@lang('text review')</label>
-                            <input type="text" name="sub_title" class="form-control" value="{{ old('sub_title') }}">
-                        </div>
-                        <div class="form-group col-md-6">
                             <label>@lang('site.type')</label>
                             <select name="type" class="form-control">
                                 <option value="normal">Normal</option>
                                 <option value="ongoing">Ongoing</option>
                                 <option value="featured">Featured</option>
                             </select>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label>@lang('text review')</label>
+                            <input type="text" name="sub_title" class="form-control" value="{{ old('sub_title') }}">
                         </div>
                         <div class="form-group col-md-12">
                             <label>@lang('site.description')</label>
@@ -215,11 +215,11 @@
 
             xhr.addEventListener('load', function() {
                 if (xhr.status === 200) {
-                    alert('Upload successful!');
-                    window.location.href = "{{ route('dashboard.project.single.index') }}"; // Redirect on success
+                  //  alert('Upload successful!');
+                   window.location.href = "{{ route('dashboard.project.single.index') }}"; // Redirect on success
 
                     // document.getElementById('progress-bar').value = 0; // Reset progress bar
-                    form.reset(); // Reset form
+                //    form.reset(); // Reset form
                 } else {
                     alert('Upload failed. Please try again.');
                 }

@@ -35,10 +35,14 @@ class SingleProjectController extends Controller
      */
     public function store(Request $request)
     {
+        //return $request->all();
       //   return $request->all();
         // Create the single project
         $singleProject = SingleProject::create($request->except('caver', 'feature_id','gallery'));
-
+        $singleProject->update([
+            'description' => $request->description,
+            'map_description' => $request->map_description
+        ]);
         // Handle file upload
         if ($request->hasFile('caver')) {
             $singleProject->addMultipleMediaFromRequest(['caver'])->each(function ($fileAdder) {
