@@ -44,6 +44,10 @@
                             <label>@lang('text review')</label>
                             <input type="text" name="sub_title" class="form-control" value="{{ old('sub_title') }}">
                         </div>
+                        <div class="form-group col-md-6">
+                            <label>@lang('CRM Integration')</label>
+                            <input type="text" name="crm_api" class="form-control" value="{{ old('crm_api') }}">
+                        </div>
                         <div class="form-group col-md-12">
                             <label>@lang('site.description')</label>
                             <textarea type="text" name="description" class="form-control ckeditor" ></textarea>
@@ -134,7 +138,8 @@
                         </div>
                         <button type="button" class="btn btn-success mt-2" id="add-gallery-button"><i class="fa fa-plus"></i> @lang('site.add')</button>
                     </div>
-                    <div class="form-group col-md-12">
+
+                    {{-- <div class="form-group col-md-12">
                         <progress id="progress-bar" value="0" max="100" style="width: 100%;"></progress>
                     </div>
 
@@ -144,17 +149,13 @@
                         <div id="map" style="height: 400px;"></div>
                         <input type="hidden" id="latitude" name="latitude" value="{{ $contact->latitude ?? '' }}">
                         <input type="hidden" id="longitude" name="longitude" value="{{ $contact->longitude ?? '' }}">
-                    </div>
+                    </div> --}}
 
                     <div class="form-group">
                         <button type="submit" id="upload-button" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('site.add')</button>
                     </div>
                 </form><!-- end of form -->
 
-                <!-- Progress Bar -->
-                <div class="form-group col-md-12">
-                    <progress id="progress-bar" value="0" max="100" style="width: 100%;"></progress>
-                </div>
             </div><!-- end of box body -->
         </div><!-- end of box -->
     </section><!-- end of content -->
@@ -164,8 +165,8 @@
 
 @push('scripts')
 <!-- Consolidated Scripts -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+{{-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script> --}}
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -216,7 +217,7 @@
             xhr.addEventListener('load', function() {
                 if (xhr.status === 200) {
                   //  alert('Upload successful!');
-                   window.location.href = "{{ route('dashboard.project.single.index') }}"; // Redirect on success
+                //    window.location.href = "{{ route('dashboard.project.single.index') }}"; // Redirect on success
 
                     // document.getElementById('progress-bar').value = 0; // Reset progress bar
                 //    form.reset(); // Reset form

@@ -45,6 +45,10 @@
                             <label>@lang('text review')</label>
                             <input type="text" name="sub_title" class="form-control" value="{{ old('sub_title') }}">
                         </div>
+                        <div class="form-group col-md-6">
+                            <label>@lang('CRM Integration')</label>
+                            <input type="text" name="crm_api" class="form-control" value="{{ $project->description }}">
+                        </div>
                         <div class="form-group col-md-12">
                             <label>@lang('site.description')</label>
                             <textarea type="text" name="description" class="form-control ckeditor">{{ $project->description }}</textarea>
@@ -197,9 +201,9 @@
             document.getElementById('gallery-inputs').appendChild(newInput);
         });
 
-        // Initialize Leaflet map
-        var initialLat = {{ $contact->latitude ?? '30.0444' }};
-        var initialLng = {{ $contact->longitude ?? '31.2357' }};
+
+        var initialLat = {{ $project->latitude ?? '30.0444' }};
+        var initialLng = {{ $project->longitude ?? '31.2357' }};
         var map = L.map('map').setView([initialLat, initialLng], 6);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -234,8 +238,8 @@
 
             xhr.addEventListener('load', function() {
                 if (xhr.status === 200) {
-                    alert('Upload successful!');
-                    window.location.href = "{{ route('dashboard.project.single.index') }}"; // Redirect on success
+                    // alert('Upload successful!');
+                    // window.location.href = "{{ route('dashboard.project.single.index') }}"; // Redirect on success
 
                     // document.getElementById('progress-bar').value = 0; // Reset progress bar
                     form.reset(); // Reset form
