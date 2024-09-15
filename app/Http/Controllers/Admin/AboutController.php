@@ -7,6 +7,7 @@ use App\Http\Requests\AboutRequest;
 use App\Http\Requests\AboutVisionRequest;
 use App\Http\Requests\MissionRequest;
 use App\Models\About;
+use App\Models\AboutGallery;
 use App\Models\AboutMission;
 use App\Models\AboutVision;
 use Illuminate\Http\Request;
@@ -19,8 +20,8 @@ class AboutController extends Controller
     public function index()
     {
         $about = About::first();
-
-        return view('dashboard.about.index',compact('about'));
+        $aboutGallery = AboutGallery::first();
+        return view('dashboard.about.index',compact('about','aboutGallery'));
     }
 
     /**
@@ -30,7 +31,7 @@ class AboutController extends Controller
     {
         $about = About::updateOrCreate(
             ['id' => $request->id],
-            $request->except('file')
+            $request->except(['file','home_about'])
         );
 
         if ($request->hasFile('file')) {
@@ -40,6 +41,17 @@ class AboutController extends Controller
             // Then, add the new files
             $about->addMultipleMediaFromRequest(['file'])->each(function ($fileAdder) {
                 $fileAdder->toMediaCollection('about_caver');
+            });
+        }
+
+        $aboutGallery = AboutGallery::first();
+
+        if ($request->hasFile('home_about')) {
+
+            $aboutGallery->clearMediaCollection('gallery');
+
+            $aboutGallery->addMultipleMediaFromRequest(['home_about'])->each(function ($fileAdder) {
+                $fileAdder->toMediaCollection('gallery');
             });
         }
 

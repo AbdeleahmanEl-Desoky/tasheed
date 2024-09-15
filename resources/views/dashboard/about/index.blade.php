@@ -39,9 +39,22 @@
 
                         <div class="form-group col-md-12">
                             <label for="ex1"> Description</label>
-                            <textarea class="form-control ckeditor" id="ex1"
-                                      name="description" rows="3">{{$about?->description}}</textarea>
+                            <textarea class="form-control ckeditor" id="ex1" name="description" rows="3">{{$about?->description}}</textarea>
+                        </div>
 
+                        <div class="form-group col-md-4">
+                            <label>@lang('projects')</label>
+                            <input type="number" name="projects" class="form-control" value="{{ $about?->projects }}">
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label>@lang('years experience')</label>
+                            <input type="number" name="years_experience" class="form-control" value="{{ $about?->years_experience }}">
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label>@lang('sold unit')</label>
+                            <input type="number" name="projects" class="form-control" value="{{ $about?->sold_unit }}">
                         </div>
 
 
@@ -71,6 +84,16 @@
                                 <img src="{{  $about?->media[0]->original_url  }}" style="width: 100px" class="img-thumbnail image-preview" alt="">
                             @endif
                         </div>
+
+                        <div class="form-group col-md-4">
+                            <label>@lang('Image Home')</label>
+                            <input type="file" name="home_about" class="form-control">
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <img src="{{  $aboutGallery?->media[0]->original_url  }}" style="width: 100px" alt="">
+                        </div>
+
                         <div class="form-group col-md-12">
                             <progress id="progress-bar" value="0" max="100" style="width: 100%;"></progress>
                         </div>
@@ -99,7 +122,7 @@
         for (instance in CKEDITOR.instances) {
             CKEDITOR.instances[instance].updateElement();
         }
-        
+
         var form = document.getElementById('upload-form');
         var formData = new FormData(form);
         var fileInput = document.querySelector('input[name="file"]');
