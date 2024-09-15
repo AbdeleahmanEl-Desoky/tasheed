@@ -92,6 +92,10 @@
     document.getElementById('upload-button').addEventListener('click', function (e) {
         e.preventDefault(); // Prevent the default button click behavior
 
+        for (instance in CKEDITOR.instances) {
+            CKEDITOR.instances[instance].updateElement();
+        }
+
         var form = document.getElementById('upload-form');
         var formData = new FormData(form);
         var fileInput = document.querySelector('input[name="file"]');
@@ -120,8 +124,8 @@
 
         xhr.onload = function () {
             if (xhr.status === 200) {
-                alert('File uploaded successfully');
-                window.location.href = "{{ route('dashboard.home.index') }}"; // Redirect on success
+            //    alert('File uploaded successfully');
+               window.location.href = "{{ route('dashboard.home.index') }}"; // Redirect on success
             } else {
                 console.log(xhr.responseText); // Display server error message
                 alert('An error occurred: ' + xhr.responseText); // Show the error message

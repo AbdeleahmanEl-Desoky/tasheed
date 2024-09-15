@@ -53,7 +53,7 @@
             </div>
 
             <div class="form-group has-feedback">
-                <input type="password" name="password" class="form-control" value="Newlife1611" placeholder="@lang('site.password')">
+                <input type="password" name="password" class="form-control"  placeholder="@lang('site.password')">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
 
