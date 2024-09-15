@@ -150,8 +150,10 @@
                         <input type="hidden" id="longitude" name="longitude" value="{{ $contact->longitude ?? '' }}">
                     </div>
 
-                    <div class="form-group">
-                        <button type="submit" id="upload-button" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('site.add')</button>
+                    <div class="form-group col-md-12">
+                        <button type="submit" id="upload-button" class="btn btn-primary">
+                            <i class="fa fa-plus"></i> @lang('Save')
+                        </button>
                     </div>
                 </form><!-- end of form -->
 
@@ -172,65 +174,76 @@
 <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Add gallery input fields dynamically
-        document.getElementById('add-gallery-button').addEventListener('click', function () {
-            const newInput = document.createElement('input');
-            newInput.type = 'file';
-            newInput.name = 'gallery[]';
-            newInput.className = 'form-control gallery-input mt-2';
-            document.getElementById('gallery-inputs').appendChild(newInput);
-        });
-
-        // Initialize Leaflet map
-        var initialLat = {{ $contact->latitude ?? '30.0444' }};
-        var initialLng = {{ $contact->longitude ?? '31.2357' }};
-        var map = L.map('map').setView([initialLat, initialLng], 6);
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 18,
-            attribution: '© OpenStreetMap'
-        }).addTo(map);
-
-        var marker = L.marker([initialLat, initialLng], { draggable: true }).addTo(map);
-
-        marker.on('dragend', function(e) {
-            var latLng = e.target.getLatLng();
-            document.getElementById('latitude').value = latLng.lat.toFixed(8);
-            document.getElementById('longitude').value = latLng.lng.toFixed(8);
-        });
-
-        // Handle form submission with AJAX to update progress bar
-        const form = document.getElementById('upload-form');
-        form.addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent default form submission
-            const formData = new FormData(form);
-            const xhr = new XMLHttpRequest();
-
-            xhr.open('POST', form.action, true);
-            xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
-
-            xhr.upload.addEventListener('progress', function(e) {
-                if (e.lengthComputable) {
-                    const percentComplete = (e.loaded / e.total) * 100;
-                    document.getElementById('progress-bar').value = percentComplete;
-                }
-            });
-
-            xhr.addEventListener('load', function() {
-                if (xhr.status === 200) {
-                    alert('Upload successful!');
-                    window.location.href = "{{ route('dashboard.project.single.index') }}"; // Redirect on success
-
-                    // document.getElementById('progress-bar').value = 0; // Reset progress bar
-                    form.reset(); // Reset form
-                } else {
-                    alert('Upload failed. Please try again.');
-                }
-            });
-
-            xhr.send(formData);
-        });
+  document.addEventListener('DOMContentLoaded', function () {
+    // Add gallery input fields dynamically
+    document.getElementById('add-gallery-button').addEventListener('click', function () {
+        const newInput = document.createElement('input');
+        newInput.type = 'file';
+        newInput.name = 'gallery[]';
+        newInput.className = 'form-control gallery-input mt-2';
+        document.getElementById('gallery-inputs').appendChild(newInput);
     });
+
+    // Initialize Leaflet map
+    var initialLat = {{ $contact->latitude ?? '30.0444' }};
+    var initialLng = {{ $contact->longitude ?? '31.2357' }};
+    var map = L.map('map').setView([initialLat, initialLng], 6);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    var marker = L.marker([initialLat, initialLng], { draggable: true }).addTo(map);
+
+    marker.on('dragend', function(e) {
+        var latLng = e.target.getLatLng();
+        document.getElementById('latitude').value = latLng.lat.toFixed(8);
+        document.getElementById('longitude').value = latLng.lng.toFixed(8);
+    });
+
+    // Handle form submission with AJAX to update progress bar
+    const form = document.getElementById('upload-form');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Ensure CKEditor updates the textareas before submission
+        for (instance in CKEDITOR.instances) {
+            CKEDITOR.instances[instance].updateElement();
+        }
+
+        const formData = new FormData(form);
+        const xhr = new XMLHttpRequest();
+
+        xhr.open('POST', form.action, true);
+        xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
+
+        // Update progress bar during upload
+        xhr.upload.addEventListener('progress', function(e) {
+            if (e.lengthComputable) {
+                const percentComplete = (e.loaded / e.total) * 100;
+                document.getElementById('progress-bar').value = percentComplete;
+            }
+        });
+
+        // Handle success or error after form submission
+        xhr.addEventListener('load', function() {
+            if (xhr.status === 200) {
+                alert('Upload successful!');
+                window.location.href = "{{ route('dashboard.project.single.index') }}"; // Redirect on success
+            } else {
+                alert('Upload failed. Please try again.');
+            }
+        });
+
+        // Handle any error during the upload
+        xhr.addEventListener('error', function() {
+            alert('An error occurred during the upload.');
+        });
+
+        xhr.send(formData);
+    });
+});
+
 </script>
 @endpush

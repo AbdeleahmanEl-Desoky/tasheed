@@ -223,6 +223,11 @@
         const form = document.getElementById('upload-form');
         form.addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent default form submission
+
+        // Ensure CKEditor updates the textareas before submission
+        for (instance in CKEDITOR.instances) {
+            CKEDITOR.instances[instance].updateElement();
+        }
             const formData = new FormData(form);
             const xhr = new XMLHttpRequest();
 
@@ -239,7 +244,7 @@
             xhr.addEventListener('load', function() {
                 if (xhr.status === 200) {
                     // alert('Upload successful!');
-                    // window.location.href = "{{ route('dashboard.project.single.index') }}"; // Redirect on success
+                    window.location.href = "{{ route('dashboard.project.single.index') }}"; // Redirect on success
 
                     // document.getElementById('progress-bar').value = 0; // Reset progress bar
                     form.reset(); // Reset form
