@@ -24,7 +24,7 @@ class MissionRequest extends FormRequest
         $rules = [
             'title' => 'required',
             'description' =>'required',
-            'file' => 'nullable|image|mimes:jpg,jpeg,png' // max 1 MB
+            'file' => 'nullable' // max 1 MB
         ];
 
         return $rules;
