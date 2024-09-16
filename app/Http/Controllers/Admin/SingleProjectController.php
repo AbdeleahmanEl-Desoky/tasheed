@@ -134,4 +134,23 @@ class SingleProjectController extends Controller
 
         return redirect()->route('dashboard.project.single.index');
     }
+    public function indexImage($id)
+    {
+        $project = SingleProject::where('id',$id)->first();
+
+        return view('dashboard.project.single.gallery', compact('project'));
+    }
+
+    public function deleteImage($id)
+    {
+        // Find the media item by ID and delete it
+        $image = \Spatie\MediaLibrary\MediaCollections\Models\Media::findOrFail($id);
+
+        // Ensure the image belongs to a project before deleting
+        if ($image->model_type === SingleProject::class) {
+            $image->delete();
+        }
+
+        return back()->with('success', 'Image deleted successfully.');
+    }
 }

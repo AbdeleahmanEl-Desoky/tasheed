@@ -97,6 +97,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'dashbo
             Route::get('edit/{id}', [SingleProjectController::class,'edit'])->name('edit');
             Route::put('update/{id}', [SingleProjectController::class,'update'])->name('update');
             Route::delete('{id}', [SingleProjectController::class,'destroy'])->name('destroy');
+            Route::delete('delete-image/{id}', [SingleProjectController::class, 'deleteImage'])->name('deleteImage');
+            Route::get('get-image/{id}', [SingleProjectController::class, 'indexImage'])->name('indexImage');
 
             Route::get('unit/{project_id}', [SingleProjectUnitController::class,'index'])->name('unit.index');
             Route::get('unit/create/{project_id}', [SingleProjectUnitController::class,'create'])->name('unit.create');
@@ -105,6 +107,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'dashbo
             Route::put('unit/update/{id}', [SingleProjectUnitController::class,'update'])->name('unit.update');
 
             Route::post('unit', [SingleProjectUnitController::class,'store'])->name('unit.store');
+
         });
     });
 

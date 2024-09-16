@@ -20,7 +20,7 @@
 
                 <div class="box-header with-border">
 
-                    <h3 class="box-title" style="margin-bottom: 15px">@lang('site.projects') <small>{{ $singleProjects->total() }}</small></h3>
+                    <h3 class="box-title" style="margin-bottom: 15px">{{ $project->title }}</h3>
 
                     <form action="{{ route('dashboard.project.single.index') }}" method="get">
 
@@ -42,56 +42,31 @@
                 </div><!-- end of box header -->
 
                 <div class="box-body">
-
-                    @if ($singleProjects->count() > 0)
+                  <h2> {{ $project->title}}</h2>
+                    @if ($project->count() > 0)
 
                         <table class="table table-hover">
 
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>@lang('site.title')</th>
-                                <th>@lang('type')</th>
-                                <th>@lang('site.year')</th>
-                                <th>@lang('site.data')</th>
-                                <th>@lang('site.location')</th>
-                                <th>@lang('site.adderss')</th>
                                 <th>@lang('site.image')</th>
                                 <th>@lang('site.action')</th>
                             </tr>
                             </thead>
 
                             <tbody>
-                            @foreach ($singleProjects as $index=>$project)
+                            @foreach ($project->media as $index=>$project)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
-                                    <td>{{ $project->title }}</td>
-                                    <td>{{ $project->type }}</td>
-                                    <td>{{ $project->year }}</td>
-                                    <td>{{ $project->data }}</td>
-                                    <td>{{ $project->location }}</td>
-                                    <td>{{ $project->adderss }}</td>
                                     <td>
-                                        <img src="{{ !empty($project->media) && isset($project->media[0]) ? $project->media[0]->original_url : asset('uploads/user_images/default.png') }}" style="width: 75px;" class="img-thumbnail" alt="">
+                                        <img src="{{ $project->original_url  }}" style="width: 75px;" class="img-thumbnail" alt="">
                                     </td>
 
-                                    <td>
-                                        @if (auth()->user()->hasPermission('users-update'))
-                                            <a href="{{ route('dashboard.project.single.unit.index', ['project_id' => $project->id]) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.units')</a>
-                                        @else
-                                            <a href="#" class="btn btn-info btn-sm disabled"></i> @lang('site.units')</a>
-                                        @endif
-                                        <a href="{{ route('dashboard.project.single.indexImage',  $project->id) }}" class="btn btn-info btn-sm"> @lang('gallary')</a>
 
-                                    </td>
                                     <td>
-                                    @if (auth()->user()->hasPermission('users-update'))
-                                        <a href="{{ route('dashboard.project.single.edit', $project->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
-                                    @else
-                                        <a href="#" class="btn btn-info btn-sm disabled"><i class="fa fa-edit"></i> @lang('site.edit')</a>
-                                    @endif
                                     @if (auth()->user()->hasPermission('users-delete'))
-                                        <form action="{{ route('dashboard.project.single.destroy', $project->id) }}" method="post" style="display: inline-block">
+                                        <form action="{{ route('dashboard.project.single.deleteImage', $project->id) }}" method="post" style="display: inline-block">
                                             {{ csrf_field() }}
                                             {{ method_field('delete') }}
                                             <button type="submit" class="btn btn-danger delete btn-sm"><i class="fa fa-trash"></i> @lang('site.delete')</button>
@@ -107,7 +82,7 @@
 
                         </table><!-- end of table -->
 
-                        {{ $singleProjects->appends(request()->query())->links() }}
+
 
                     @else
 
