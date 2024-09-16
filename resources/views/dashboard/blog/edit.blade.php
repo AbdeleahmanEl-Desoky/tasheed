@@ -31,6 +31,7 @@
                     {{ method_field('put') }}
 
                     <div class="row">
+                        <!-- Title and Description Fields -->
                         <div class="form-group col-md-6">
                             <label>@lang('site.title')</label>
                             <input type="text" name="title" class="form-control" value="{{ $blog->title }}" required>
@@ -41,11 +42,11 @@
                             <input type="text" name="description" class="form-control" value="{{ $blog->description }}" required>
                         </div>
 
+                        <!-- Blog File Input -->
                         <div class="form-group col-md-6">
                             <label>@lang('site.3d')</label>
                             <input type="file" name="blog" class="form-control gallery-input" accept=".jpg, .jpeg, .png, .mp4">
 
-                            <!-- Display existing blog image -->
                             @if ($blog->getFirstMediaUrl('blog'))
                                 <div class="mt-2">
                                     <img src="{{ $blog->getFirstMediaUrl('blog') }}" alt="Blog Image" class="img-thumbnail" width="150">
@@ -53,19 +54,18 @@
                             @endif
                         </div>
 
-                        <!-- Existing Blog Descriptions Section -->
+                        <!-- Existing Blog Descriptions -->
                         @foreach ($blogDescriptions as $index => $description)
                             <div class="form-group col-md-12">
                                 <input type="hidden" name="description_ids[]" value="{{ $description->id }}">
                                 <label>@lang('Blog Description')</label>
-                                <textarea class="form-control" name="blog_description[]" rows="3">{{ $description->description }}</textarea>
+                                <textarea class="form-control ckeditor" name="blog_description[]" rows="3">{{ $description->description }}</textarea>
                             </div>
 
                             <div class="form-group col-md-12">
                                 <label>@lang('site.blog_description_file')</label>
                                 <input type="file" name="blog_description_file[]" class="form-control" accept=".jpg, .jpeg, .png, .pdf">
 
-                                <!-- Display existing description image -->
                                 @if ($description->getFirstMediaUrl('blog_descriptions'))
                                     <div class="mt-2">
                                         <img src="{{ $description->getFirstMediaUrl('blog_descriptions') }}" alt="Description Image" class="img-thumbnail" width="150">
@@ -74,20 +74,26 @@
                             </div>
                         @endforeach
 
-                        <!-- Add New Blog Descriptions Section -->
+                        <!-- Add New Blog Descriptions -->
                         <div id="new-room-inputs"></div>
 
                         <div class="form-group col-md-12">
-                            <button type="button" class="btn btn-success mt-2" id="add_blog_description"><i class="fa fa-plus"></i> @lang('site.add_blog_description')</button>
+                            <button type="button" class="btn btn-success mt-2" id="add_blog_description">
+                                <i class="fa fa-plus"></i> @lang('site.add_blog_description')
+                            </button>
                         </div>
                     </div>
+
+                    <!-- Progress Bar -->
                     <div class="form-group col-md-12">
                         <progress id="progress-bar" value="0" max="100" style="width: 100%;"></progress>
                     </div>
 
-
+                    <!-- Submit Button -->
                     <div class="form-group">
-                        <button type="submit" id="upload-button" class="btn btn-primary"><i class="fa fa-edit"></i> @lang('site.update')</button>
+                        <button type="submit" id="upload-button" class="btn btn-primary">
+                            <i class="fa fa-edit"></i> @lang('site.update')
+                        </button>
                     </div>
 
                 </form><!-- end of form -->
@@ -145,23 +151,24 @@
         });
     });
 </script>
-@endpush
 
-@push('scripts')
 <script>
     document.getElementById('upload-button').addEventListener('click', function (e) {
-        e.preventDefault(); // Prevent the default button click behavior
+        e.preventDefault(); // Prevent default button click behavior
+
+        // Update CKEditor content
         for (instance in CKEDITOR.instances) {
             CKEDITOR.instances[instance].updateElement();
         }
+
         var form = document.getElementById('upload-form');
         var formData = new FormData(form);
         var fileInput = document.querySelector('input[name="file"]');
-        var maxFileSize = 20 * 1024 * 1024; // 10 MB in bytes
+        var maxFileSize = 20 * 1024 * 1024; // 20 MB in bytes
 
-        // Check if a file is selected and if its size exceeds the maximum limit
+        // Check file size before upload
         if (fileInput.files[0] && fileInput.files[0].size > maxFileSize) {
-            alert('The file size exceeds the maximum limit of 10 MB.');
+            alert('The file size exceeds the maximum limit of 20 MB.');
             return; // Stop the function if the file size is too large
         }
 
@@ -169,10 +176,11 @@
         xhr.open('POST', form.action, true);
         xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
-        // Add CSRF token to the AJAX request
+        // Add CSRF token
         var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
 
+        // Progress event
         xhr.upload.addEventListener('progress', function (e) {
             if (e.lengthComputable) {
                 var percentComplete = (e.loaded / e.total) * 100;
@@ -180,12 +188,13 @@
             }
         });
 
+        // Handle the response
         xhr.onload = function () {
             if (xhr.status === 200) {
                 alert('File uploaded successfully');
                 window.location.href = "{{ route('dashboard.blog.index') }}"; // Redirect on success
             } else {
-                console.log(xhr.responseText); // Display server error message
+                console.log(xhr.responseText);
                 alert('An error occurred: ' + xhr.responseText); // Show the error message
             }
         };

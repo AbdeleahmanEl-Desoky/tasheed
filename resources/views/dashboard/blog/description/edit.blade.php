@@ -6,11 +6,11 @@
 <div class="content-wrapper">
 
     <section class="content-header">
-        <h1>@lang('site.single')</h1>
+        <h1>@lang('blog description')</h1>
         <ol class="breadcrumb">
             <li><a href="{{ route('dashboard.welcome') }}"><i class="fa fa-dashboard"></i> @lang('site.dashboard')</a></li>
-            <li><a href="{{ route('dashboard.blog.index') }}"> @lang('site.single')</a></li>
-            <li class="active">@lang('site.add')</li>
+            <li><a href="{{ route('dashboard.blog.index') }}"> @lang('blog description')</a></li>
+            <li class="active">@lang('site.edit')</li>
         </ol>
     </section>
 
@@ -19,41 +19,43 @@
         <div class="box box-primary">
 
             <div class="box-header">
-                <h3 class="box-title">@lang('site.add')</h3>
+                <h3 class="box-title">@lang('site.edit')</h3>
             </div><!-- end of box header -->
 
             <div class="box-body">
 
                 @include('partials._errors')
 
-                <form id="upload-form" action="{{ route('dashboard.blog.store') }}" method="post" enctype="multipart/form-data">
-
+                <form id="upload-form" action="{{ route('dashboard.blog.description.update', $description->id) }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
-                    {{ method_field('post') }}
+                    {{ method_field('put') }}
                     <div class="row">
-                        <div class="form-group col-md-6">
-                            <label>@lang('site.title')</label>
-                            <input type="text" name="title" class="form-control" value="{{ old('title') }}">
-                        </div>
+                        <input type="hidden" name="blog_id" class="form-control" value="{{ $description->blog_id }}">
 
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-12">
                             <label>@lang('site.description')</label>
-                            <input type="text" name="description" class="form-control" value="{{ old('description') }}">
+                            <textarea class="form-control ckeditor" id="ex1" name="description" rows="3">{{ $description->description }}</textarea>
                         </div>
 
-                        <div class="form-group col-md-6">
-                            <label>@lang('site.3d')</label>
-                            <input type="file" name="blog" class="form-control gallery-input">
+                        <div class="form-group col-md-12">
+                            <label>@lang('site.descriptions')</label>
+                            <input type="file" name="blog_descriptions" class="form-control gallery-input">
+
+                            <!-- Display existing description image -->
+                            @if ($description->getFirstMediaUrl('blog_descriptions'))
+                                <div class="mt-2">
+                                    <img src="{{ $description->getFirstMediaUrl('blog_descriptions') }}" alt="Description Image" class="img-thumbnail" width="150">
+                                </div>
+                            @endif
                         </div>
-
-
                     </div>
+
                     <div class="form-group col-md-12">
                         <progress id="progress-bar" value="0" max="100" style="width: 100%;"></progress>
                     </div>
 
                     <div class="form-group">
-                        <button type="button" id="upload-button" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('site.add')</button>
+                        <button type="button" id="upload-button" class="btn btn-primary"><i class="fa fa-edit"></i> @lang('site.update')</button>
                     </div>
 
                 </form><!-- end of form -->
@@ -68,23 +70,25 @@
 
 @endsection
 
-
 @push('scripts')
 <script>
-
-document.addEventListener('DOMContentLoaded', function () {
-
-    // Handle file upload with AJAX
     document.getElementById('upload-button').addEventListener('click', function (e) {
-        e.preventDefault();
+        e.preventDefault(); // Prevent the default button click behavior
 
-        // Ensure all CKEditor instances update their respective textarea values
-        for (let instance in CKEDITOR.instances) {
+        for (instance in CKEDITOR.instances) {
             CKEDITOR.instances[instance].updateElement();
         }
 
         var form = document.getElementById('upload-form');
         var formData = new FormData(form);
+        var fileInput = document.querySelector('input[name="blog_descriptions"]');
+        var maxFileSize = 20 * 1024 * 1024; // 10 MB in bytes
+
+        // Check if a file is selected and if its size exceeds the maximum limit
+        if (fileInput.files[0] && fileInput.files[0].size > maxFileSize) {
+            alert('The file size exceeds the maximum limit of 10 MB.');
+            return; // Stop the function if the file size is too large
+        }
 
         var xhr = new XMLHttpRequest();
         xhr.open('POST', form.action, true);
@@ -94,17 +98,17 @@ document.addEventListener('DOMContentLoaded', function () {
         var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
 
-        xhr.upload.onprogress = function (event) {
-            if (event.lengthComputable) {
-                var percentComplete = (event.loaded / event.total) * 100;
+        xhr.upload.addEventListener('progress', function (e) {
+            if (e.lengthComputable) {
+                var percentComplete = (e.loaded / e.total) * 100;
                 document.getElementById('progress-bar').value = percentComplete;
             }
-        };
+        });
 
         xhr.onload = function () {
             if (xhr.status === 200) {
                 alert('File uploaded successfully');
-                window.location.href = "{{ route('dashboard.blog.index') }}"; // Redirect on success
+                window.location.href = "{{ route('dashboard.blog.description.index',$description->blog_id) }}"; // Redirect on success
             } else {
                 console.log(xhr.responseText); // Display server error message
                 alert('An error occurred: ' + xhr.responseText); // Show the error message
@@ -117,7 +121,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
         xhr.send(formData);
     });
-});
-
 </script>
 @endpush

@@ -46,22 +46,19 @@
 
 
                         <div class="form-group col-md-4">
-                            <label>@lang('site.image')</label>
+                            <label>@lang('image 1')</label>
                             <input type="file" name="file" class="form-control image">
                         </div>
 
-
                         <div class="form-group col-md-4">
-                            <img src="{{ asset('uploads/user_images/default.png') }}"  style="width: 100px" class="img-thumbnail image-preview" alt="">
+                            <label>@lang('image 2')</label>
+                            <input type="file" name="file1" class="form-control image">
                         </div>
-                        <hr>
                         <div class="form-group col-md-12">
-                            @if($about?->file_type == 'video')
-                                <video class="form-group col-md-6" controls style="width: 100px;">
-                                    <source src="{{ $about?->media[0]->original_url }}" type="" class="img-thumbnail image-preview">
-                                </video>
-                            @else
-                                <img src="{{  $about?->media[0]->original_url  }}" style="width: 100px" class="img-thumbnail image-preview" alt="">
+                            @if($about?->media != null)
+                            @foreach ($about->media as $media)
+                            <img src="{{  $media->original_url  }}" style="width: 100px" class="img-thumbnail image-preview" alt="">
+                            @endforeach
                             @endif
                         </div>
                         <div class="form-group col-md-12">
@@ -92,7 +89,7 @@ document.getElementById('upload-button').addEventListener('click', function (e) 
     for (instance in CKEDITOR.instances) {
             CKEDITOR.instances[instance].updateElement();
         }
-        
+
     var form = document.getElementById('upload-form');
     var formData = new FormData(form);
     var fileInput = document.querySelector('input[name="file"]');

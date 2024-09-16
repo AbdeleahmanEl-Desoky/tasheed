@@ -33,6 +33,7 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
+
         $blog = Blog::create($request->only(['title', 'description']));
 
         // Handle blog descriptions and associated files

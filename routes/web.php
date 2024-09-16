@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AboutBenefitController;
 use App\Http\Controllers\Admin\AboutGalleryController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\BlogDescriptionController;
 use App\Http\Controllers\Admin\BlogPageController;
 use App\Http\Controllers\Admin\CareerController;
 use App\Http\Controllers\Admin\CareerPageController;
@@ -65,6 +66,16 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'dashbo
         Route::delete('{id}', [BlogController::class,'destroy'])->name('destroy');
         Route::get('caver', [BlogPageController::class,'index'])->name('caver');
         Route::post('caver/store', [BlogPageController::class,'store'])->name('store_caver');
+
+        Route::group(['prefix' => 'description', 'as' => 'description.'], function () {
+            Route::get('{id}', [BlogDescriptionController::class,'index'])->name('index');
+            Route::get('create/{id}', [BlogDescriptionController::class,'create'])->name('create');
+            Route::post('store', [BlogDescriptionController::class,'store'])->name('store');
+            Route::get('edit/{id}', [BlogDescriptionController::class,'edit'])->name('edit');
+            Route::put('update/{id}', [BlogDescriptionController::class,'update'])->name('update');
+            Route::delete('{id}', [BlogDescriptionController::class,'destroy'])->name('destroy');
+        });
+
     });
 
     Route::group(['prefix' => 'contact', 'as' => 'contact.'], function () {

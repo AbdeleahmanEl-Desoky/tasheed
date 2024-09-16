@@ -113,7 +113,7 @@ class AboutController extends Controller
     {
         $mission = AboutMission::updateOrCreate(
             ['id' => $request->id],
-            $request->except('image','file')
+            $request->except('image','file','file1')
         );
 
         if ($request->hasFile('image')) {
@@ -135,6 +135,16 @@ class AboutController extends Controller
                 $fileAdder->toMediaCollection('about_mission_file');
             });
         }
+        if ($request->hasFile('file1')) {
+            // First, clear any existing media if you're updating
+            $mission->clearMediaCollection('about_mission_file1');
+
+            // Then, add the new files
+            $mission->addMultipleMediaFromRequest(['file1'])->each(function ($fileAdder) {
+                $fileAdder->toMediaCollection('about_mission_file1');
+            });
+        }
+
 
         return redirect()->route('dashboard.about.mission.index');
     }
