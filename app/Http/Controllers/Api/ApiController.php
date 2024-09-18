@@ -109,27 +109,28 @@ class ApiController extends Controller
 
     public function project($id)
     {
-        $projectPage = SingleProject::with(['features', 'units', 'media'])->where('id', $id)->first();
+        $project = SingleProject::with(['features', 'units', 'media'])->where('id', $id)->first();
 
-        // Find the media item with the collection_name 'singleProjectCaver'
-        $media = $projectPage->media;
-        $singleProjectCaver = $media->firstWhere('collection_name', 'singleProjectCaver');
+        // Get all media for this project
+        $media = $project->getMedia('singleProjectGallery');
 
-        if ($singleProjectCaver) {
-            // Remove the 'singleProjectCaver' item from the media array
-            $media = $media->filter(function($item) {
-                return $item->collection_name !== 'singleProjectCaver';
-            });
+        // Find the cover media (assuming cover is identified by collection_name 'singleProjectCaver')
+        $coverMedia = $project->getMedia('singleProjectCaver')->first();
 
-            // Prepend 'singleProjectCaver' as the first item in the media array
-            $media->prepend($singleProjectCaver);
+        // Remove the cover media from the gallery collection if exists
+        $galleryMedia = $media->filter(function ($item) {
+            return $item->collection_name !== 'singleProjectCaver';
+        });
+
+        // Add the cover media as the first element in the collection if it exists
+        if ($coverMedia) {
+            $galleryMedia->prepend($coverMedia);
         }
 
-        // Assign the reordered media array back to the projectPage
-       $projectPage->media = $media;
-
+        // Now the $galleryMedia collection will have the cover media as the first item
         return response()->json([
-            'project' => $projectPage,
+            'project' => $project,
+            'media' => $galleryMedia,
         ]);
     }
 
