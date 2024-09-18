@@ -111,26 +111,11 @@ class ApiController extends Controller
     {
         $project = SingleProject::with(['features', 'units', 'media'])->where('id', $id)->first();
 
-        // Get all media for this project
-        $media = $project->getMedia('singleProjectGallery');
-
-        // Find the cover media (assuming cover is identified by collection_name 'singleProjectCaver')
-        $coverMedia = $project->getMedia('singleProjectCaver')->first();
-
-        // Remove the cover media from the gallery collection if exists
-        $galleryMedia = $media->filter(function ($item) {
-            return $item->collection_name !== 'singleProjectCaver';
-        });
-
-        // Add the cover media as the first element in the collection if it exists
-        if ($coverMedia) {
-            $galleryMedia->prepend($coverMedia);
-        }
 
         // Now the $galleryMedia collection will have the cover media as the first item
         return response()->json([
             'project' => $project,
-            'media' => $galleryMedia,
+            'mdeai'=> $project->getMedia('singleProjectCaver')
         ]);
     }
 
