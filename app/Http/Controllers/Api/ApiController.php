@@ -111,14 +111,19 @@ class ApiController extends Controller
     {
         $project = SingleProject::with(['features', 'units', 'media'])->where('id', $id)->first();
 
+        // Retrieve the media collections
+        $caverMedia = $project->getMedia('singleProjectCaver');
+        $galleryMedia = $project->getMedia('singleProjectGallery');
 
-        // Now the $galleryMedia collection will have the cover media as the first item
+        // Combine them in the desired order
+        $media = array_merge($caverMedia->toArray(), $galleryMedia->toArray());
+
+        // Return the response with the combined media
         return response()->json([
             'project' => $project,
-            'mdeai'=> $project->getMedia('singleProjectCaver')
+            'media' => $media,
         ]);
     }
-
     public function projectUnit($id)
     {
         $singleProjectUnit = SingleProjectUnit::with(['unitFeatures', 'project'])
