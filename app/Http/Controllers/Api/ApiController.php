@@ -109,26 +109,22 @@ class ApiController extends Controller
 
     public function project($id)
     {
-        // Retrieve the project with relations
-        $project = SingleProject::with(['features', 'units', 'media'])->where('id', $id)->first();
+        $projects = SingleProject::with(['features', 'units', 'media'])
+                    ->where('id', $id)
+                    ->get()
+                    ->map(function($project){
+                        $caverMedia = $project->getMedia('singleProjectCaver');
+                        $galleryMedia = $project->getMedia('singleProjectGallery');
 
-        // Retrieve the media collections as collections of media items
-        $caverMedia = $project->getMedia('singleProjectCaver');
-        $galleryMedia = $project->getMedia('singleProjectGallery');
+                        $project->media =array_merge($caverMedia->toArray(), $galleryMedia->toArray());
+                        return $project;
+                    });
 
-        // Combine them while keeping them as media collections
-        $media = $caverMedia->concat($galleryMedia);
-
-        // Attach the combined media back to the project object
-        $project->media = $media;
-
-        // Return the response with the combined media
         return response()->json([
-            'project' => $project,
-            'media' => $media, // This is optional since project->media will also have it
+            'project' => $projects->first(),
+
         ]);
     }
-
     public function projectUnit($id)
     {
         $singleProjectUnit = SingleProjectUnit::with(['unitFeatures', 'project'])
