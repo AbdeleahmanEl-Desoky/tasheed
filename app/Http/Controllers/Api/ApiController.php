@@ -117,7 +117,7 @@ class ApiController extends Controller
 
         // Combine them in the desired order
         $media = array_merge($caverMedia->toArray(), $galleryMedia->toArray());
-
+        $project->media = $media;
         // Return the response with the combined media
         return response()->json([
             'project' => $project,
