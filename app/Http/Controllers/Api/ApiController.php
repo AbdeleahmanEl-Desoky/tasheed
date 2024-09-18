@@ -126,7 +126,7 @@ class ApiController extends Controller
         }
 
         // Assign the reordered media array back to the projectPage
-       // $projectPage->media = $media;
+       $projectPage->media = $media;
 
         return response()->json([
             'project' => $projectPage,
