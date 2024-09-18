@@ -109,10 +109,27 @@ class ApiController extends Controller
 
     public function project($id)
     {
-        $projectPage = SingleProject::with(['features','units'])->where('id',$id)->first();
+        $projectPage = SingleProject::with(['features', 'units', 'media'])->where('id', $id)->first();
+
+        // Find the media item with the collection_name 'singleProjectCaver'
+        $media = $projectPage->media;
+        $singleProjectCaver = $media->firstWhere('collection_name', 'singleProjectCaver');
+
+        if ($singleProjectCaver) {
+            // Remove the 'singleProjectCaver' item from the media array
+            $media = $media->filter(function($item) {
+                return $item->collection_name !== 'singleProjectCaver';
+            });
+
+            // Prepend 'singleProjectCaver' as the first item in the media array
+            $media->prepend($singleProjectCaver);
+        }
+
+        // Assign the reordered media array back to the projectPage
+        $projectPage->media = $media;
 
         return response()->json([
-            'project'=>$projectPage,
+            'project' => $projectPage,
         ]);
     }
 
