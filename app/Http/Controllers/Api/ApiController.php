@@ -115,7 +115,7 @@ class ApiController extends Controller
         $media = $project->getMedia('singleProjectGallery');
 
         // Find the cover media (assuming cover is identified by collection_name 'singleProjectCaver')
-        $coverMedia = $project->getMedia('singleProjectCaver')->get();
+        $coverMedia = $project->getMedia('singleProjectCaver')->first();
 
         // Remove the cover media from the gallery collection if exists
         $galleryMedia = $media->filter(function ($item) {
