@@ -113,20 +113,18 @@ class ApiController extends Controller
             ->where('id', $id)
             ->get()
             ->map(function($project) {
-                $caverMedia = $project->getMedia('singleProjectCaver');
-                $galleryMedia = $project->getMedia('singleProjectGallery');
+                $madia = $project->getMedia('singleProjectGallery');
 
-                // Merge both media collections
-                $allMedia = $caverMedia->concat($galleryMedia);
 
-                // Assign the merged media collection to the 'media' attribute
-                $project->setRelation('media', $allMedia);
+                $project->setRelation('media', $madia);
 
                 return $project;
             });
+        $project = $projects->first();
 
         return response()->json([
-            'project' => $projects->first(),
+            'project' => $project,
+            'cover'=> $project->getMedia('singleProjectCaver')
         ]);
     }
 
