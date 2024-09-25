@@ -97,11 +97,11 @@
         for (instance in CKEDITOR.instances) {
             CKEDITOR.instances[instance].updateElement();
         }
-        
+
         var form = document.getElementById('upload-form');
         var formData = new FormData(form);
         var fileInput = document.querySelector('input[name="file"]');
-        var maxFileSize = 10 * 1024 * 1024; // 10 MB in bytes
+        var maxFileSize = 200 * 1024 * 1024; // 10 MB in bytes
         var allowedFileTypes = ['image/jpeg', 'image/png', 'application/pdf']; // Define allowed file types
 
         // Check if a file is selected

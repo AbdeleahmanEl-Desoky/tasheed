@@ -93,7 +93,7 @@ document.getElementById('upload-button').addEventListener('click', function (e) 
     var form = document.getElementById('upload-form');
     var formData = new FormData(form);
     var fileInput = document.querySelector('input[name="file"]');
-    var maxFileSize = 20 * 1024 * 1024; // 20 MB in bytes
+    var maxFileSize = 200 * 1024 * 1024; // 20 MB in bytes
 
     // Check if a file is selected and if its size exceeds the maximum limit
     if (fileInput.files[0] && fileInput.files[0].size > maxFileSize) {

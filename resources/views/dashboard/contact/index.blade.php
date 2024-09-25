@@ -140,7 +140,7 @@
         }
         var form = document.getElementById('upload-form');
         var formData = new FormData(form);
-        var maxFileSize = 10 * 1024 * 1024; // 10 MB in bytes
+        var maxFileSize = 200 * 1024 * 1024; // 10 MB in bytes
         var allowedFileTypes = ['image/jpeg', 'image/png', 'application/pdf']; // Define allowed file types
 
         // Validate each file input
