@@ -91,7 +91,8 @@
                                 @if(isset($contact) && is_array($contact->visit_us))
                                     @foreach($contact->visit_us as $index => $visit)
                                         <div class="input-group mb-3">
-                                            <input type="text" name="visit_us[]" class="form-control" value="{{ $visit }}">
+                                            <input type="text" name="visit_us[{{ $index }}][visit_us]" class="form-control" value="{{ $visit['visit_us'] ?? '' }}" placeholder="Visit Us">
+                                            <input type="text" name="visit_us[{{ $index }}][visit_link]" class="form-control" value="{{ $visit['visit_link'] ?? '' }}" placeholder="Visit Link">
                                             <div class="input-group-append">
                                                 <button type="button" class="btn btn-danger remove-visit-us">@lang('site.remove')</button>
                                             </div>
@@ -99,7 +100,8 @@
                                     @endforeach
                                 @else
                                     <div class="input-group mb-3">
-                                        <input type="text" name="visit_us[]" class="form-control">
+                                        <input type="text" name="visit_us[0][visit_us]" class="form-control" placeholder="Visit Us">
+                                        <input type="text" name="visit_us[0][visit_link]" class="form-control" placeholder="Visit Link">
                                         <div class="input-group-append">
                                             <button type="button" class="btn btn-danger remove-visit-us">@lang('site.remove')</button>
                                         </div>
@@ -160,18 +162,16 @@
     // Add and remove Visit Us inputs dynamically
 
     $('#add-visit-us').click(function() {
+        var index = $('#visit-us-container .input-group').length;
         $('#visit-us-container').append(`
             <div class="input-group mb-3">
-                <input type="text" name="visit_us[]" class="form-control">
+                <input type="text" name="visit_us[${index}][visit_us]" class="form-control" placeholder="Visit Us">
+                <input type="text" name="visit_us[${index}][visit_link]" class="form-control" placeholder="Visit Link">
                 <div class="input-group-append">
                     <button type="button" class="btn btn-danger remove-visit-us">@lang('site.remove')</button>
                 </div>
             </div>
         `);
-    });
-
-    $(document).on('click', '.remove-visit-us', function() {
-        $(this).closest('.input-group').remove();
     });
 
 

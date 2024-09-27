@@ -36,19 +36,17 @@ class ContactController extends Controller
             'title' => 'nullable|string',
             'description' => 'required|string',
             'email_us' => 'required|string',
-            'call_us' => 'required|array', // Ensure call_us is an array
-            'call_us.*' => 'string', // Validate each call_us entry as a string
-
-            'visit_us' => 'required|array', // Ensure call_us is an array
-            'visit_us.*' => 'string', // Validate each call_us entry as a string
+            'call_us' => 'required|array',
+            'call_us.*' => 'string',
+            'visit_us' => 'required|array',
+            'visit_us.*.visit_us' => 'string|required', // Validate visit_us entries
+            'visit_us.*.visit_link' => 'string|nullable', // Validate visit_link entries
         ]);
 
-        // Prepare the data for creating or updating the Contact instance
+        // Prepare the data
         $data = $request->except(['file', 'contact_1', 'contact_2', 'contact_3', 'contact_4']);
-
-        $data['call_us'] = json_encode($request->call_us);  // Encode call_us to JSON
-
-        $data['visit_us'] = json_encode($request->visit_us);  // Encode call_us to JSON
+        $data['call_us'] = json_encode($request->call_us);
+        $data['visit_us'] = json_encode($request->visit_us);  // Store visit_us and visit_link as JSON
 
         // Update or create the Contact instance
         $contact = Contact::updateOrCreate(
@@ -56,7 +54,7 @@ class ContactController extends Controller
             $data
         );
 
-        // Handle media uploads for multiple file inputs
+        // Handle file uploads
         $mediaInputs = ['contact_1', 'contact_2', 'contact_3', 'contact_4'];
         foreach ($mediaInputs as $inputName) {
             if ($request->hasFile($inputName)) {
@@ -69,4 +67,5 @@ class ContactController extends Controller
 
         return redirect()->route('dashboard.contact.index');
     }
+
 }
