@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('single_projects', function (Blueprint $table) {
-            $table->decimal('longitude')->nullable();
-            $table->decimal('latitude')->nullable();
+        Schema::table('abouts', function (Blueprint $table) {
+
+            $table->mediumText('description_home')->nullable();
+
         });
     }
 
@@ -22,9 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('single_projects', function (Blueprint $table) {
-            $table->dropColumn('longitude');
-            $table->dropColumn('latitude');
+        Schema::table('abouts', function (Blueprint $table) {
+            $table->dropColumn('description_home');
         });
     }
 };

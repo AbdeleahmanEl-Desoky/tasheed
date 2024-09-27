@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::table('single_projects', function (Blueprint $table) {
 
             $table->string('type')->default('ongoing');
+            $table->decimal('longitude')->nullable();
+            $table->decimal('latitude')->nullable();
 
         });
     }
@@ -24,7 +26,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('single_projects', function (Blueprint $table) {
-            $table->dropColumn('type');
+            $table->dropColumn(columns: 'type');
+            $table->dropColumn(columns: 'longitude');
+            $table->dropColumn(columns: 'latitude');
+
         });
     }
 };

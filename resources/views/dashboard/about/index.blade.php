@@ -42,6 +42,12 @@
                             <textarea class="form-control ckeditor" id="ex1" name="description" rows="3">{{$about?->description}}</textarea>
                         </div>
 
+                        <div class="form-group col-md-12">
+                            <label for="ex1">Home Description </label>
+                            <textarea class="form-control ckeditor" id="ex1" name="description_home" rows="3">{{$about?->description_home}}</textarea>
+                        </div>
+
+
                         <div class="form-group col-md-4">
                             <label>@lang('projects')</label>
                             <input type="number" name="projects" class="form-control" value="{{ $about?->projects }}">
