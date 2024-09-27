@@ -158,6 +158,13 @@ class ApiController extends Controller
             $contact->call_us = json_decode($contact->call_us, true);  // Decode JSON to array
         }
 
+        // Decode the JSON field 'visit_us' to a PHP array
+        if ($contact && $contact->visit_us) {
+            $contact->visit_us = json_decode($contact->visit_us, true);  // Decode JSON to array
+        }
+
+
+
         return response()->json([
             'contact'=>$contact,
         ]);

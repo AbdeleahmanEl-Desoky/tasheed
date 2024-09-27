@@ -29,7 +29,7 @@
                         {{ csrf_field() }}
                         {{ method_field('post') }}
 
-                            <input type="hidden" name="id" class="form-control" value="{{ $about?->id }}">
+                        <input type="hidden" name="id" class="form-control" value="{{ $about?->id }}">
 
                         <div class="form-group col-md-12">
                             <label>@lang('site.title')</label>

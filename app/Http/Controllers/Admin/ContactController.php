@@ -20,6 +20,10 @@ class ContactController extends Controller
             $contact->call_us = json_decode($contact->call_us, true);  // Decode JSON to array
         }
 
+        if ($contact && $contact->visit_us) {
+            $contact->visit_us = json_decode($contact->visit_us, true);  // Decode JSON to array
+        }
+
         return view('dashboard.contact.index', compact('contact'));
     }
 
@@ -31,16 +35,20 @@ class ContactController extends Controller
         $request->validate([
             'title' => 'nullable|string',
             'description' => 'required|string',
-            'visit_us' => 'required|string',
             'email_us' => 'required|string',
             'call_us' => 'required|array', // Ensure call_us is an array
             'call_us.*' => 'string', // Validate each call_us entry as a string
+
+            'visit_us' => 'required|array', // Ensure call_us is an array
+            'visit_us.*' => 'string', // Validate each call_us entry as a string
         ]);
 
         // Prepare the data for creating or updating the Contact instance
         $data = $request->except(['file', 'contact_1', 'contact_2', 'contact_3', 'contact_4']);
 
         $data['call_us'] = json_encode($request->call_us);  // Encode call_us to JSON
+
+        $data['visit_us'] = json_encode($request->visit_us);  // Encode call_us to JSON
 
         // Update or create the Contact instance
         $contact = Contact::updateOrCreate(

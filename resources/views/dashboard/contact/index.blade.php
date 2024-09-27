@@ -44,10 +44,10 @@
                             <input type="number" name="crm_general" class="form-control" value="{{ $contact?->crm_general }}">
                         </div>
 
-                        <div class="form-group col-md-12">
+                        {{-- <div class="form-group col-md-12">
                             <label for="visit_us">Visit Us</label>
                             <textarea class="form-control" id="visit_us" name="visit_us" rows="3">{{ $contact->visit_us ?? '' }}</textarea>
-                        </div>
+                        </div> --}}
                         <div class="form-group col-md-12">
                             <labegl for="visit_us">visit link</labegl>
                             <input class="form-control" id="visit_link" name="visit_link" {{ $contact->visit_link ?? '' }}>
@@ -82,6 +82,31 @@
                                 @endif
                             </div>
                             <button type="button" id="add-call-us" class="btn btn-success">@lang('site.add_call')</button>
+                        </div>
+
+                        <!-- visit Us Section -->
+                        <div class="form-group col-md-12">
+                            <label for="visit_us">Visit Us</label>
+                            <div id="visit-us-container">
+                                @if(isset($contact) && is_array($contact->visit_us))
+                                    @foreach($contact->visit_us as $index => $visit)
+                                        <div class="input-group mb-3">
+                                            <input type="text" name="visit_us[]" class="form-control" value="{{ $visit }}">
+                                            <div class="input-group-append">
+                                                <button type="button" class="btn btn-danger remove-visit-us">@lang('site.remove')</button>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <div class="input-group mb-3">
+                                        <input type="text" name="visit_us[]" class="form-control">
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-danger remove-visit-us">@lang('site.remove')</button>
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                            <button type="button" id="add-visit-us" class="btn btn-success">@lang('site.add_visit')</button>
                         </div>
 
                         <!-- File Uploads -->
@@ -131,6 +156,25 @@
     $(document).on('click', '.remove-call-us', function() {
         $(this).closest('.input-group').remove();
     });
+
+    // Add and remove Visit Us inputs dynamically
+
+    $('#add-visit-us').click(function() {
+        $('#visit-us-container').append(`
+            <div class="input-group mb-3">
+                <input type="text" name="visit_us[]" class="form-control">
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-danger remove-visit-us">@lang('site.remove')</button>
+                </div>
+            </div>
+        `);
+    });
+
+    $(document).on('click', '.remove-visit-us', function() {
+        $(this).closest('.input-group').remove();
+    });
+
+
 
     // Handle file uploads and form submission
     document.getElementById('upload-button').addEventListener('click', function (e) {
