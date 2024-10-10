@@ -44,6 +44,11 @@ class SingleProjectController extends Controller
                 $fileAdder->toMediaCollection('singleProjectCaver');
             });
         }
+        if ($request->hasFile('singleFirstCaver')) {
+            $singleProject->addMultipleMediaFromRequest(['caver'])->each(function ($fileAdder) {
+                $fileAdder->toMediaCollection('singleFirstCaver');
+            });
+        }
         // Handle file upload
         if ($request->hasFile('gallery')) {
             $singleProject->addMultipleMediaFromRequest(['gallery'])->each(function ($fileAdder) {
@@ -101,7 +106,11 @@ class SingleProjectController extends Controller
                 $fileAdder->toMediaCollection('singleProjectCaver');
             });
         }
-
+        if ($request->hasFile('singleFirstCaver')) {
+            $singleProject->addMultipleMediaFromRequest(['singleFirstCaver'])->each(function ($fileAdder) {
+                $fileAdder->toMediaCollection('singleFirstCaver');
+            });
+        }
         // Handle gallery images upload
         if ($request->hasFile('gallery')) {
             $singleProject->addMultipleMediaFromRequest(['gallery'])->each(function ($fileAdder) {

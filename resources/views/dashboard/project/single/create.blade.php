@@ -120,6 +120,10 @@
                         </div>
                     </div>
 
+
+
+
+
                     <!-- Feature Checkboxes -->
                     <div class="row">
                         <h2>Key Feature</h2>
@@ -130,6 +134,11 @@
                         </div>
                         @endforeach
                     </div>
+                    <div class="form-group col-md-6">
+                        <label>@lang('caver home page')</label>
+                        <input type="file" name="singleFirstCaver" class="form-control image">
+                    </div>
+
                     <!-- Gallery File Inputs -->
                     <div class="form-group col-md-6">
                         <label>@lang('site.gallery')</label>

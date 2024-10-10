@@ -100,7 +100,15 @@ class ApiController extends Controller
 
     public function projects()
     {
-        $projectPage = SingleProject::with(['features','units'])->get();
+        $projectPage = SingleProject::with(['features','units','media'])->get()
+        ->map(function($project) {
+            $madia = $project->getMedia('singleFirstCaver');
+
+            $project->setRelation('media', $madia);
+
+            return $project;
+        });
+
 
         return response()->json([
             'projects'=>$projectPage,
@@ -120,12 +128,16 @@ class ApiController extends Controller
 
                 return $project;
             });
-        $project = $projects->first();
 
-        return response()->json([
-            'project' => $project,
-            'cover'=> $project->getMedia('singleProjectCaver')
-        ]);
+            $coverMedia = SingleProject::with('media')->where('id', $id)->first();
+
+            // Assuming the cover media is retrieved using Spatie's Media Library
+            $mediaItem = $coverMedia ? $coverMedia->getMedia('singleProjectCaver')->first() : null;
+
+            return response()->json([
+                'project' => $projects->first(),
+                'cover' => $mediaItem ? $mediaItem->getUrl() : null
+            ]);
     }
 
     public function projectUnit($id)
