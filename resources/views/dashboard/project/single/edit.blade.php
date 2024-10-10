@@ -118,7 +118,7 @@
                         </div>
                         <!-- Cover Image -->
                         <div class="form-group col-md-6">
-                            <label>@lang('site.caver')</label>
+                            <label>@lang('site.cover')</label>
                             <input type="file" name="caver" class="form-control image">
                         </div>
 
@@ -145,6 +145,10 @@
                             @endforeach
                         </div>
 
+                    <div class="form-group col-md-6">
+                        <label>@lang('cover home page')</label>
+                        <input type="file" name="singleFirstCaver" class="form-control image">
+                    </div>
 
                     <!-- Gallery Images -->
                     <div class="form-group col-md-12">

@@ -112,7 +112,7 @@
 
                         <!-- File Input for Cover -->
                         <div class="form-group col-md-6">
-                            <label>@lang('site.caver')</label>
+                            <label>@lang('cover')</label>
                             <input type="file" name="caver" class="form-control image">
                         </div>
                         <div class="form-group col-md-6">
@@ -135,7 +135,7 @@
                         @endforeach
                     </div>
                     <div class="form-group col-md-6">
-                        <label>@lang('caver home page')</label>
+                        <label>@lang('cover home page')</label>
                         <input type="file" name="singleFirstCaver" class="form-control image">
                     </div>
 

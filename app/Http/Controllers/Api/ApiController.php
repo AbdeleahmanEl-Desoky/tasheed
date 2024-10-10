@@ -129,14 +129,24 @@ class ApiController extends Controller
                 return $project;
             });
 
-            $coverMedia = SingleProject::with('media')->where('id', $id)->first();
+            $coverMedia = SingleProject::with(['features', 'units', 'media'])
+            ->where('id', $id)
+            ->get()
+            ->map(function($project) {
+                $madia = $project->getMedia('singleProjectCaver');
+
+
+                $project->setRelation('media', $madia);
+
+                return $project;
+            });
 
             // Assuming the cover media is retrieved using Spatie's Media Library
-            $mediaItem = $coverMedia ? $coverMedia->getMedia('singleProjectCaver')->first() : null;
+            $mediaItem = $coverMedia->first() ;
 
             return response()->json([
                 'project' => $projects->first(),
-                'cover' => $mediaItem ? $mediaItem->getUrl() : null
+                'cover' => $mediaItem
             ]);
     }
 
