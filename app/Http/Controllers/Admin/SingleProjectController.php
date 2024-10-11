@@ -45,7 +45,7 @@ class SingleProjectController extends Controller
             });
         }
         if ($request->hasFile('singleFirstCaver')) {
-            $singleProject->addMultipleMediaFromRequest(['caver'])->each(function ($fileAdder) {
+            $singleProject->addMultipleMediaFromRequest(['singleFirstCaver'])->each(function ($fileAdder) {
                 $fileAdder->toMediaCollection('singleFirstCaver');
             });
         }
