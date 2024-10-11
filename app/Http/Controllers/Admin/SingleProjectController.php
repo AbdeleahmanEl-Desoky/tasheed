@@ -36,7 +36,7 @@ class SingleProjectController extends Controller
     public function store(Request $request)
     {
         // Create the single project
-        $singleProject = SingleProject::create($request->except('caver', 'feature_id','gallery'));
+        $singleProject = SingleProject::create($request->except('caver', 'feature_id','gallery','singleFirstCaver'));
 
         // Handle file upload
         if ($request->hasFile('caver')) {
@@ -97,7 +97,7 @@ class SingleProjectController extends Controller
         $singleProject = SingleProject::findOrFail($id);
 
         // Update project details
-        $singleProject->update($request->except('caver', 'feature_id', 'gallery'));
+        $singleProject->update($request->except('caver', 'feature_id', 'gallery','singleFirstCaver'));
 
         // Handle cover image upload
         if ($request->hasFile('caver')) {
