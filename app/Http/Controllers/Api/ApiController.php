@@ -87,7 +87,15 @@ class ApiController extends Controller
             $about->aboutVision = AboutVision::first();
             $about->aboutGallery = AboutGallery::get();
             $about->mission = AboutMission::first();
-            $about->ongoing = SingleProject::where('type','ongoing')->get();
+            $about->ongoing = SingleProject::where('type','ongoing')->get()
+            ->map(function($project) {
+                $madia = $project->getMedia('singleFirstCaver');
+
+                $project->setRelation('media', $madia);
+
+                return $project;
+            });
+            
             return $about;
         });
 
