@@ -39,8 +39,24 @@ class ApiController extends Controller
             return $home;
         });
 
-        $singleProject = SingleProject::where('type','ongoing')->get();
-        $featureProject = SingleProject::where('type','featured')->get();
+        $singleProject = SingleProject::where('type','ongoing')->get()
+        ->map(function($project) {
+            $madia = $project->getMedia('singleFirstCaver');
+
+            $project->setRelation('media', $madia);
+
+            return $project;
+        });
+
+        $featureProject = SingleProject::where('type','featured')->get()
+        ->map(function($project) {
+            $madia = $project->getMedia('singleFirstCaver');
+
+            $project->setRelation('media', $madia);
+
+            return $project;
+        });
+
 
         $blogs = Blog::get();
 
