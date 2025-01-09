@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Astrotomic\Translatable\Translatable;
 
 class Job extends Model
 {
-    use HasFactory;
-
+    use HasFactory, Translatable;
 
     protected $table = 'jobs';
     protected $guarded = [];

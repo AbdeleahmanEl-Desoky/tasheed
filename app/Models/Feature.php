@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Astrotomic\Translatable\Translatable;
 
 class Feature extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia;
+    use HasFactory, InteractsWithMedia, Translatable;
 
     protected $table = 'features';
     protected $guarded = [];
@@ -30,8 +31,5 @@ class Feature extends Model implements HasMedia
     {
         return $this->belongsToMany(SingleProject::class, 'project_features');
     }
-    public function seo()
-    {
-        return $this->morphOne(Seo::class, 'seoble');
-    }
+
 }

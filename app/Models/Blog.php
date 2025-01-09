@@ -10,7 +10,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Blog extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia;
+    use HasFactory, InteractsWithMedia, Translatable;
 
     protected $table = 'blogs';
     protected $guarded = [];
@@ -31,8 +31,5 @@ class Blog extends Model implements HasMedia
     {
         return $this->hasMany(BlogDescription::class);
     }
-    public function seo()
-    {
-        return $this->morphOne(Seo::class, 'seoble');
-    }
+
 }

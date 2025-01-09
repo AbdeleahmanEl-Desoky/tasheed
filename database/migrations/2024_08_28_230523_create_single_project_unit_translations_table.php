@@ -18,7 +18,7 @@ return new class extends Migration
 
             $table->unsignedBigInteger('single_project_unit_id')->index();
             $table->string('locale');
-            $table->unique(['single_project_unit_id', 'locale']);
+            $table->unique(['single_project_unit_id', 'locale'], 'spu_id_locale_unique');
 
             $table->timestamps();
         });

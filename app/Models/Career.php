@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Astrotomic\Translatable\Translatable;
 
 class Career extends Model
 {
-    use HasFactory;
+    use HasFactory, Translatable;
 
     protected $table = 'careers';
     protected $guarded = [];
@@ -18,10 +19,7 @@ class Career extends Model
     {
         return $this->hasMany(Job::class);
     }
-    public function seo()
-    {
-        return $this->morphOne(Seo::class, 'seoble');
-    }
+
 }
 
 

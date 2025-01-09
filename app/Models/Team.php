@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-
+use Astrotomic\Translatable\Translatable;
 class Team extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia;
+    use HasFactory, InteractsWithMedia, Translatable;
 
     protected $table = 'teams';
     protected $guarded = [];
@@ -25,9 +25,5 @@ class Team extends Model implements HasMedia
     public function getPicturesAttribute()
     {
         return $this->getMedia();
-    }
-    public function seo()
-    {
-        return $this->morphOne(Seo::class, 'seoble');
     }
 }

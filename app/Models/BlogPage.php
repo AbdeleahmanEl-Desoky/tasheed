@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Astrotomic\Translatable\Translatable;
 
 class BlogPage extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia;
+    use HasFactory, InteractsWithMedia, Translatable;
 
     protected $table = 'blog_pages';
     protected $guarded = [];
@@ -26,8 +27,5 @@ class BlogPage extends Model implements HasMedia
     {
         return $this->getMedia();
     }
-    public function seo()
-    {
-        return $this->morphOne(Seo::class, 'seoble');
-    }
+
 }
