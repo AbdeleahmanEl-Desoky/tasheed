@@ -32,4 +32,8 @@ class BlogDescription extends Model implements HasMedia
     {
         return $this->belongsTo(Blog::class);
     }
+    public function seo()
+    {
+        return $this->morphOne(Seo::class, 'seoble');
+    }
 }

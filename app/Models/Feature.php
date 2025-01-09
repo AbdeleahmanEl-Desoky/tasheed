@@ -30,4 +30,8 @@ class Feature extends Model implements HasMedia
     {
         return $this->belongsToMany(SingleProject::class, 'project_features');
     }
+    public function seo()
+    {
+        return $this->morphOne(Seo::class, 'seoble');
+    }
 }

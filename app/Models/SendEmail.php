@@ -15,5 +15,8 @@ class SendEmail extends Model implements HasMedia
     protected $table = 'send_emails';
     protected $guarded = [];
 
-
+    public function seo()
+    {
+        return $this->morphOne(Seo::class, 'seoble');
+    }
 }

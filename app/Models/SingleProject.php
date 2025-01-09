@@ -36,4 +36,8 @@ class SingleProject extends Model implements HasMedia
     {
         return $this->hasMany(SingleProjectUnit::class);
     }
+    public function seo()
+    {
+        return $this->morphOne(Seo::class, 'seoble');
+    }
 }

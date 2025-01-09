@@ -26,4 +26,8 @@ class Gallery extends Model implements HasMedia
     {
         return $this->getMedia();
     }
+    public function seo()
+    {
+        return $this->morphOne(Seo::class, 'seoble');
+    }
 }

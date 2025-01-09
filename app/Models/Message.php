@@ -12,5 +12,8 @@ class Message extends Model
     protected $table = 'messages';
     protected $guarded = [];
 
-
+    public function seo()
+    {
+        return $this->morphOne(Seo::class, 'seoble');
+    }
 }

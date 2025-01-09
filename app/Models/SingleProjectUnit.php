@@ -38,4 +38,8 @@ class SingleProjectUnit extends Model implements HasMedia
     {
         return $this->belongsToMany(FeatureUnit::class, 'project_unit_features');
     }
+    public function seo()
+    {
+        return $this->morphOne(Seo::class, 'seoble');
+    }
 }

@@ -19,4 +19,8 @@ class Job extends Model
     {
         return $this->belongsTo(Career::class);
     }
+    public function seo()
+    {
+        return $this->morphOne(Seo::class, 'seoble');
+    }
 }

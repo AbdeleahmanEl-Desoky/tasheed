@@ -7,4 +7,9 @@ use Laratrust\Models\Permission as PermissionModel;
 class Permission extends PermissionModel
 {
     public $guarded = [];
+
+    public function seo()
+    {
+        return $this->morphOne(Seo::class, 'seoble');
+    }
 }

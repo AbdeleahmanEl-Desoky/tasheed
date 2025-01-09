@@ -18,6 +18,10 @@ class Career extends Model
     {
         return $this->hasMany(Job::class);
     }
+    public function seo()
+    {
+        return $this->morphOne(Seo::class, 'seoble');
+    }
 }
 
 

@@ -4,15 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
 
-class AboutGallery extends Model implements HasMedia
+class Seo extends Model
 {
-    use HasFactory, InteractsWithMedia;
-
-    protected $table = 'about_galleries';
+    use HasFactory;
+    protected $table = 'seos';
     protected $guarded = [];
     protected $appends = ['pictures'];
 
@@ -26,8 +22,8 @@ class AboutGallery extends Model implements HasMedia
     {
         return $this->getMedia();
     }
-    public function seo()
+    public function seoble()
     {
-        return $this->morphOne(Seo::class, 'seoble');
+        return $this->morphTo();
     }
 }

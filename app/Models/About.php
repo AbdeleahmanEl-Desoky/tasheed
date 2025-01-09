@@ -30,4 +30,8 @@ class About extends Model implements HasMedia
     {
         return $this->hasMany(AboutGallery::class);
     }
+    public function seo()
+    {
+        return $this->morphOne(Seo::class, 'seoble');
+    }
 }

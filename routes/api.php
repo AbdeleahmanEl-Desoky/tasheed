@@ -17,10 +17,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::get('storage-link', function () {
-    Artisan::call('storage:link');
-});
-
 
 Route::get('/clear-route-cache', function () {
     Artisan::call('route:clear');
@@ -28,32 +24,41 @@ Route::get('/clear-route-cache', function () {
     return 'Route cache cleared!';
 });
 
-Route::get('home', [ApiController::class,'index']);
 
-Route::get('about', [ApiController::class,'about']);
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+    ], function(){
 
-Route::get('blogs', [ApiController::class,'blogs']);
-Route::get('blog/{id}', [ApiController::class,'blog']);
+    Route::get('home', [ApiController::class,'index']);
 
-Route::get('project-page', [ApiController::class,'projectPage']);
+    Route::get('about', [ApiController::class,'about']);
 
-Route::get('projects', [ApiController::class,'projects']);
+    Route::get('blogs', [ApiController::class,'blogs']);
 
-Route::get('project/{id}', [ApiController::class,'project']);
+    Route::get('blog/{id}', [ApiController::class,'blog']);
 
-Route::get('project/unit/{id}', [ApiController::class,'projectUnit']);
+    Route::get('project-page', [ApiController::class,'projectPage']);
 
-Route::get('contact', [ApiController::class,'contact']);
+    Route::get('projects', [ApiController::class,'projects']);
 
-Route::post('message', [ApiController::class,'message']);
+    Route::get('project/{id}', [ApiController::class,'project']);
 
-Route::get('careers', [ApiController::class,'careers']);
+    Route::get('project/unit/{id}', [ApiController::class,'projectUnit']);
 
-Route::get('job/{id}', [ApiController::class,'job']);
+    Route::get('contact', [ApiController::class,'contact']);
 
-Route::post('apply-job', [ApiController::class,'applyJob']);
+    Route::post('message', [ApiController::class,'message']);
 
-Route::get('team', [ApiController::class,'team']);
+    Route::get('careers', [ApiController::class,'careers']);
 
-Route::post('send-email', [ApiController::class,'email']);
+    Route::get('job/{id}', [ApiController::class,'job']);
 
+    Route::post('apply-job', [ApiController::class,'applyJob']);
+
+    Route::get('team', [ApiController::class,'team']);
+
+    Route::post('send-email', [ApiController::class,'email']);
+
+});

@@ -36,4 +36,8 @@ class ProjectUnitFeature extends Model implements HasMedia
     {
         return $this->belongsTo(FeatureUnit::class, 'feature_unit_id');
     }
+    public function seo()
+    {
+        return $this->morphOne(Seo::class, 'seoble');
+    }
 }
