@@ -17,6 +17,8 @@ class FeatureUnit extends Model implements HasMedia
     protected $guarded = [];
     protected $appends = ['pictures'];
 
+    public $translatedAttributes = ['title'];
+    protected $hidden = ['translations'];
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('images')

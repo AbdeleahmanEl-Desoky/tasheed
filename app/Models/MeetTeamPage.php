@@ -15,7 +15,8 @@ class MeetTeamPage extends Model implements HasMedia
     protected $table = 'meet_team_pages';
     protected $guarded = [];
     protected $appends = ['pictures'];
-
+    public $translatedAttributes = ['title','description'];
+    protected $hidden = ['translations'];
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('images')

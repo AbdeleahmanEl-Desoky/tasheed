@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Astrotomic\Translatable\Translatable;
 
 class Blog extends Model implements HasMedia
 {
@@ -15,7 +16,8 @@ class Blog extends Model implements HasMedia
     protected $table = 'blogs';
     protected $guarded = [];
     protected $appends = ['pictures'];
-
+    public $translatedAttributes = ['title','description'];
+    protected $hidden = ['translations'];
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('images')

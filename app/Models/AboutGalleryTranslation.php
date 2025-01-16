@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AboutGalleryTranslation extends Model 
+class AboutGalleryTranslation extends Model
 {
     use HasFactory;
 
     protected $table = 'about_gallery_translations';
+    protected $guarded = [];
 
     public function seo()
     {

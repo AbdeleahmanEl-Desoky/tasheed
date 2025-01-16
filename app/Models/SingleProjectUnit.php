@@ -19,6 +19,8 @@ class SingleProjectUnit extends Model implements HasMedia
     protected $casts = [
         'data' => 'array',  // Automatically decode JSON strings to array
     ];
+    public $translatedAttributes = ['title','description'];
+    protected $hidden = ['translations'];
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('images')

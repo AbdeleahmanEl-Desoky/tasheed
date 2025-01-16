@@ -7,10 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Astrotomic\Translatable\Translatable;
 class ProjectUnitFeature extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia, Translatable;
+    use HasFactory, InteractsWithMedia;
 
     protected $table = 'project_unit_features';
     protected $guarded = [];

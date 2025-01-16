@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class HomeTranslation extends Model
+class BlogPageTranslation extends Model
 {
     use HasFactory;
 
-    protected $table = 'home_translations';
+    protected $table = 'blog_page_translations';
     protected $guarded = [];
 
-    public function seo()
+    public function blog()
     {
-        return $this->morphOne(Seo::class, 'seoble');
+        return $this->belongsTo(Blog::class);
     }
 }

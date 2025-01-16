@@ -16,7 +16,8 @@ class BlogPage extends Model implements HasMedia
     protected $table = 'blog_pages';
     protected $guarded = [];
     protected $appends = ['pictures'];
-
+    public $translatedAttributes = ['title','description'];
+    protected $hidden = ['translations'];
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('images')

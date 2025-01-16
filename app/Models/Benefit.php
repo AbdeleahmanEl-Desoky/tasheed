@@ -16,7 +16,8 @@ class Benefit extends Model implements HasMedia
     protected $table = 'benefits';
     protected $guarded = [];
     protected $appends = ['pictures'];
-
+    public $translatedAttributes = ['title','description'];
+    protected $hidden = ['translations'];
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('images')
@@ -28,5 +29,5 @@ class Benefit extends Model implements HasMedia
         return $this->getMedia();
     }
 
-    
+
 }

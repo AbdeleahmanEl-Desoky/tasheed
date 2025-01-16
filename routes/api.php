@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\Api\ApiController;
+use App\Http\Controllers\Api\TestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +24,7 @@ Route::get('/clear-route-cache', function () {
     Artisan::call('optimize:clear');
     return 'Route cache cleared!';
 });
+Route::get('test', [TestController::class,'index']);
 
 
 Route::group(

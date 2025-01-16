@@ -16,7 +16,8 @@ class AboutGallery extends Model implements HasMedia
     protected $table = 'about_galleries';
     protected $guarded = [];
     protected $appends = ['pictures'];
-
+    public $translatedAttributes = ['title'];
+    protected $hidden = ['translations'];
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('images')

@@ -16,7 +16,8 @@ class BlogDescription extends Model implements HasMedia
     protected $table = 'blog_descriptions';
     protected $guarded = [];
     protected $appends = ['pictures'];
-
+    public $translatedAttributes = ['description'];
+    protected $hidden = ['translations'];
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('images')

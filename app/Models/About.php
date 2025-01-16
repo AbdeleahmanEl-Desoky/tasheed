@@ -18,6 +18,8 @@ class About extends Model implements HasMedia
     protected $guarded = [];
     protected $appends = ['pictures'];
 
+    public $translatedAttributes = ['title','description','description_home'];
+    protected $hidden = ['translations'];
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('images')
@@ -32,5 +34,5 @@ class About extends Model implements HasMedia
     {
         return $this->hasMany(AboutGallery::class);
     }
- 
+
 }

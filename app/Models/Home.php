@@ -12,11 +12,12 @@ use Astrotomic\Translatable\Translatable;
 class Home extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia, Translatable;
-    ;
 
     protected $table = 'homes';
     protected $guarded = [];
     protected $appends = ['pictures'];
+    public $translatedAttributes = ['title','description'];
+    protected $hidden = ['translations'];
 
     public function registerMediaCollections(): void
     {
