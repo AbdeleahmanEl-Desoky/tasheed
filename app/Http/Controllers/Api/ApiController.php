@@ -69,10 +69,11 @@ class ApiController extends Controller
             'featureProject'=>$featureProject,
         ]);
     }
-    public function blogs()
+    public function blogs(Request $request)
     {
         $caver = BlogPage::first();
-        $blogs = Blog::with('descriptions')->get();
+        $type = $request->type ?? 1;
+        $blogs = Blog::where('type',$type)->with('descriptions')->get();
 
         return response()->json([
             'caver' => $caver,
@@ -95,7 +96,7 @@ class ApiController extends Controller
 
                 return $project;
             });
-            
+
             return $about;
         });
 
