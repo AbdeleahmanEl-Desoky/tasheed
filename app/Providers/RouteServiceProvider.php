@@ -30,12 +30,32 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         $this->routes(function () {
+            $locale = $this->getLocaleFromHeader();
+
+            LaravelLocalization::setLocale($locale); // Set the locale dynamically
+
             Route::middleware('api')
-                ->prefix(LaravelLocalization::setLocale() . '/api') // Include localization prefix
+                ->prefix("api") // Include locale in API prefix
                 ->group(base_path('routes/api.php'));
 
-            Route::middleware('web')
+            Route::middleware(['web', 'localization'])
                 ->group(base_path('routes/web.php'));
         });
+    }
+
+    /**
+     * Retrieve the locale from the `lang` header and filter it using Mcamara.
+     *
+     * @return string
+     */
+    protected function getLocaleFromHeader(): string
+    {
+        // Get the `lang` header from the request
+        $headerLocale = request()->header('lang', config('app.locale'));
+
+        // Validate the locale against the supported locales
+        $supportedLocales = array_keys(LaravelLocalization::getSupportedLocales());
+
+        return in_array($headerLocale, $supportedLocales) ? $headerLocale : config('app.locale');
     }
 }
