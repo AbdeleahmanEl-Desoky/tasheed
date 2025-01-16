@@ -27,11 +27,11 @@ Route::get('/clear-route-cache', function () {
 Route::get('test', [TestController::class,'index']);
 
 
-// Route::group(
-//     [
-//         'prefix' => LaravelLocalization::setLocale(),
-//         'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
-//     ], function(){
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+    ], function(){
 
     Route::get('home', [ApiController::class,'index']);
 
@@ -63,4 +63,4 @@ Route::get('test', [TestController::class,'index']);
 
     Route::post('send-email', [ApiController::class,'email']);
 
-// });
+});
