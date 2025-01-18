@@ -33,7 +33,7 @@ class ApiController extends Controller
 {
     public function index()
     {
-        $home = Home::get();
+        $home = Home::with('seo')->get();
         $about = About::get()->map(function ($home) {
             $home->aboutGallery = AboutGallery::get();
             return $home;
