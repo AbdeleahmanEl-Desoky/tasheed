@@ -24,7 +24,10 @@ class Home extends Model implements HasMedia
         $translations = $this->getRelationValue('translations')->toArray();
 
         foreach ($translations as &$translation) {
-            $translation['seo'] = $this->seo; // Use the eager-loaded `seo`
+            $homeTranslation = $this->translations->find($translation['id']);
+            $translation['seo'] = $homeTranslation && $homeTranslation->seo
+                ? $homeTranslation->seo->toArray()
+                : null;
         }
 
         return $translations;
