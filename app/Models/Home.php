@@ -16,8 +16,7 @@ class Home extends Model implements HasMedia
     protected $table = 'homes';
     protected $guarded = [];
     protected $appends = ['pictures'];
-    public $translatedAttributes = ['title','description'];
-    public $with = ['media'];
+    public $translatedAttributes = ['title','description','seo'];
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('images')
