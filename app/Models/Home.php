@@ -15,16 +15,11 @@ class Home extends Model implements HasMedia
 
     protected $table = 'homes';
     protected $guarded = [];
-    protected $appends = ['pictures','seo'];
-    public $translatedAttributes = ['title','description'];
+    protected $appends = ['pictures', 'seo'];
+    public $translatedAttributes = ['title', 'description'];
     protected $hidden = ['translations'];
 
-    public function seo()
-    {
-        return $this->morphOne(Seo::class, 'seoable');
-    }
-
-    public function getTranslationsAttribute($value)
+    public function getTranslationsAttribute(): array
     {
         $translations = $this->getRelationValue('translations')->toArray();
 
@@ -34,15 +29,14 @@ class Home extends Model implements HasMedia
 
         return $translations;
     }
+
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('images')
-            ->useDisk('public');
+        $this->addMediaCollection('images')->useDisk('public');
     }
 
-    public function getPicturesAttribute()
+    public function getPicturesAttribute(): \Illuminate\Support\Collection
     {
-        return $this->getMedia();
+        return $this->getMedia('images');
     }
-
 }
