@@ -80,17 +80,16 @@ class TestController extends Controller
             SingleProjectUnitTranslation::all(),
             TeamTranslation::all(),
         ];
-
         foreach ($translations as $translationCollection) {
             foreach ($translationCollection as $translation) {
-                // Assuming each translation has a 'seo' relation
+                // Create the SEO data (you can customize this logic)
                 $seo = Seo::create([
-                    'title' => 'SEO Title', // Adjust based on your SEO logic
-                    'description' => 'SEO Description', // Adjust based on your SEO logic
-                    'tags' => 'SEO Keywords', // Adjust based on your SEO logic
+                    'title' => 'SEO Title for ' . class_basename($translation),  // Custom logic for title
+                    'description' => 'SEO Description for ' . class_basename($translation),  // Custom logic for description
+                    'tags' => 'SEO Tags for ' . class_basename($translation),  // Custom logic for tags
                 ]);
 
-                // Associate seo with the translation (assuming morphOne relationship)
+                // Associate the SEO data with the translation (polymorphic relationship)
                 $translation->seo()->save($seo);
             }
         }
