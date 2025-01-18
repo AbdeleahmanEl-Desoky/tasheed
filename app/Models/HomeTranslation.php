@@ -11,7 +11,7 @@ class HomeTranslation extends Model
 
     protected $table = 'home_translations';
     protected $guarded = [];
-
+    protected $with = ['seo'];
     public function seo()
     {
         return $this->morphOne(Seo::class, 'seoble');

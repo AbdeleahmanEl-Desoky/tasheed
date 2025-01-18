@@ -15,39 +15,18 @@ class Home extends Model implements HasMedia
 
     protected $table = 'homes';
     protected $guarded = [];
-    protected $appends = ['pictures', 'seo'];
-    public $translatedAttributes = ['title', 'description'];
-    protected $hidden = ['translations'];
-
-    public function getSeoAttribute()
-    {
-        $firstTranslation = $this->translations->first();
-        return $firstTranslation && $firstTranslation->seo
-            ? $firstTranslation->seo->toArray()
-            : null;
-    }
-
-    public function getTranslationsAttribute(): array
-    {
-        $translations = $this->getRelationValue('translations')->toArray();
-
-        foreach ($translations as &$translation) {
-            $homeTranslation = $this->translations->find($translation['id']);
-            $translation['seo'] = $homeTranslation && $homeTranslation->seo
-                ? $homeTranslation->seo->toArray()
-                : null;
-        }
-
-        return $translations;
-    }
+    protected $appends = ['pictures'];
+    public $translatedAttributes = ['title','description'];
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('images')->useDisk('public');
+        $this->addMediaCollection('images')
+            ->useDisk('public');
     }
 
-    public function getPicturesAttribute(): \Illuminate\Support\Collection
+    public function getPicturesAttribute()
     {
-        return $this->getMedia('images');
+        return $this->getMedia();
     }
+
 }
