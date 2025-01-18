@@ -75,7 +75,6 @@ class TestController extends Controller
             JobTranslation::all(),
             MeetTeamPageTranslation::all(),
             ProjectPageTranslation::all(),
-            ProjectUnitFeatureTranslation::all(),
             SingleProjectTranslation::all(),
             SingleProjectUnitTranslation::all(),
             TeamTranslation::all(),
