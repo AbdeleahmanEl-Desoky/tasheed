@@ -18,6 +18,7 @@ class Home extends Model implements HasMedia
     protected $appends = ['pictures'];
     public $translatedAttributes = ['title','description'];
     protected $hidden = ['translations'];
+    protected $with = ['seo']
 
     public function registerMediaCollections(): void
     {
