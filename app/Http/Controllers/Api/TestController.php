@@ -42,6 +42,7 @@ use App\Models\ProjectPageTranslation;
 use App\Models\ProjectUnitFeature;
 use App\Models\ProjectUnitFeatureTranslation;
 use App\Models\SendEmail;
+use App\Models\Seo;
 use App\Models\SingleProject;
 use App\Models\SingleProjectTranslation;
 use App\Models\SingleProjectUnit;
