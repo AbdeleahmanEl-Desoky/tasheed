@@ -83,14 +83,11 @@ class TestController extends Controller
         foreach ($translations as $translationCollection) {
             foreach ($translationCollection as $translation) {
                 // Create the SEO data (you can customize this logic)
-                $seo = Seo::create([
+                $translation->seo([
                     'title' => 'SEO Title for ' . class_basename($translation),  // Custom logic for title
                     'description' => 'SEO Description for ' . class_basename($translation),  // Custom logic for description
                     'tags' => 'SEO Tags for ' . class_basename($translation),  // Custom logic for tags
                 ]);
-
-                // Associate the SEO data with the translation (polymorphic relationship)
-                $translation->seo()->save($seo);
             }
         }
 
