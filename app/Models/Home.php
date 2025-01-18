@@ -15,15 +15,20 @@ class Home extends Model implements HasMedia
 
     protected $table = 'homes';
     protected $guarded = [];
-    protected $appends = ['pictures'];
+    protected $appends = ['pictures','seo'];
     public $translatedAttributes = ['title','description'];
     protected $hidden = ['translations'];
 
-    public function seo()
+    public function getSeoAttribute($value)
     {
-        return $this->morphOne(Seo::class, 'seoble');
+        $translations = $this->translations->toArray();
+
+        foreach ($translations as &$translation) {
+            $translation['seo'] = $this->seo()->first(); // Include SEO data
+        }
+
+        return $translations;
     }
-    
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('images')
