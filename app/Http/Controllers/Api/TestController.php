@@ -87,8 +87,7 @@ class TestController extends Controller
                 $seo = Seo::create([
                     'title' => 'SEO Title', // Adjust based on your SEO logic
                     'description' => 'SEO Description', // Adjust based on your SEO logic
-                    'keywords' => 'SEO Keywords', // Adjust based on your SEO logic
-                    'slug' => 'seo-slug', // Adjust as needed
+                    'tags' => 'SEO Keywords', // Adjust based on your SEO logic
                 ]);
 
                 // Associate seo with the translation (assuming morphOne relationship)
