@@ -24,7 +24,10 @@ class Home extends Model implements HasMedia
         $this->addMediaCollection('images')
             ->useDisk('public');
     }
-
+    public function seo()
+    {
+        return $this->morphOne(Seo::class, 'seoble');
+    }
     public function getPicturesAttribute()
     {
         return $this->getMedia();
