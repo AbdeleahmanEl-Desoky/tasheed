@@ -12,16 +12,16 @@ class Seo extends Model
     protected $guarded = [];
     protected $appends = ['pictures'];
 
-    public function registerMediaCollections(): void
-    {
-        $this->addMediaCollection('images')
-            ->useDisk('public');
-    }
+    // public function registerMediaCollections(): void
+    // {
+    //     $this->addMediaCollection('images')
+    //         ->useDisk('public');
+    // }
 
-    public function getPicturesAttribute()
-    {
-        return $this->getMedia();
-    }
+    // public function getPicturesAttribute()
+    // {
+    //     return $this->getMedia();
+    // }
     public function seoble()
     {
         return $this->morphTo();
