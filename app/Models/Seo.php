@@ -10,7 +10,7 @@ class Seo extends Model
     use HasFactory;
     protected $table = 'seos';
     protected $guarded = [];
-    protected $appends = ['pictures'];
+    // protected $appends = ['pictures'];
 
     // public function registerMediaCollections(): void
     // {
