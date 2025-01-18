@@ -83,7 +83,7 @@ class TestController extends Controller
         foreach ($translations as $translationCollection) {
             foreach ($translationCollection as $translation) {
                 // Create the SEO data (you can customize this logic)
-                $translation->seo([
+                $translation->seo()->create([
                     'title' => 'SEO Title for ',  // Custom logic for title
                     'description' => 'SEO Description for ' ,  // Custom logic for description
                     'tags' => 'SEO Tags for ' ,  // Custom logic for tags
