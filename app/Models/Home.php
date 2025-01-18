@@ -19,6 +19,14 @@ class Home extends Model implements HasMedia
     public $translatedAttributes = ['title', 'description'];
     protected $hidden = ['translations'];
 
+    public function getSeoAttribute()
+    {
+        $firstTranslation = $this->translations->first();
+        return $firstTranslation && $firstTranslation->seo
+            ? $firstTranslation->seo->toArray()
+            : null;
+    }
+
     public function getTranslationsAttribute(): array
     {
         $translations = $this->getRelationValue('translations')->toArray();
