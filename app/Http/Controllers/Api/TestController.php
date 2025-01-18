@@ -60,37 +60,37 @@ class TestController extends Controller
     public function index()
     {
         // Fetching all translations and adding seo to each one
-        $translations = [
-            AboutGalleryTranslation::all(),
-            AboutMissionTranslation::all(),
-            AboutTranslation::all(),
-            AboutVisionTranslation::all(),
-            BenefitTranslation::all(),
-            BlogPageTranslation::all(),
-            BlogTranslation::all(),
-            CareerPageTranslation::all(),
-            CareerTranslation::all(),
-            ContactTranslation::all(),
-            FeatureTranslation::all(),
-            FeatureUnitTranslation::all(),
-            JobTranslation::all(),
-            MeetTeamPageTranslation::all(),
-            ProjectPageTranslation::all(),
-            SingleProjectTranslation::all(),
-            SingleProjectUnitTranslation::all(),
-            TeamTranslation::all(),
-        ];
-        foreach ($translations as $translationCollection) {
-            foreach ($translationCollection as $translation) {
-                // Create the SEO data (you can customize this logic)
-                $translation->seo()->create([
-                    'title' => 'SEO Title for ',  // Custom logic for title
-                    'description' => 'SEO Description for ' ,  // Custom logic for description
-                    'tags' => 'SEO Tags for ' ,  // Custom logic for tags
-                ]);
-            }
-        }
+        // $translations = [
+        //     AboutGalleryTranslation::all(),
+        //     AboutMissionTranslation::all(),
+        //     AboutTranslation::all(),
+        //     AboutVisionTranslation::all(),
+        //     BenefitTranslation::all(),
+        //     BlogPageTranslation::all(),
+        //     BlogTranslation::all(),
+        //     CareerPageTranslation::all(),
+        //     CareerTranslation::all(),
+        //     ContactTranslation::all(),
+        //     FeatureTranslation::all(),
+        //     FeatureUnitTranslation::all(),
+        //     JobTranslation::all(),
+        //     MeetTeamPageTranslation::all(),
+        //     ProjectPageTranslation::all(),
+        //     SingleProjectTranslation::all(),
+        //     SingleProjectUnitTranslation::all(),
+        //     TeamTranslation::all(),
+        // ];
+        // foreach ($translations as $translationCollection) {
+        //     foreach ($translationCollection as $translation) {
+        //         // Create the SEO data (you can customize this logic)
+        //         $translation->seo()->create([
+        //             'title' => 'SEO Title for ',  // Custom logic for title
+        //             'description' => 'SEO Description for ' ,  // Custom logic for description
+        //             'tags' => 'SEO Tags for ' ,  // Custom logic for tags
+        //         ]);
+        //     }
+        // }
 
-        return 'done';
+        // return 'done';
     }
 }
