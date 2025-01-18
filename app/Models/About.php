@@ -20,6 +20,10 @@ class About extends Model implements HasMedia
 
     public $translatedAttributes = ['title','description','description_home'];
     protected $hidden = ['translations'];
+    public function seo()
+    {
+        return $this->morphOne(Seo::class, 'seoble');
+    }
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('images')
