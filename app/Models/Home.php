@@ -19,12 +19,17 @@ class Home extends Model implements HasMedia
     public $translatedAttributes = ['title','description'];
     protected $hidden = ['translations'];
 
-    public function getSeoAttribute($value)
+    public function seo()
     {
-        $translations = $this->translations->toArray();
+        return $this->morphOne(Seo::class, 'seoable');
+    }
+
+    public function getTranslationsAttribute($value)
+    {
+        $translations = $this->getRelationValue('translations')->toArray();
 
         foreach ($translations as &$translation) {
-            $translation['seo'] = $this->seo()->first(); // Include SEO data
+            $translation['seo'] = $this->seo; // Use the eager-loaded `seo`
         }
 
         return $translations;
