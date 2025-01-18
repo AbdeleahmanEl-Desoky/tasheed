@@ -18,7 +18,7 @@ class About extends Model implements HasMedia
     protected $guarded = [];
     protected $appends = ['pictures'];
 
-    public $translatedAttributes = ['title','description','description_home'];
+    public $translatedAttributes = ['title','description','description_home','seo'];
     protected $hidden = ['translations'];
     public function seo()
     {

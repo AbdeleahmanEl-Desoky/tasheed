@@ -58,25 +58,44 @@ class TestController extends Controller
 {
     public function index()
     {
-        $AboutGallery = Team::get();
+        // Fetching all translations and adding seo to each one
+        $translations = [
+            AboutGalleryTranslation::all(),
+            AboutMissionTranslation::all(),
+            AboutTranslation::all(),
+            AboutVisionTranslation::all(),
+            BenefitTranslation::all(),
+            BlogPageTranslation::all(),
+            BlogTranslation::all(),
+            CareerPageTranslation::all(),
+            CareerTranslation::all(),
+            ContactTranslation::all(),
+            FeatureTranslation::all(),
+            FeatureUnitTranslation::all(),
+            JobTranslation::all(),
+            MeetTeamPageTranslation::all(),
+            ProjectPageTranslation::all(),
+            ProjectUnitFeatureTranslation::all(),
+            SingleProjectTranslation::all(),
+            SingleProjectUnitTranslation::all(),
+            TeamTranslation::all(),
+        ];
 
-        foreach($AboutGallery as $About ){
-            TeamTranslation::create([
+        foreach ($translations as $translationCollection) {
+            foreach ($translationCollection as $translation) {
+                // Assuming each translation has a 'seo' relation
+                $seo = Seo::create([
+                    'title' => 'SEO Title', // Adjust based on your SEO logic
+                    'description' => 'SEO Description', // Adjust based on your SEO logic
+                    'keywords' => 'SEO Keywords', // Adjust based on your SEO logic
+                    'slug' => 'seo-slug', // Adjust as needed
+                ]);
 
-                'name'=> $About->name,
-                'description' => $About->description ,
-                'job_rank'=> $About->job_rank,
-                'job_name' => $About->job_name,
-                'locale'=>'en',
-                'team_id'=>$About->id
-            ]);
+                // Associate seo with the translation (assuming morphOne relationship)
+                $translation->seo()->save($seo);
+            }
         }
 
-       return $AboutGallery;
-
-
-        // TeamTranslation
-
+        return 'done';
     }
-
 }

@@ -15,7 +15,7 @@ class Team extends Model implements HasMedia
     protected $table = 'teams';
     protected $guarded = [];
     protected $appends = ['pictures'];
-    public $translatedAttributes = ['name','description','job_rank','job_name'];
+    public $translatedAttributes = ['name','description','job_rank','job_name','seo'];
     protected $hidden = ['translations'];
     public function registerMediaCollections(): void
     {

@@ -16,7 +16,7 @@ class Benefit extends Model implements HasMedia
     protected $table = 'benefits';
     protected $guarded = [];
     protected $appends = ['pictures'];
-    public $translatedAttributes = ['title','description'];
+    public $translatedAttributes = ['title','description','seo'];
     protected $hidden = ['translations'];
     public function registerMediaCollections(): void
     {

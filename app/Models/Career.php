@@ -12,7 +12,7 @@ class Career extends Model
 
     protected $table = 'careers';
     protected $guarded = [];
-    public $translatedAttributes = ['title','description'];
+    public $translatedAttributes = ['title','description','seo'];
     protected $hidden = ['translations'];
     /**
      * Get the jobs for the career.

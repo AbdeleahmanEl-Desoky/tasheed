@@ -16,4 +16,8 @@ class BlogPageTranslation extends Model
     {
         return $this->belongsTo(Blog::class);
     }
+    public function seo()
+    {
+        return $this->morphOne(Seo::class, 'seoble');
+    }
 }

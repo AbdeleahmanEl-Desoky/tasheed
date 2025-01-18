@@ -16,7 +16,7 @@ class SingleProject extends Model implements HasMedia
     protected $table = 'single_projects';
     protected $guarded = [];
     protected $appends = ['pictures'];
-    public $translatedAttributes = ['title','sub_title','description'];
+    public $translatedAttributes = ['title','sub_title','description','seo'];
     protected $hidden = ['translations'];
     public function registerMediaCollections(): void
     {

@@ -17,7 +17,7 @@ class AboutVision extends Model implements HasMedia
     protected $guarded = [];
     protected $appends = ['pictures'];
 
-    public $translatedAttributes = ['title','description','sub_description'];
+    public $translatedAttributes = ['title','description','sub_description','seo'];
     protected $hidden = ['translations'];
     public function registerMediaCollections(): void
     {
